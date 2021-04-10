@@ -1,0 +1,132 @@
+<nz-layout class="layout">
+  <nz-sider
+    *ngIf="isLoggedIn"
+    nzWidth="215px"
+    nzCollapsible
+    nzBreakpoint="xl"
+    [nzCollapsedWidth]="0"
+  >
+    <div class="sidebar-logo">
+      <a href="/home">
+        <img src="../assets/img/logoLight.png" alt="logo" />
+        <h1>Quản lý giao vận</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <!-- Module đơn hàng -->
+      <li nz-submenu nzOpen nzTitle="Đơn hàng" nzIcon="profile">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="file-add" nzTheme="outline"></i>
+            <a routerLink="/welcome">Tạo đơn hàng</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="table" nzTheme="outline"></i>
+            <a>Danh sách đơn hàng</a>
+          </li>
+        </ul>
+      </li>
+      <!-- Module Shipper -->
+      <li nz-submenu nzOpen nzTitle="Shipper" nzIcon="car">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="solution" nzTheme="outline"></i>
+            <a>Danh sách Shipper</a>
+          </li>
+        </ul>
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="transaction" nzTheme="outline"></i>
+            <a>Thu tiền Shipper</a>
+          </li>
+        </ul>
+      </li>
+      <!-- Module Khách hàng -->
+      <li nz-submenu nzOpen nzTitle="Khách hàng" nzIcon="shop">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="audit" nzTheme="outline"></i>
+            <a>Danh sách khách hàng</a>
+          </li>
+        </ul>
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="dollar-circle" nzTheme="outline"></i>
+            <a>Đối soát khách hàng</a>
+          </li>
+        </ul>
+      </li>
+      <!-- Module Thống kê -->
+      <li
+        nz-submenu
+        nzTitle="Thống kê"
+        nzIcon="bar-chart"
+        *ngIf="showAdminBoard"
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="area-chart" nzTheme="outline"></i>
+            <a>Thống kê chung</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="area-chart" nzTheme="outline"></i>
+            <a>Thống kê chung</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="area-chart" nzTheme="outline"></i>
+            <a>Thống kê chung</a>
+          </li>
+        </ul>
+      </li>
+      <!-- Module Quản lý nhân viên -->
+      <li
+        nz-submenu
+        nzTitle="Quản lý nhân viên"
+        nzIcon="team"
+        *ngIf="showAdminBoard"
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="profile" nzTheme="outline"></i>
+            <a>Danh sách nhân viên</a>
+          </li>
+        </ul>
+      </li>
+      <!-- Hệ thống -->
+      <li nz-submenu nzTitle="Hệ thống" nzIcon="setting">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+            <a>Thông tin Website</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <!-- Header  -->
+    <nz-header *ngIf="isLoggedIn">
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item nzSelected>
+          <a nz-buttonnzType="link">
+            <nz-avatar
+              nzIcon="user"
+              nzSrc="https://i.pinimg.com/originals/96/47/45/964745588c1e2642f91e2f3a9dc15594.jpg"
+            ></nz-avatar>
+            {{ username | uppercase }}</a
+          >
+        </li>
+        <li nz-menu-item>
+          <a nz-buttonnzType="link" (click)="logout()"
+            ><i nz-icon nzType="logout" nzTheme="outline"></i>Đăng xuất</a
+          >
+        </li>
+      </ul>
+    </nz-header>
+    <!-- Nội dung -->
+    <nz-content>
+      <div class="inner-content"><router-outlet></router-outlet></div>
+    </nz-content>
+    <nz-footer>Hà Việt Tùng ©2021 Tiểu luận Quản lý giao vận</nz-footer>
+  </nz-layout>
+</nz-layout>

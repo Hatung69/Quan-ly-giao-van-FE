@@ -1,0 +1,57 @@
+.body {
+  /* The image used */
+  background-image: url("https://i.pinimg.com/originals/3b/d5/a7/3bd5a78fede2560fc13ed5d55aa42538.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+
+  /* Full height */
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.login {
+  width: 100%;
+  max-width: 30rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 2.5rem 1rem;
+}
+.login_heading {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.logo {
+  margin-bottom: 0.5rem;
+}
+
+.login_already {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.login-form {
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}

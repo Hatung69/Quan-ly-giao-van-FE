@@ -1,0 +1,85 @@
+<div class="body">
+  <div class="login">
+    <h2 class="login_heading">Đăng nhập</h2>
+    <img
+      src="../assets/img/logoDark.png"
+      alt="logo"
+      class="logo"
+      height="70px"
+    />
+    <p class="login_already">Yêu cầu đăng nhập để sử dụng hệ thống !!!</p>
+    <form
+      nz-form
+      [formGroup]="loginForm"
+      class="login-form"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item>
+        <nz-form-control
+          nzHasFeedback
+          nzErrorTip="Ít nhất 3 ký tự - Không được bỏ trống !"
+        >
+          <nz-input-group [nzSuffix]="tipUsername" nzPrefixIcon="user">
+            <input
+              type="text"
+              nz-input
+              formControlName="username"
+              placeholder="Tên tài khoản"
+            />
+          </nz-input-group>
+          <ng-template #tipUsername
+            ><i
+              nz-icon
+              nz-tooltip
+              nzTooltipTitle="Nhập tên tài khoản đã đăng ký"
+              nzTooltipPlacement="right"
+              nzType="info-circle"
+            ></i
+          ></ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          nzHasFeedback
+          nzErrorTip="Ít nhất 6 ký tự - Không được bỏ trống !"
+        >
+          <nz-input-group [nzSuffix]="ipPassword" nzPrefixIcon="key">
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              placeholder="Mật khẩu"
+            />
+          </nz-input-group>
+          <ng-template #ipPassword
+            ><i
+              nz-icon
+              nz-tooltip
+              nzTooltipTitle="Nhập mật khẩu của tài khoản"
+              nzTooltipPlacement="right"
+              nzType="info-circle"
+            ></i
+          ></ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="login-form-margin">
+        <div nz-col [nzSpan]="12">
+          <label nz-checkbox formControlName="remember">
+            <span>Ghi nhớ đăng nhập</span>
+          </label>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <a class="login-form-forgot">Quên mật khẩu</a>
+        </div>
+      </div>
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+        [disabled]="!loginForm.valid"
+      >
+        <i nz-icon nzType="login" nzTheme="outline"></i> Đăng nhập
+      </button>
+    </form>
+  </div>
+</div>

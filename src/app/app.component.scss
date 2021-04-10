@@ -1,0 +1,60 @@
+.layout {
+  min-height: 100vh;
+}
+
+.sidebar-logo {
+  position: relative;
+  height: 64px;
+  padding-left: 24px;
+  overflow: hidden;
+  line-height: 64px;
+  background: #001529;
+  transition: all 0.3s;
+}
+
+.sidebar-logo img {
+  display: inline-block;
+  height: 35px;
+  width: 55px;
+  vertical-align: middle;
+}
+
+.sidebar-logo h1 {
+  display: inline-block;
+  margin: 0 0 0 7px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.header-menu {
+  line-height: 50px;
+  float: right;
+}
+
+nz-header {
+  background: #001529;
+  padding: 0;
+  height: fit-content;
+}
+
+nz-content {
+  margin: 15px 15px 0;
+}
+
+.inner-content {
+  padding: 15px;
+  background: #fff;
+  height: 83vh;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.ant-layout-footer {
+  padding: 15px 50px;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+}
