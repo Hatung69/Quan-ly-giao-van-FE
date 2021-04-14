@@ -1,0 +1,120 @@
+<nz-drawer
+  [nzMaskClosable]="false"
+  [nzWidth]="470"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  nzTitle="Chỉnh sửa thông tin nhân viên"
+  [nzFooter]="footerTpl"
+  (nzOnClose)="close()"
+>
+  <form nz-form [formGroup]="formNhanVien" *nzDrawerContent>
+    <input type="hidden" formControlName="id" />
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Họ tên</nz-form-label>
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <input
+          formControlName="hoTen"
+          nz-input
+          placeholder="Nhập họ tên nhân viên..."
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+        >Điện thoại</nz-form-label
+      >
+      <nz-form-control nzErrorTip="Nhập đúng SĐT và không được bỏ trống!">
+        <input
+          formControlName="sdt"
+          nz-input
+          placeholder="Nhập số điện thoại..."
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Giới tính</nz-form-label>
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <nz-radio-group formControlName="gioiTinh">
+          <label nz-radio nzValue="Nam">Nam</label>
+          <label nz-radio nzValue="Nữ">Nữ</label>
+          <label nz-radio nzValue="Không rõ">Không rõ</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Ngày sinh</nz-form-label>
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <nz-date-picker
+          formControlName="ngaySinh"
+          nzFormat="dd-MM-YYYY"
+        ></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Địa chỉ</nz-form-label>
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <input
+          formControlName="diaChi"
+          nz-input
+          placeholder="Nhập địa chỉ..."
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+        >Trạng thái</nz-form-label
+      >
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <nz-select formControlName="trangThai" nzPlaceHolder="Chọn trạng thái">
+          <nz-option nzValue="Tạm nghỉ" nzLabel="Tạm nghỉ"></nz-option>
+          <nz-option
+            nzValue="Đang hoạt động"
+            nzLabel="Đang hoạt động"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Hình đại diện</nz-form-label>
+          <nz-form-control>
+            <input
+              style="outline: none"
+              type="file"
+              accept="image/x-png, image/gif, image/jpeg"
+              (change)="handleFile($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>&nbsp;&nbsp;&nbsp; Xem trước</nz-form-label>
+          <img
+            nz-image
+            height="140px"
+            [nzSrc]="retrievedAvatar || 'http://placehold.it/180'"
+            alt="Hình đại diện"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <ng-template #footerTpl>
+    <div style="float: right; margin-right: 15px">
+      <button nz-button style="margin-right: 8px" (click)="close()">
+        <i nz-icon nzType="close" nzTheme="outline"></i> Huỷ bỏ
+      </button>
+      <button
+        [disabled]="!this.formNhanVien.valid"
+        nz-button
+        nzType="primary"
+        (click)="submitForm()"
+      >
+        <i nz-icon nzType="check" nzTheme="outline"></i> Xác nhận hoàn tất
+      </button>
+    </div>
+  </ng-template>
+</nz-drawer>

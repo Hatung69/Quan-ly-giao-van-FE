@@ -1,0 +1,80 @@
+<nz-modal
+  *ngIf="nhanVien"
+  [(nzVisible)]="isVisible"
+  nzTitle="Thông tin chi tiết"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzWidth]="800"
+>
+  <ng-container *nzModalContent>
+    <div class="container">
+      <div class="left">
+        <nz-descriptions [nzColumn]="2" [nzTitle]="nhanVien.hoTen">
+          <nz-descriptions-item nzTitle="E-mail" [nzSpan]="1">{{
+            nhanVien.taiKhoan.email
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="ID" [nzSpan]="1">{{
+            nhanVien.id
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Giới tính" [nzSpan]="1">{{
+            nhanVien.gioiTinh
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="SĐT" [nzSpan]="1">{{
+            nhanVien.sdt
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Ngày sinh" [nzSpan]="1">{{
+            nhanVien.ngaySinh | date: "dd-MM-YYYY"
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Chức vụ" [nzSpan]="1">{{
+            nhanVien.taiKhoan.quyenHan[0].moTa
+          }}</nz-descriptions-item>
+          <nz-descriptions-item
+            *ngIf="nhanVien.trangThai === 'Đang hoạt động'; else tamNghi"
+            nzTitle="Trạng thái"
+            [nzSpan]="1"
+          >
+            <nz-tag nzColor="success"
+              >Đang hoạt động</nz-tag
+            ></nz-descriptions-item
+          >
+          <ng-template #tamNghi>
+            <nz-descriptions-item nzTitle="Trạng thái" [nzSpan]="1">
+              <nz-tag nzColor="warning">Tạm nghỉ</nz-tag></nz-descriptions-item
+            ></ng-template
+          >
+          <nz-descriptions-item nzTitle="Lần cuối đăng nhập" [nzSpan]="1"
+            ><i>{{
+              nhanVien.lanCuoiDangNhap | date: "short"
+            }}</i></nz-descriptions-item
+          >
+          <nz-descriptions-item nzTitle="Thời gian khởi tạo" [nzSpan]="1"
+            ><i>{{
+              nhanVien.thoiGianKhoiTao | date: "short"
+            }}</i></nz-descriptions-item
+          >
+          <nz-descriptions-item nzTitle="Lần cập nhật cuối" [nzSpan]="1"
+            ><i>{{
+              nhanVien.thoiGianChinhSua | date: "short"
+            }}</i></nz-descriptions-item
+          >
+
+          <nz-descriptions-item nzTitle="Địa chỉ" [nzSpan]="2">{{
+            nhanVien.diaChi
+          }}</nz-descriptions-item>
+        </nz-descriptions>
+      </div>
+      <div class="right">
+        <p><b>Hình đại diện</b></p>
+        <img
+          nz-image
+          width="200px"
+          height="200px"
+          [nzSrc]="retrievedAvatar"
+          alt=""
+        />
+        <br />
+        <small>Ấn vào để xem đầy đủ</small>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>

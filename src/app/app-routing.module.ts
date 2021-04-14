@@ -2,9 +2,9 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./components/home/home.component";
 import { CanActiveDashboard } from "./guards/can-active-dashboard .guard";
+import { Page404NotFound } from "./components/page-404.component";
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "/home" },
   { path: "home", component: HomeComponent, canActivate: [CanActiveDashboard] },
   {
     path: "login",
@@ -16,6 +16,15 @@ const routes: Routes = [
     loadChildren: () =>
       import("./pages/welcome/welcome.module").then((m) => m.WelcomeModule),
   },
+  {
+    path: "quan-ly-nhan-vien",
+    loadChildren: () =>
+      import("./components/quan-ly-nhan-vien/quan-ly-nhan-vien.module").then(
+        (m) => m.QuanLyNhanVienModule
+      ),
+  },
+  { path: "", pathMatch: "full", redirectTo: "/home" },
+  { path: "**", component: Page404NotFound },
 ];
 
 @NgModule({

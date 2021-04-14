@@ -1,0 +1,61 @@
+.head {
+  overflow: hidden;
+  display: block;
+  margin-bottom: 5px;
+  .left-tilte {
+    margin-top: 10px;
+    float: left;
+    h2 {
+      font-weight: bolder;
+      font-family: "Pacifico", cursive;
+    }
+  }
+
+  .right-button {
+    display: flex;
+    float: right;
+    width: 25rem;
+    margin-right: 5px;
+  }
+}
+
+.action {
+  .edit {
+    color: rgb(0, 183, 255);
+  }
+  .edit:hover {
+    color: rgb(0, 60, 255);
+    font-weight: bold;
+  }
+  .delete {
+    color: rgb(255, 0, 0);
+  }
+  .delete:hover {
+    color: rgba(153, 4, 4, 0.856);
+    font-weight: bold;
+  }
+}
+
+.name {
+  color: #001529;
+  transition: 0.5s ease;
+}
+.name:hover {
+  text-shadow: 1px 1px 2px rgb(255, 255, 255), 0 0 25px rgb(0, 217, 255),
+    0 0 5px rgb(0, 255, 242);
+}
+
+@media only screen and (max-width: 700px) {
+  .head {
+    text-align: center;
+    .left-tilte {
+      float: none;
+    }
+
+    .right-button {
+      float: right;
+      margin-bottom: 5px;
+      width: 85vw;
+    }
+  }
+}

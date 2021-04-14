@@ -43,14 +43,14 @@ export class LoginComponent implements OnInit {
           Validators.pattern(/^\S*$/),
         ]),
       ],
-      remember: [false],
+      remember: [true],
     });
   }
 
   submitForm(): void {
     this.authService.login(this.loginForm.value).subscribe(
       (data) => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
 
         this.message

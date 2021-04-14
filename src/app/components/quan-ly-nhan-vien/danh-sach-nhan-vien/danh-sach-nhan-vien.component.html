@@ -1,0 +1,112 @@
+<div class="head">
+  <div class="left-tilte">
+    <nz-badge
+      [nzCount]="tongNV"
+      [nzStyle]="{
+        backgroundImage:
+          'linear-gradient( 109.6deg,  rgba(255,174,0,1) 11.2%, rgba(255,0,0,1) 100.2% )'
+      }"
+    >
+      <a class="head-example"
+        ><h2>
+          <i nz-icon nzType="profile" nzTheme="outline"></i> Danh sách nhân viên
+          &nbsp;&nbsp;
+        </h2></a
+      >
+    </nz-badge>
+  </div>
+  <div class="right-button">
+    <nz-input-group
+      nzSearch
+      [nzAddOnAfter]="suffixIconButton"
+      [nzPrefix]="prefixTemplateUser"
+    >
+      <input
+        type="search"
+        [(ngModel)]="searchText"
+        nz-input
+        placeholder="Nhập thông tin nhân viên..."
+      />
+    </nz-input-group>
+    <ng-template #prefixTemplateUser
+      ><i nz-icon nzType="search"></i
+    ></ng-template>
+    <ng-template #suffixIconButton>
+      <button nz-button nzSearch nzType="primary" (click)="searchText = ''">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </ng-template>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="this.taoNhanVien.open()">
+      <i nz-icon nzType="user-add" nzTheme="outline"></i>Thêm mới
+    </button>
+  </div>
+</div>
+<nz-table
+  #dataShowing
+  nzShowPagination
+  nzShowSizeChanger
+  nzSize="middle"
+  [nzPageSize]="10"
+  [nzBordered]="true"
+  [nzData]="dsNhanVien"
+>
+  <thead>
+    <tr>
+      <th nzWidth="50px">STT</th>
+      <th nzWidth="190px">Họ tên</th>
+      <th nzWidth="120px">SĐT</th>
+      <th nzWidth="80px">Giới tính</th>
+      <th nzWidth="110px">Trạng thái</th>
+      <th>Địa chỉ</th>
+      <th nzWidth="150px">Lần cuối đăng nhập</th>
+      <th nzWidth="120px">Lựa chọn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let data of dataShowing.data | filter: searchText; index as idx"
+    >
+      <td>{{ idx + 1 }}</td>
+      <td>
+        <a nzType="link" (click)="this.chiTietNhanVienTempl.showModal()"
+          ><b class="name">{{ data.hoTen | uppercase }}</b></a
+        >
+        <app-chi-tiet-nhan-vien
+          #chiTietNhanVienTempl
+          [idNhanVien]="data.id"
+        ></app-chi-tiet-nhan-vien>
+      </td>
+      <td>{{ data.sdt }}</td>
+      <td>{{ data.gioiTinh }}</td>
+      <td>
+        <nz-tag *ngIf="data.trangThai === 'Tạm nghỉ'" nzColor="warning">{{
+          data.trangThai
+        }}</nz-tag>
+        <nz-tag *ngIf="data.trangThai === 'Đang hoạt động'" nzColor="success">{{
+          data.trangThai
+        }}</nz-tag>
+      </td>
+      <td>{{ data.diaChi }}</td>
+      <td>
+        <i>{{ data.lanCuoiDangNhap | formatDistance }}</i>
+      </td>
+      <td class="action">
+        <a class="edit" (click)="this.chinhSuaVienTempl.open(data.id)"
+          ><i nz-icon nzType="edit" nzTheme="outline"></i> Sửa</a
+        >
+
+        <nz-divider nzType="vertical"></nz-divider>
+        <a
+          class="delete"
+          nz-popconfirm
+          nzPopconfirmTitle="Xoá nhân viên: {{ data.hoTen | uppercase }}"
+          (nzOnConfirm)="deleteRow(data.id)"
+          ><i nz-icon nzType="delete" nzTheme="outline"></i> Xoá</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<app-chinh-sua-nhan-vien #chinhSuaVienTempl></app-chinh-sua-nhan-vien>
+<app-tao-nhan-vien #taoNhanVienTempl></app-tao-nhan-vien>
