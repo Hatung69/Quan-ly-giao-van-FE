@@ -1,0 +1,165 @@
+<nz-page-header nzBackIcon>
+  <nz-page-header-title>Cập nhật khách hàng</nz-page-header-title>
+  <nz-page-header-subtitle
+    >Chỉnh sửa lại thông thông của khách hàng</nz-page-header-subtitle
+  >
+  <nz-page-header-extra>
+    <button nz-button nzType="dashed" nzShape="round">
+      <i nz-icon nzType="clear" nzTheme="outline"></i>Làm mới
+    </button>
+    <button nz-button>
+      <i nz-icon nzType="close" nzTheme="outline"></i>Huỷ
+    </button>
+    <button
+      [disabled]="!this.formKhachHang.valid"
+      nz-button
+      nzType="primary"
+      (click)="submitForm()"
+    >
+      <i nz-icon nzType="check" nzTheme="outline"></i>Hoàn tất
+    </button>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <div class="container_form">
+      <div class="left_side">
+        <img height="460px" src="../assets/img/Ng-kh_2.png" alt="Background" />
+      </div>
+      <div class="right_side">
+        <form nz-form class="login-form" [formGroup]="formKhachHang">
+          <div>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Tên khách</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập tên khách hàng!"
+              >
+                <input
+                  formControlName="tenKhach"
+                  type="text"
+                  nz-input
+                  placeholder="Nhập tên khách hàng..."
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzFor="note"
+                >Tên cửa hàng</nz-form-label
+              >
+              <nz-form-control [nzSpan]="24" nzErrorTip="">
+                <input
+                  formControlName="tenCuaHang"
+                  placeholder="Nhập tên cửa hàng..."
+                  type="text"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Số điện thoại</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số điện thoại"
+              >
+                <input
+                  formControlName="sdt"
+                  placeholder="Nhập số điện thoại..."
+                  type="text"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Địa chỉ</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập địa chỉ!"
+              >
+                <input
+                  formControlName="diaChi"
+                  placeholder="Nhập địa chỉ khách hàng..."
+                  type="text"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >E-mail</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập địa chỉ email!"
+              >
+                <input
+                  formControlName="email"
+                  placeholder="Nhập email..."
+                  type="email"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Số CMND</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số CMND!"
+              >
+                <nz-input-group nzAddOnAfterIcon="idcard">
+                  <input
+                    formControlName="cmnd"
+                    type="text"
+                    placeholder="Nhập số CMND..."
+                    nz-input
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Loại khách hàng</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng chọn loại khách hàng!"
+              >
+                <nz-radio-group
+                  formControlName="loaiKhachHang"
+                  nzName="radiogroup"
+                >
+                  <label nz-radio nzValue="Cá nhân">Cá nhân</label>
+                  <label nz-radio nzValue="Cửa hàng">Cửa hàng</label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzFor="note"
+                >Số tài khoản</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số tài khoản!"
+              >
+                <nz-input-group nzAddOnAfterIcon="credit-card">
+                  <input
+                    formControlName="soTaiKhoan"
+                    type="text"
+                    placeholder="Nhập số tài khoản ngân hàng..."
+                    nz-input
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nz-page-header-content>
+</nz-page-header>

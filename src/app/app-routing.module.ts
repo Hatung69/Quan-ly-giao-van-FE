@@ -17,6 +17,13 @@ const routes: Routes = [
       import("./pages/welcome/welcome.module").then((m) => m.WelcomeModule),
   },
   {
+    path: "quan-ly-khach-hang",
+    loadChildren: () =>
+      import("./components/quan-ly-khach-hang/quan-ly-khach-hang.module").then(
+        (m) => m.QuanLyKhachHangModule
+      ),
+  },
+  {
     path: "quan-ly-nhan-vien",
     loadChildren: () =>
       import("./components/quan-ly-nhan-vien/quan-ly-nhan-vien.module").then(

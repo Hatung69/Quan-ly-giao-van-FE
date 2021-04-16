@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { NhanVien } from "../models/nhan-vien.models";
 
 const API_URL = "http://localhost:8080/api/nhan-vien";
@@ -10,6 +10,7 @@ const API_URL = "http://localhost:8080/api/nhan-vien";
 })
 export class NhanVienService {
   dsNhanVien$ = new BehaviorSubject<NhanVien[]>([]);
+
   constructor(private http: HttpClient) {
     this.loadDSNhanVien();
   }

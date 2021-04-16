@@ -9,7 +9,17 @@
   <ng-container *nzModalContent>
     <div class="container">
       <div class="left">
-        <nz-descriptions [nzColumn]="2" [nzTitle]="nhanVien.hoTen">
+        <nz-descriptions [nzColumn]="2" [nzTitle]="hoTen">
+          <ng-template #hoTen>
+            <label
+              style="
+                color: #1890ff;
+                border: 2px solid #1890ff;
+                padding: 0px 5px;
+              "
+              >{{ nhanVien.hoTen }}</label
+            >
+          </ng-template>
           <nz-descriptions-item nzTitle="E-mail" [nzSpan]="1">{{
             nhanVien.taiKhoan.email
           }}</nz-descriptions-item>

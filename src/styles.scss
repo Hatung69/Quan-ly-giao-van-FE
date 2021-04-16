@@ -25,12 +25,6 @@
 
 .ant-table-thead > tr > th {
   font-weight: bold;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 21, 41, 1) 89%,
-    rgba(255, 0, 98, 1) 89%
-  );
-  color: white;
 }
 .ant-drawer-title {
   font-weight: 900 !important;
@@ -38,4 +32,8 @@
 
 .ant-descriptions-item-label {
   font-weight: bold !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: 700;
 }

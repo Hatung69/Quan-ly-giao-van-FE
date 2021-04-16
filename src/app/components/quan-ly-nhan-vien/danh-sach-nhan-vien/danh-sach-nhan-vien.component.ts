@@ -28,7 +28,6 @@ export class DanhSachNhanVienComponent implements OnInit {
     this.nhanVienService.dsNhanVien$.subscribe((data) => {
       this.dsNhanVien = data;
       this.tongNV = this.dsNhanVien.length;
-      console.log(this.dsNhanVien);
     });
   }
 

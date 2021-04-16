@@ -42,11 +42,15 @@
         </ul>
       </li>
       <!-- Module Khách hàng -->
-      <li nz-submenu nzTitle="Khách hàng" nzIcon="shop">
+      <li nzOpen nz-submenu nzTitle="Khách hàng" nzIcon="shop">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="audit" nzTheme="outline"></i>
-            <a>Danh sách khách hàng</a>
+            <a
+              [routerLink]="['/quan-ly-khach-hang']"
+              routerLinkActive="router-link-active"
+              >Danh sách khách hàng</a
+            >
           </li>
         </ul>
         <ul>
@@ -80,7 +84,6 @@
       </li>
       <!-- Module Quản lý nhân viên -->
       <li
-        nzOpen
         nz-submenu
         nzTitle="Quản lý nhân viên"
         nzIcon="team"
@@ -89,7 +92,7 @@
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="profile" nzTheme="outline"></i>
-            <a routerLink="/quan-ly-nhan-vien/danh-sach">Danh sách nhân viên</a>
+            <a routerLink="/quan-ly-nhan-vien">Danh sách nhân viên</a>
           </li>
         </ul>
       </li>

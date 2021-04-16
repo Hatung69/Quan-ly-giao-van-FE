@@ -1,0 +1,56 @@
+<nz-table
+  #sortTable
+  [nzData]="dsKhachHang"
+  nzTableLayout="fixed"
+  nzShowSizeChanger
+  nzSize="middle"
+  nzBordered
+>
+  <thead>
+    <tr>
+      <th nzWidth="50px">ID</th>
+      <th nzWidth="190px">Tên khách hàng</th>
+      <th nzWidth="100px">SĐT</th>
+      <th nzWidth="150px">email</th>
+      <th nzWidth="100px">Số lượng đơn</th>
+      <th nzWidth="150px">Cập nhật gần nhất</th>
+      <th nzWidth="120px">Lựa chọn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of sortTable.data">
+      <td>{{ data.id }}</td>
+      <td>
+        <a nzType="link"
+          ><b class="name">{{ data.tenKhach | uppercase }}</b></a
+        >
+      </td>
+      <td>{{ data.sdt }}</td>
+      <td>{{ data.email }}</td>
+      <td>
+        <label
+          style="color: #9200f3; border: 2px solid #6a01b1; padding: 0px 5px"
+          >{{ data.soDonHang }} đơn hàng</label
+        >
+      </td>
+      <td>{{ data.thoiGianCapNhat | formatDistance }}</td>
+      <td class="action">
+        <a
+          class="edit"
+          [routerLink]="['/quan-ly-khach-hang/cap-nhat', data.id]"
+          routerLinkActive="router-link-active"
+          ><i nz-icon nzType="edit" nzTheme="outline"></i> Sửa</a
+        >
+
+        <nz-divider nzType="vertical"></nz-divider>
+        <a
+          class="delete"
+          nz-popconfirm
+          nzPopconfirmTitle="Xoá nhân viên: {{ data.tenKhach | uppercase }}"
+          (nzOnConfirm)="deleteRow(data.id)"
+          ><i nz-icon nzType="delete" nzTheme="outline"></i> Xoá</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

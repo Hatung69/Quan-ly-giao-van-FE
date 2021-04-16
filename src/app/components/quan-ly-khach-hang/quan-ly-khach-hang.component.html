@@ -1,0 +1,84 @@
+<div class="head">
+  <div class="left-tilte">
+    <nz-badge
+      [nzCount]="tongKH"
+      [nzStyle]="{
+        backgroundImage:
+          'linear-gradient(
+              to right,
+              #37CCFF,
+              #7B22FF
+            )'
+      }"
+    >
+      <a class="head-example"
+        ><h2>
+          <i nz-icon nzType="audit" nzTheme="outline"></i> Danh sách khách hàng
+          &nbsp;&nbsp;
+        </h2></a
+      >
+    </nz-badge>
+  </div>
+  <div class="right-button">
+    <nz-input-group
+      nzSearch
+      [nzAddOnAfter]="suffixIconButton"
+      [nzPrefix]="prefixTemplateUser"
+    >
+      <input
+        type="search"
+        [(ngModel)]="searchText"
+        nz-input
+        placeholder="Nhập thông tin nhân viên..."
+      />
+    </nz-input-group>
+    <ng-template #prefixTemplateUser
+      ><i nz-icon nzType="search"></i
+    ></ng-template>
+    <ng-template #suffixIconButton>
+      <button nz-button nzSearch nzType="primary" (click)="searchText = ''">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </ng-template>
+    <nz-divider nzType="vertical"></nz-divider>
+    <a
+      nz-button
+      nzType="primary"
+      [routerLink]="['/quan-ly-khach-hang/tao-moi']"
+      routerLinkActive="router-link-active"
+    >
+      <i nz-icon nzType="user-add" nzTheme="outline"></i>Thêm mới
+    </a>
+  </div>
+</div>
+
+<nz-tabset nzSize="large" nzType="line">
+  <nz-tab [nzTitle]="tatCa">
+    <ng-template #tatCa>
+      <i nz-icon nzType="appstore" nzTheme="outline"></i>Tất cả
+    </ng-template>
+    <app-danh-sach-khach-hang
+      [dsKhachHang]="dsKhachHang"
+    ></app-danh-sach-khach-hang>
+  </nz-tab>
+  <nz-tab [nzTitle]="caNhan" (nzClick)="chuyenTabCaNhan()">
+    <ng-template #caNhan>
+      <i nz-icon nzType="contacts" nzTheme="outline"></i>Cá nhân
+    </ng-template>
+    <ng-template nz-tab>
+      <app-danh-sach-khach-hang
+        [dsKhachHang]="dsCaNhan"
+      ></app-danh-sach-khach-hang>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="cuaHang" (nzClick)="chuyenTabCuaHang()">
+    <ng-template #cuaHang
+      ><i nz-icon nzType="shop" nzTheme="outline"></i>Cửa hàng</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sach-khach-hang
+        [dsKhachHang]="dsCuaHang"
+      ></app-danh-sach-khach-hang>
+    </ng-template>
+  </nz-tab>
+</nz-tabset>

@@ -1,0 +1,32 @@
+.ant-page-header {
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  background-color: #fff;
+}
+.ant-page-header-heading-extra {
+  margin: 0;
+}
+
+.container_form {
+  overflow: hidden;
+  margin: 10px 0px;
+  .left_side {
+    float: left;
+  }
+  .right_side {
+    float: right;
+    .login-form {
+      width: 600px;
+    }
+  }
+}
+nz-form-label {
+  font-weight: bold;
+}
