@@ -17,15 +17,14 @@ export class QuanLyKhachHangComponent implements OnInit {
   constructor(private khachHangService: KhachHangService) {}
 
   ngOnInit() {
+    this.khachHangService.loadDSKhachHang();
     this.loadDsKhachHang();
-    console.log("load..");
   }
 
   loadDsKhachHang() {
     this.khachHangService.dsKhachHang$.subscribe(
       (res) => {
         this.dsKhachHang = res;
-        console.log(this.dsKhachHang);
         this.tongKH = this.dsKhachHang.length;
         this.dsCaNhan = this.dsKhachHang.filter(
           (data) => data.loaiKhachHang === "Cá nhân"
@@ -40,11 +39,7 @@ export class QuanLyKhachHangComponent implements OnInit {
     );
   }
 
-  chuyenTabCaNhan() {
-    console.log("chuyển tab");
-  }
+  chuyenTabCaNhan() {}
 
-  chuyenTabCuaHang() {
-    console.log("chuyển tab ch");
-  }
+  chuyenTabCuaHang() {}
 }

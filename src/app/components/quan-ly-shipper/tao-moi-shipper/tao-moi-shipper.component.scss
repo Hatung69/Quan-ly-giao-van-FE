@@ -19,6 +19,7 @@
   margin: 10px 0px;
   .left_side {
     float: left;
+    margin-left: 50px;
   }
   .right_side {
     float: right;
@@ -26,4 +27,7 @@
       width: 600px;
     }
   }
+}
+nz-form-label {
+  font-weight: bold;
 }

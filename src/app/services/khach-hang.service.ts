@@ -11,10 +11,10 @@ const API_URL = "http://localhost:8080/api/khach-hang";
 export class KhachHangService {
   dsKhachHang$ = new BehaviorSubject<KhachHang[]>([]);
   constructor(private http: HttpClient) {
-    this.loadDSNhanVien();
+    this.loadDSKhachHang();
   }
 
-  loadDSNhanVien() {
+  loadDSKhachHang() {
     this.layDSKhachHang().subscribe((data) => {
       this.dsKhachHang$.next(data);
     });

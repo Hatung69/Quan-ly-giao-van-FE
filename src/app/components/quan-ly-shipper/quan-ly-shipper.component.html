@@ -1,0 +1,87 @@
+<div class="head">
+  <div class="left-tilte">
+    <nz-badge
+      [nzCount]="34"
+      [nzStyle]="{
+        backgroundImage:
+          'linear-gradient( 180deg,  rgba(155,254,23,1) 45.5%, rgba(36,243,8,1) 97.9% )',
+        color: 'black'
+      }"
+    >
+      <a class="head-example"
+        ><h2>
+          <i nz-icon nzType="solution" nzTheme="outline"></i> Danh sách shipper
+          &nbsp;&nbsp;
+        </h2></a
+      >
+    </nz-badge>
+  </div>
+  <div class="right-button">
+    <nz-input-group
+      nzSearch
+      [nzAddOnAfter]="suffixIconButton"
+      [nzPrefix]="prefixTemplateUser"
+    >
+      <input type="search" nz-input placeholder="Nhập thông tin nhân viên..." />
+    </nz-input-group>
+    <ng-template #prefixTemplateUser
+      ><i nz-icon nzType="search"></i
+    ></ng-template>
+    <ng-template #suffixIconButton>
+      <button nz-button nzSearch nzType="primary">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </ng-template>
+    <nz-divider nzType="vertical"></nz-divider>
+    <a
+      nz-button
+      nzType="primary"
+      [routerLink]="['/quan-ly-shipper/tao-moi']"
+      routerLinkActive="router-link-active"
+    >
+      <i nz-icon nzType="user-add" nzTheme="outline"></i>Thêm mới
+    </a>
+  </div>
+</div>
+
+<nz-tabset nzSize="large" nzType="line">
+  <nz-tab [nzTitle]="tatCa">
+    <ng-template #tatCa>
+      <i nz-icon nzType="appstore" nzTheme="outline"></i>Tất cả
+    </ng-template>
+    <app-danh-sach-shipper [dsShipper]="dsShipper"></app-danh-sach-shipper>
+  </nz-tab>
+  <nz-tab [nzTitle]="coTheNhanHang" (nzClick)="chuyenTabNhanHang()">
+    <ng-template #coTheNhanHang>
+      <i nz-icon nzType="aliwangwang" nzTheme="outline"></i>Có thể nhận hàng
+    </ng-template>
+    <ng-template nz-tab>
+      <app-danh-sach-shipper [dsShipper]="dsNhanHang"></app-danh-sach-shipper>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="dangGiao" (nzClick)="chuyenTabDangGiao()">
+    <ng-template #dangGiao
+      ><i nz-icon nzType="send" nzTheme="outline"></i>Đang giao
+      hàng</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sach-shipper [dsShipper]="dsDangGiao"></app-danh-sach-shipper>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="tamNghi" (nzClick)="chuyenTabTamNghi()">
+    <ng-template #tamNghi
+      ><i nz-icon nzType="meh" nzTheme="outline"></i>Tạm nghỉ</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sach-shipper [dsShipper]="dsTamNghi"></app-danh-sach-shipper>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="biKhoa" (nzClick)="chuyenTabBiKhoa()">
+    <ng-template #biKhoa
+      ><i nz-icon nzType="lock" nzTheme="outline"></i>Bị khoá</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sach-shipper [dsShipper]="dsBiKhoa"></app-danh-sach-shipper>
+    </ng-template>
+  </nz-tab>
+</nz-tabset>

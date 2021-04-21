@@ -12,9 +12,18 @@ const routes: Routes = [
       import("./components/login/login.module").then((m) => m.LoginModule),
   },
   {
-    path: "welcome",
+    path: "tao-don-hang",
     loadChildren: () =>
-      import("./pages/welcome/welcome.module").then((m) => m.WelcomeModule),
+      import("./components/quan-ly-don-hang/quan-ly-don-hang.module").then(
+        (m) => m.QuanLyDonHangModule
+      ),
+  },
+  {
+    path: "quan-ly-shipper",
+    loadChildren: () =>
+      import("./components/quan-ly-shipper/quan-ly-shipper.module").then(
+        (m) => m.QuanLyShipperModule
+      ),
   },
   {
     path: "quan-ly-khach-hang",

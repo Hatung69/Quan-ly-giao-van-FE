@@ -19,6 +19,9 @@ import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzListModule } from "ng-zorro-antd/list";
+import { NzCardModule } from "ng-zorro-antd/card";
+import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 
 const AntComponents = [
   NzMessageModule,
@@ -41,6 +44,9 @@ const AntComponents = [
   NzDatePickerModule,
   NzTabsModule,
   NzPageHeaderModule,
+  NzListModule,
+  NzCardModule,
+  NzInputNumberModule,
 ];
 
 @NgModule({

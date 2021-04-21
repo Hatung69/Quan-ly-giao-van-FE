@@ -53,21 +53,19 @@
 >
   <thead>
     <tr>
-      <th nzWidth="50px">STT</th>
+      <th nzWidth="50px">ID</th>
       <th nzWidth="190px">Họ tên</th>
-      <th nzWidth="120px">SĐT</th>
-      <th nzWidth="80px">Giới tính</th>
+      <th nzWidth="100px">SĐT</th>
       <th nzWidth="110px">Trạng thái</th>
+      <th nzWidth="100px">Giới tính</th>
       <th>Địa chỉ</th>
       <th nzWidth="150px">Lần cuối đăng nhập</th>
       <th nzWidth="120px">Lựa chọn</th>
     </tr>
   </thead>
   <tbody>
-    <tr
-      *ngFor="let data of dataShowing.data | filter: searchText; index as idx"
-    >
-      <td>{{ idx + 1 }}</td>
+    <tr *ngFor="let data of dataShowing.data | filter: searchText">
+      <td>{{ data.id }}</td>
       <td>
         <a nzType="link" (click)="this.chiTietNhanVienTempl.showModal()"
           ><b class="name">{{ data.hoTen | uppercase }}</b></a
@@ -78,18 +76,21 @@
         ></app-chi-tiet-nhan-vien>
       </td>
       <td>{{ data.sdt }}</td>
-      <td>{{ data.gioiTinh }}</td>
       <td>
-        <nz-tag *ngIf="data.trangThai === 'Tạm nghỉ'" nzColor="warning">{{
-          data.trangThai
-        }}</nz-tag>
-        <nz-tag *ngIf="data.trangThai === 'Đang hoạt động'" nzColor="success">{{
-          data.trangThai
-        }}</nz-tag>
+        <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" nzColor="warning"
+          >Tạm nghỉ</nz-tag
+        >
+        <nz-tag *ngIf="data.trangThai === 'Dang_hoat_dong'" nzColor="success"
+          >Đang hoạt động</nz-tag
+        >
       </td>
+      <td>{{ data.gioiTinh }}</td>
       <td>{{ data.diaChi }}</td>
       <td>
-        <i>{{ data.lanCuoiDangNhap | formatDistance }}</i>
+        <i *ngIf="data.lanCuoiDangNhap; else noLogin">{{
+          data.lanCuoiDangNhap | formatDistance
+        }}</i>
+        <ng-template #noLogin><i>Chưa đăng nhập</i></ng-template>
       </td>
       <td class="action">
         <a class="edit" (click)="this.chinhSuaVienTempl.open(data.id)"

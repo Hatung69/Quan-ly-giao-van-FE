@@ -11,8 +11,9 @@
       <th nzWidth="50px">ID</th>
       <th nzWidth="190px">Tên khách hàng</th>
       <th nzWidth="100px">SĐT</th>
-      <th nzWidth="150px">email</th>
-      <th nzWidth="100px">Số lượng đơn</th>
+      <th nzWidth="110px">Tổng số đơn</th>
+      <th>E-mail</th>
+      <th>Địa chỉ</th>
       <th nzWidth="150px">Cập nhật gần nhất</th>
       <th nzWidth="120px">Lựa chọn</th>
     </tr>
@@ -22,17 +23,20 @@
       <td>{{ data.id }}</td>
       <td>
         <a nzType="link"
-          ><b class="name">{{ data.tenKhach | uppercase }}</b></a
+          ><b class="name">{{ data.tenKhachHang | uppercase }}</b></a
         >
       </td>
       <td>{{ data.sdt }}</td>
-      <td>{{ data.email }}</td>
       <td>
-        <label
-          style="color: #9200f3; border: 2px solid #6a01b1; padding: 0px 5px"
-          >{{ data.soDonHang }} đơn hàng</label
-        >
+        <nz-tag nzColor="#3b5999">
+          <i nz-icon nzType="carry-out"></i>
+          <span
+            ><b>{{ data.soDonHang }}</b> <i> đơn hàng</i></span
+          >
+        </nz-tag>
       </td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.diaChi }}</td>
       <td>{{ data.thoiGianCapNhat | formatDistance }}</td>
       <td class="action">
         <a
@@ -46,7 +50,7 @@
         <a
           class="delete"
           nz-popconfirm
-          nzPopconfirmTitle="Xoá nhân viên: {{ data.tenKhach | uppercase }}"
+          nzPopconfirmTitle="Xoá nhân viên: {{ data.tenKhachHang | uppercase }}"
           (nzOnConfirm)="deleteRow(data.id)"
           ><i nz-icon nzType="delete" nzTheme="outline"></i> Xoá</a
         >

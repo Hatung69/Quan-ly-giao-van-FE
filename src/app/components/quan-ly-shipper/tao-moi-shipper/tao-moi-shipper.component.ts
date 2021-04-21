@@ -1,19 +1,21 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { KhachHangService } from "../../../services/khach-hang.service";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { KhachHangService } from "src/app/services/khach-hang.service";
+import { Shipper } from "../../../models/shipper.model";
+import { ShipperService } from "../../../services/shipper.service";
 
 @Component({
-  selector: "app-tao-moi-khach-hang",
-  templateUrl: "./tao-moi-khach-hang.component.html",
-  styleUrls: ["./tao-moi-khach-hang.component.scss"],
+  selector: "app-tao-moi-shipper",
+  templateUrl: "./tao-moi-shipper.component.html",
+  styleUrls: ["./tao-moi-shipper.component.scss"],
 })
-export class TaoMoiKhachHangComponent implements OnInit {
-  formKhachHang!: FormGroup;
+export class TaoMoiShipperComponent implements OnInit {
+  formShipper!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private khachHangService: KhachHangService,
+    private shipperService: ShipperService,
     private msg: NzMessageService
   ) {}
 
@@ -22,19 +24,12 @@ export class TaoMoiKhachHangComponent implements OnInit {
   }
 
   createForm() {
-    this.formKhachHang = this.fb.group({
-      tenKhachHang: [
+    this.formShipper = this.fb.group({
+      hoTen: [
         null,
         Validators.compose([
           Validators.required,
           Validators.maxLength(50),
-          Validators.pattern(/(.|\s)*\S(.|\s)*/),
-        ]),
-      ],
-      tenCuaHang: [
-        "",
-        Validators.compose([
-          Validators.maxLength(100),
           Validators.pattern(/(.|\s)*\S(.|\s)*/),
         ]),
       ],
@@ -71,29 +66,18 @@ export class TaoMoiKhachHangComponent implements OnInit {
           Validators.pattern(/^[0-9]*$/),
         ]),
       ],
-      loaiKhachHang: [
-        "Cá nhân",
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(50),
-          Validators.pattern(/(.|\s)*\S(.|\s)*/),
-        ]),
-      ],
-      soTaiKhoan: [
-        "",
-        Validators.compose([
-          Validators.maxLength(15),
-          Validators.pattern(/^[0-9]*$/),
-        ]),
+      trangThai: [
+        null,
+        Validators.compose([Validators.required, Validators.maxLength(50)]),
       ],
     });
   }
 
   submitForm() {
-    this.khachHangService.taoMoiKhachHang(this.formKhachHang.value).subscribe(
+    this.shipperService.taoMoiShipper(this.formShipper.value).subscribe(
       (res) => {
         this.msg.success("Tạo thành công!", { nzDuration: 2000 });
-        // this.formKhachHang.reset();
+        // this.formShipper.reset();
       },
       (err) => {
         console.log("HTTP Error", err);

@@ -1,7 +1,7 @@
 <nz-page-header nzBackIcon>
-  <nz-page-header-title>Cập nhật khách hàng</nz-page-header-title>
+  <nz-page-header-title>Tạo mới Shipper</nz-page-header-title>
   <nz-page-header-subtitle
-    >Chỉnh sửa lại thông thông của khách hàng</nz-page-header-subtitle
+    >Thêm mới một Shipper vào hệ thống</nz-page-header-subtitle
   >
   <nz-page-header-extra>
     <button nz-button nzType="dashed" nzShape="round">
@@ -11,7 +11,7 @@
       <i nz-icon nzType="close" nzTheme="outline"></i>Huỷ
     </button>
     <button
-      [disabled]="!this.formKhachHang.valid"
+      [disabled]="!this.formShipper.valid"
       nz-button
       nzType="primary"
       (click)="submitForm()"
@@ -22,37 +22,24 @@
   <nz-page-header-content>
     <div class="container_form">
       <div class="left_side">
-        <img height="460px" src="../assets/img/Ng-kh_2.png" alt="Background" />
+        <img height="400px" src="../assets/img/shipper.jpg" alt="Background" />
       </div>
       <div class="right_side">
-        <form nz-form class="login-form" [formGroup]="formKhachHang">
+        <form nz-form class="login-form" [formGroup]="formShipper">
           <div>
             <nz-form-item>
               <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
-                >Tên khách</nz-form-label
+                >Họ tên</nz-form-label
               >
               <nz-form-control
                 [nzSpan]="24"
-                nzErrorTip="Vui lòng nhập tên khách hàng!"
+                nzErrorTip="Vui lòng nhập tên Shipper!"
               >
                 <input
-                  formControlName="tenKhachHang"
+                  formControlName="hoTen"
                   type="text"
                   nz-input
-                  placeholder="Nhập tên khách hàng..."
-                />
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="5" nzFor="note"
-                >Tên cửa hàng</nz-form-label
-              >
-              <nz-form-control [nzSpan]="24" nzErrorTip="">
-                <input
-                  formControlName="tenCuaHang"
-                  placeholder="Nhập tên cửa hàng..."
-                  type="text"
-                  nz-input
+                  placeholder="Nhập tên shipper..."
                 />
               </nz-form-control>
             </nz-form-item>
@@ -82,7 +69,7 @@
               >
                 <input
                   formControlName="diaChi"
-                  placeholder="Nhập địa chỉ khách hàng..."
+                  placeholder="Nhập địa chỉ shipper..."
                   type="text"
                   nz-input
                 />
@@ -124,37 +111,27 @@
             </nz-form-item>
             <nz-form-item>
               <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
-                >Loại khách hàng</nz-form-label
+                >Trạng thái</nz-form-label
               >
               <nz-form-control
                 [nzSpan]="24"
-                nzErrorTip="Vui lòng chọn loại khách hàng!"
+                nzErrorTip="Vui lòng chọn trạng thái!"
               >
-                <nz-radio-group
-                  formControlName="loaiKhachHang"
-                  nzName="radiogroup"
+                <nz-select
+                  nzPlaceHolder="Chọn trạng thái"
+                  formControlName="trangThai"
                 >
-                  <label nz-radio nzValue="Cá nhân">Cá nhân</label>
-                  <label nz-radio nzValue="Cửa hàng">Cửa hàng</label>
-                </nz-radio-group>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="5" nzFor="note"
-                >Số tài khoản</nz-form-label
-              >
-              <nz-form-control
-                [nzSpan]="24"
-                nzErrorTip="Vui lòng nhập số tài khoản!"
-              >
-                <nz-input-group nzAddOnAfterIcon="credit-card">
-                  <input
-                    formControlName="soTaiKhoan"
-                    type="text"
-                    placeholder="Nhập số tài khoản ngân hàng..."
-                    nz-input
-                  />
-                </nz-input-group>
+                  <nz-option
+                    nzValue="Có thể nhận hàng"
+                    nzLabel="Có thể nhận hàng"
+                  ></nz-option>
+                  <nz-option
+                    nzValue="Đang giao hàng"
+                    nzLabel="Đang giao hàng"
+                  ></nz-option>
+                  <nz-option nzValue="Tạm nghỉ" nzLabel="Tạm nghỉ"></nz-option>
+                  <nz-option nzValue="Bị khoá" nzLabel="Bị khoá"></nz-option>
+                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </div>

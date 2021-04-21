@@ -24,16 +24,6 @@ export class CapNhatKhachHangComponent implements OnInit {
 
   ngOnInit() {
     this.idKhachHang = this.route.snapshot.paramMap.get("idNhanVien");
-    this.formKhachHang = this.fb.group({
-      tenKhach: [null],
-      tenCuaHang: [],
-      sdt: [],
-      diaChi: [],
-      email: [],
-      cmnd: [],
-      loaiKhachHang: [],
-      soTaiKhoan: [],
-    });
     this.khachHangService.layKhachHangTheoID(this.idKhachHang).subscribe(
       (res) => {
         console.log(res);
@@ -47,8 +37,8 @@ export class CapNhatKhachHangComponent implements OnInit {
 
   createForm(khachHang: KhachHang) {
     this.formKhachHang = this.fb.group({
-      tenKhach: [
-        khachHang.tenKhach,
+      tenKhachHang: [
+        khachHang.tenKhachHang,
         Validators.compose([
           Validators.required,
           Validators.maxLength(50),

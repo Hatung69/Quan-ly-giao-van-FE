@@ -18,7 +18,7 @@
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="file-add" nzTheme="outline"></i>
-            <a routerLink="/welcome">Tạo đơn hàng</a>
+            <a routerLink="/tao-don-hang">Tạo đơn hàng</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="table" nzTheme="outline"></i>
@@ -27,11 +27,15 @@
         </ul>
       </li>
       <!-- Module Shipper -->
-      <li nz-submenu nzTitle="Shipper" nzIcon="car">
+      <li nzOpen nz-submenu nzTitle="Shipper" nzIcon="car">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="solution" nzTheme="outline"></i>
-            <a>Danh sách Shipper</a>
+            <a
+              [routerLink]="['/quan-ly-shipper']"
+              routerLinkActive="router-link-active"
+              >Danh sách Shipper</a
+            >
           </li>
         </ul>
         <ul>
@@ -42,7 +46,7 @@
         </ul>
       </li>
       <!-- Module Khách hàng -->
-      <li nzOpen nz-submenu nzTitle="Khách hàng" nzIcon="shop">
+      <li nz-submenu nzTitle="Khách hàng" nzIcon="shop">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="audit" nzTheme="outline"></i>

@@ -1,18 +1,19 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NzMessageService } from "ng-zorro-antd/message";
-import { KhachHang } from "../../../models/khach-hang.model";
-import { KhachHangService } from "../../../services/khach-hang.service";
+import { Shipper } from "src/app/models/shipper.model";
+import { ShipperService } from "src/app/services/shipper.service";
 
 @Component({
-  selector: "app-danh-sach-khach-hang",
-  templateUrl: "./danh-sach-khach-hang.component.html",
-  styleUrls: ["./danh-sach-khach-hang.component.scss"],
+  selector: "app-danh-sach-shipper",
+  templateUrl: "./danh-sach-shipper.component.html",
+  styleUrls: ["./danh-sach-shipper.component.scss"],
 })
-export class DanhSachKhachHangComponent implements OnInit {
-  @Input() dsKhachHang!: KhachHang[];
+export class DanhSachShipperComponent implements OnInit {
+  @Input() dsShipper!: Shipper[];
+  dtOptions: DataTables.Settings = {};
 
   constructor(
-    private khachHangService: KhachHangService,
+    private shipperService: ShipperService,
     private msg: NzMessageService
   ) {}
 
@@ -20,10 +21,10 @@ export class DanhSachKhachHangComponent implements OnInit {
 
   // Xoá khách hàng
   deleteRow(id: string): void {
-    this.khachHangService.xoaKhachHang(id).subscribe(
+    this.shipperService.xoaShipper(id).subscribe(
       (res) => {
         this.msg.success("Xoá thành thành công!", { nzDuration: 2000 });
-        this.khachHangService.loadDSKhachHang();
+        this.shipperService.loadDSShipper();
       },
       (err) => {
         console.log("HTTP Error", err);

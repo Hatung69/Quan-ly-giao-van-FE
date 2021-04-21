@@ -1,0 +1,370 @@
+<div class="tilte">
+  <h2><i nz-icon nzType="file-add" nzTheme="outline"></i> Tạo mới đơn hàng</h2>
+</div>
+<nz-list nzGrid>
+  <form nz-form [formGroup]="formDonHang" (ngSubmit)="submitForm()">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-list-item>
+          <nz-card nzTitle="Thông tin người nhận">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired>Người nhận</nz-form-label>
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập tên người nhận!"
+              >
+                <input
+                  formControlName="tenNguoiNhan"
+                  type="text"
+                  nz-input
+                  placeholder="Nhập tên tên người nhận..."
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired
+                >Số điện thoại</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số điện thoại"
+              >
+                <input
+                  formControlName="sdtNguoiNhan"
+                  placeholder="Nhập số điện thoại..."
+                  type="text"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <form nz-form formGroupName="diaChi">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired
+                  >Địa chỉ giao</nz-form-label
+                >
+                <nz-form-control [nzSm]="24" nzErrorTip="Chọn đúng địa chỉ!">
+                  <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="8">
+                      <nz-select
+                        formControlName="tinhThanh"
+                        nzPlaceHolder="Tỉnh/Thành"
+                        nzShowSearch
+                        (ngModelChange)="chonQuanHuyen($event)"
+                      >
+                        <nz-option
+                          *ngFor="let option of diaDanh"
+                          [nzLabel]="option.Name"
+                          [nzValue]="option.Name"
+                        ></nz-option>
+                      </nz-select>
+                    </div>
+                    <div nz-col [nzSpan]="8">
+                      <nz-select
+                        nzShowSearch
+                        nzPlaceHolder="Quận/Huyện"
+                        formControlName="quanHuyen"
+                        (ngModelChange)="chonPhuongXa($event)"
+                      >
+                        <nz-option
+                          *ngFor="let option of diaDanhQuanHuyen[0]"
+                          [nzLabel]="option.Name"
+                          [nzValue]="option.Name"
+                        ></nz-option>
+                      </nz-select>
+                    </div>
+                    <div nz-col [nzSpan]="8">
+                      <nz-select
+                        nzShowSearch
+                        nzPlaceHolder="Phường/Xã"
+                        formControlName="phuongXa"
+                      >
+                        <nz-option
+                          *ngFor="let option of diaDanhPhuongXa[0]"
+                          [nzLabel]="option.Name"
+                          [nzValue]="option.Name"
+                        ></nz-option>
+                      </nz-select>
+                    </div>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired
+                  >Chi tiết Đ.Chỉ</nz-form-label
+                >
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập đúng địa chỉ để giao!"
+                >
+                  <textarea
+                    placeholder="Nhập chi tiết địa chỉ giao hàng..."
+                    formControlName="moTaChiTiet"
+                    rows="2"
+                    nz-input
+                  ></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </nz-card>
+        </nz-list-item>
+        <!-- Thông tin người gửi -->
+        <nz-list-item>
+          <nz-card nzTitle="Thông tin người gửi (Khách hàng)">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5">Khách hàng</nz-form-label>
+              <nz-form-control [nzSm]="24">
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder="Chọn khách hàng nếu đã tồn tại trong hệ thống"
+                  [(ngModel)]="valueKH"
+                  (ngModelChange)="chonKhachHang($event)"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <nz-option
+                    *ngFor="let kh of dsKhachHang"
+                    [nzLabel]="
+                      'Tên KH: ' + kh.tenKhachHang + ' - Sđt: ' + kh.sdt
+                    "
+                    [nzValue]="kh.tenKhachHang + '*' + kh.sdt + '^' + kh.diaChi"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <form nz-form formGroupName="khachHang">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                  >Tên khách</nz-form-label
+                >
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập tên khách hàng!"
+                >
+                  <input
+                    formControlName="tenKhachHang"
+                    type="text"
+                    nz-input
+                    placeholder="Nhập tên khách hàng..."
+                  />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                  >Số điện thoại</nz-form-label
+                >
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập số điện thoại"
+                >
+                  <input
+                    formControlName="sdt"
+                    placeholder="Nhập số điện thoại..."
+                    type="text"
+                    nz-input
+                  />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>Địa chỉ</nz-form-label>
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập địa chỉ!"
+                >
+                  <input
+                    formControlName="diaChi"
+                    placeholder="Nhập địa chỉ khách hàng..."
+                    type="text"
+                    nz-input
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </nz-card>
+        </nz-list-item>
+        <nz-list-item>
+          <nz-card nzTitle="Thông tin hàng hoá">
+            <nz-tabset
+              [(nzSelectedIndex)]="selectedIndex"
+              nzType="editable-card"
+              (nzAdd)="themHH()"
+              (nzClose)="xoaHH($event)"
+            >
+              <nz-tab
+                formArrayName="dsHangHoa"
+                *ngFor="let tab of this.dsHH.controls; let i = index"
+                [nzClosable]="i >= 1"
+                nzTitle="Hàng hoá {{ i + 1 }}"
+              >
+                <div [formGroupName]="i">
+                  <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzRequired
+                      >Tên hàng hoá</nz-form-label
+                    >
+                    <nz-form-control
+                      [nzSpan]="24"
+                      nzErrorTip="Vui lòng nhập tên hàng hoá!"
+                    >
+                      <input
+                        formControlName="tenHang"
+                        type="text"
+                        nz-input
+                        placeholder="Nhập tên hàng hoá..."
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzRequired
+                      >Giá trị</nz-form-label
+                    >
+                    <nz-form-control
+                      [nzSpan]="24"
+                      nzErrorTip="Vui lòng nhập giá trị món hàng!"
+                    >
+                      <nz-input-group nzAddOnAfter=" VNĐ">
+                        <input
+                          type="text"
+                          nz-input
+                          formControlName="giaTri"
+                          placeholder="Nhập giá trị món hàng..."
+                        />
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzRequired
+                      >Số lượng</nz-form-label
+                    >
+                    <nz-form-control nzErrorTip="Nhập số lượng!">
+                      <nz-input-number
+                        formControlName="soLuong"
+                        nzPlaceHolder="Vd: 5"
+                      ></nz-input-number>
+                    </nz-form-control>
+                    <nz-form-label [nzSpan]="7" nzRequired
+                      >Khối lượng (Gam)</nz-form-label
+                    >
+                    <nz-form-control nzErrorTip="Nhập khối lượng!">
+                      <nz-input-number
+                        formControlName="khoiLuong"
+                        nzPlaceHolder="Vd: 500"
+                      ></nz-input-number>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label [nzSpan]="5">Mô tả</nz-form-label>
+                    <nz-form-control
+                      [nzSpan]="24"
+                      nzErrorTip="Vui lòng nhập mô tả!"
+                    >
+                      <input
+                        formControlName="moTa"
+                        type="text"
+                        nz-input
+                        placeholder="Nhập mô tả món hàng..."
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </nz-tab>
+            </nz-tabset>
+          </nz-card>
+        </nz-list-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-list-item>
+          <nz-card nzTitle="Thông tin tiền phí">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired
+                >Người trả phí</nz-form-label
+              >
+              <nz-form-control [nzSpan]="24">
+                <nz-radio-group formControlName="nguoiTraPhiShip">
+                  <label nz-radio nzValue="Người nhận trả"
+                    >Người nhận trả</label
+                  >
+                  <label nz-radio nzValue="Người gửi trả">Người gửi trả</label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5">Phí ship</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <nz-input-group nzAddOnAfterIcon="dollar">
+                  <input formControlName="phiShip" nz-input />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Tiền thu hộ</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số tiền cần thu hộ!"
+              >
+                <nz-input-group nzAddOnAfterIcon="dollar">
+                  <input formControlName="tongTienThuHo" nz-input />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-card>
+        </nz-list-item>
+        <nz-card nzTitle="Thông tin phụ">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="note">Ghi chú</nz-form-label>
+            <nz-form-control [nzSpan]="24">
+              <textarea formControlName="ghiChu" rows="3" nz-input></textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="note"
+              >Ngày dự kiến</nz-form-label
+            >
+            <nz-form-control [nzSpan]="24">
+              <input formControlName="thoiGianDuKien" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="note"
+              >Ảnh đính kèm</nz-form-label
+            >
+            <nz-form-control>
+              <input
+                type="file"
+                accept="image/x-png, image/gif, image/jpeg"
+                (change)="handleFile($event)"
+              />
+              <br />
+              <div nz-col nzSpan="12">
+                <nz-form-item>
+                  <img
+                    width="300px"
+                    [src]="
+                      imageURL ||
+                      'https://via.placeholder.com/300x250?text=300x250+MPU'
+                    "
+                    alt="Hình đại diện"
+                  />
+                </nz-form-item>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <div style="float: right">
+            <a nz-button nzType="default" (click)="this.formDonHang.reset()">
+              <i nz-icon nzType="clear" nzTheme="outline"></i> Làm mới
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button
+              [disabled]="!this.formDonHang.valid"
+              type="submit"
+              nz-button
+              nzType="primary"
+            >
+              <i nz-icon nzType="check" nzTheme="outline"></i> Hoàn tất
+            </button>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+  </form>
+</nz-list>

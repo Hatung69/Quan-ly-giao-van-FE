@@ -1,6 +1,6 @@
 export interface KhachHang {
   id: string;
-  tenKhach: string;
+  tenKhachHang: string;
   tenCuaHang: string;
   sdt: string;
   diaChi: string;
