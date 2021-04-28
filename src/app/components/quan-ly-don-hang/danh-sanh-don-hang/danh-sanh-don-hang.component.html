@@ -1,0 +1,135 @@
+<nz-table
+  #basicTable
+  [nzData]="dsDonHang"
+  nzTableLayout="fixed"
+  nzShowSizeChanger
+  nzSize="middle"
+  nzBordered
+>
+  <thead>
+    <tr>
+      <th nzWidth="35px">#</th>
+      <th>Thông tin đơn hàng</th>
+      <th>Thông tin người gửi</th>
+      <th>Thông tin người nhận</th>
+      <th>Thông tin tài chính</th>
+      <th nzWidth="130px">Thời gian tạo</th>
+      <th nzWidth="40px">TT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data; index as idx">
+      <td>{{ idx + 1 }}</td>
+      <td>
+        <ul>
+          <li nz-typography nzCopyable [nzCopyText]="data.maDonHang">
+            <b>Mã đơn:</b> {{ data.maDonHang }}
+          </li>
+          <li><b>Tổng hàng:</b> {{ data.dsHangHoa.length }} (món)</li>
+          <li>
+            <div [ngSwitch]="data.trangThai">
+              <b>Trạng thái: </b>
+              <nz-tag *ngSwitchCase="'Cho_xac_nhan'" [nzColor]="'orange'"
+                >Chờ xác nhận</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Cho_lay_hang'" [nzColor]="'blue'"
+                >Chờ lấy hàng</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Dang_giao'" [nzColor]="'magenta'"
+                >Đang giao</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Hoan_thanh'" [nzColor]="'green'"
+                >Hoàn thành</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Don_bi_huy'" [nzColor]="'red'"
+                >Đơn bị huỷ</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Tra_hang'" [nzColor]="'purple'"
+                >Trả hàng</nz-tag
+              >
+              <div *ngSwitchDefault>No state</div>
+            </div>
+          </li>
+          <li>
+            <b>Ngày tạo:</b>
+            {{ data.thoiGianKhoiTao | date: "dd/MM/YYYY, h:mm a" }}
+          </li>
+          <li><b style="color: red">Ghi chú:</b> {{ data.ghiChu }}</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li><b>Người gửi:</b> {{ data.khachHang.tenKhachHang }}</li>
+          <li><b>Số điện thoại:</b> {{ data.khachHang.sdt }}</li>
+          <li><b>Địa chỉ:</b> {{ data.khachHang.diaChi }}</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li><b>Người nhận:</b> {{ data.tenNguoiNhan }}</li>
+          <li><b>Số điện thoại:</b> {{ data.sdtNguoiNhan }}</li>
+          <li><b>Tỉnh/Thành:</b> {{ data.diaChi.tinhThanh }}</li>
+          <li><b>Quận/Huyện:</b> {{ data.diaChi.quanHuyen }}</li>
+          <li><b>Phường/Xã:</b> {{ data.diaChi.phuongXa }}</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li><b>Người trả phí:</b> {{ data.nguoiTraPhiShip }}</li>
+          <li>
+            <b>Phí vận chuyển:</b>
+            {{ data.phiShip | currency: "VNĐ":"symbol":"1.0-2":"vi" }}
+          </li>
+          <li>
+            <b>Tiền thu hộ:</b>
+            {{ data.tongTienThuHo | currency: "VNĐ":"symbol":"1.0-2":"vi" }}
+          </li>
+        </ul>
+      </td>
+      <td>{{ data.thoiGianKhoiTao | formatDistance }}</td>
+      <td>
+        <a
+          nz-button
+          nzType="default"
+          nzSize="small"
+          nzShape="circle"
+          [routerLink]="['/don-hang/chi-tiet/', data.id]"
+          routerLinkActive="router-link-active"
+        >
+          <i nz-icon nzType="info"></i></a
+        ><br />
+        <a
+          style="margin: 10px 0px"
+          nz-button
+          nzType="default"
+          nzSize="small"
+          nzShape="circle"
+          [routerLink]="['/don-hang/cap-nhat/', data.id]"
+          routerLinkActive="router-link-active"
+        >
+          <i nz-icon nzType="edit"></i>
+        </a>
+        <br />
+        <button
+          nz-button
+          nzType="default"
+          nzSize="small"
+          nzShape="circle"
+          (click)="showModal(data.id)"
+        >
+          <i nz-icon nzType="file-pdf"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Cập nhật trạm trung chuyển"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+  >
+    <ng-container *nzModalContent>
+      <p>Cập đơn hàng với Trạm trung chuyển hiện tại?</p>
+    </ng-container>
+  </nz-modal>
+</nz-table>

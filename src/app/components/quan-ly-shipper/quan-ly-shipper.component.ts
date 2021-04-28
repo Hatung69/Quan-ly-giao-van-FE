@@ -45,9 +45,4 @@ export class QuanLyShipperComponent implements OnInit {
       }
     );
   }
-
-  chuyenTabNhanHang() {}
-  chuyenTabDangGiao() {}
-  chuyenTabTamNghi() {}
-  chuyenTabBiKhoa() {}
 }

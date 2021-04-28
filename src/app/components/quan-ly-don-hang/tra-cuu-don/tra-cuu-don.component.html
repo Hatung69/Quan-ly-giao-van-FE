@@ -1,0 +1,137 @@
+<div>
+  <h2>- Tra cứu đơn hàng -</h2>
+</div>
+<nz-input-group
+  style="padding: 0px 50px"
+  nzSearch
+  nzSize="large"
+  [nzAddOnAfter]="suffixButton"
+>
+  <input
+    [(ngModel)]="keyWord"
+    (keyup.enter)="timKiem()"
+    type="text"
+    nz-input
+    placeholder="Nhập Mã đơn hàng cần tra cứu... VD: DH-rxmshereesd"
+  />
+</nz-input-group>
+<ng-template #suffixButton>
+  <button
+    (click)="timKiem()"
+    nz-button
+    nzType="primary"
+    nzSize="large"
+    nzSearch
+  >
+    Tìm kiếm <i nz-icon nzType="search" nzTheme="outline"></i>
+  </button>
+</ng-template>
+<nz-divider nzText="Thông tin đơn hàng" nzOrientation="left"></nz-divider>
+<div *ngIf="this.donHang">
+  <div>
+    <div style="background: #ececec; padding: 10px">
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="8">
+          <nz-card nzTitle="Thông tin">
+            <ul>
+              <li><b>Mã đơn:</b> {{ this.donHang.maDonHang }}</li>
+              <li>
+                <b>Tổng hàng:</b> {{ this.donHang.dsHangHoa.length }} (món)
+              </li>
+              <li>
+                <div [ngSwitch]="this.donHang.trangThai">
+                  <b>Trạng thái: </b>
+                  <nz-tag *ngSwitchCase="'Cho_xac_nhan'" [nzColor]="'orange'"
+                    >Chờ xác nhận</nz-tag
+                  >
+                  <nz-tag *ngSwitchCase="'Cho_lay_hang'" [nzColor]="'blue'"
+                    >Chờ lấy hàng</nz-tag
+                  >
+                  <nz-tag *ngSwitchCase="'Dang_giao'" [nzColor]="'magenta'"
+                    >Đang giao</nz-tag
+                  >
+                  <nz-tag *ngSwitchCase="'Hoan_thanh'" [nzColor]="'green'"
+                    >Hoàn thành</nz-tag
+                  >
+                  <nz-tag *ngSwitchCase="'Don_bi_huy'" [nzColor]="'red'"
+                    >Đơn bị huỷ</nz-tag
+                  >
+                  <nz-tag *ngSwitchCase="'Tra_hang'" [nzColor]="'purple'"
+                    >Trả hàng</nz-tag
+                  >
+                  <div *ngSwitchDefault>No state</div>
+                </div>
+              </li>
+              <li>
+                <b>Ngày tạo:</b>
+                {{ this.donHang.thoiGianKhoiTao | date: "dd/MM/YYYY, h:mm a" }}
+              </li>
+              <li>
+                <b style="color: red">Ghi chú:</b> {{ this.donHang.ghiChu }}
+              </li>
+            </ul>
+          </nz-card>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-card nzTitle="Người nhận">
+            <ul>
+              <li>
+                <b>Người nhận: </b> <a>{{ this.donHang.tenNguoiNhan }}</a>
+              </li>
+              <li><b>Số điện thoại:</b> {{ this.donHang.sdtNguoiNhan }}</li>
+              <li><b>Tỉnh/Thành:</b> {{ this.donHang.diaChi.tinhThanh }}</li>
+              <li><b>Quận/Huyện:</b> {{ this.donHang.diaChi.quanHuyen }}</li>
+              <li><b>Phường/Xã:</b> {{ this.donHang.diaChi.phuongXa }}</li>
+            </ul>
+          </nz-card>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-card nzTitle="Người gửi">
+            <ul>
+              <li>
+                <b>Người gửi: </b>
+                <a>{{ this.donHang.khachHang.tenKhachHang }}</a>
+              </li>
+              <li><b>Số điện thoại:</b> {{ this.donHang.khachHang.sdt }}</li>
+              <li><b>Địa chỉ:</b> {{ this.donHang.khachHang.diaChi }}</li>
+              <li><b>CMND:</b> {{ this.donHang.khachHang.cmnd }}</li>
+              <li><b>E-mail:</b> {{ this.donHang.khachHang.email }}</li>
+            </ul>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <nz-divider
+      nzText="Trạng thái qua các trạm trung chuyển"
+      nzOrientation="left"
+    ></nz-divider>
+    <nz-table #borderedTable [nzData]="this.donHang.dsDonHangTram">
+      <thead>
+        <tr>
+          <th>Mã trạm</th>
+          <th>Tên trạm</th>
+          <th>Ngày nhận đơn hàng</th>
+          <th>Người chịu trách nhiệm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of borderedTable.data">
+          <td>{{ data.tramTrungChuyen.maTram }}</td>
+          <td>
+            <a
+              ><b>{{ data.tramTrungChuyen.tenTram }}</b></a
+            >
+          </td>
+          <td>
+            {{
+              data.tramTrungChuyen.thoiGianKhoiTao | date: "dd/MM/YYYY, h:mm a"
+            }}
+          </td>
+          <td>{{ data.tramTrungChuyen.taoBoi.hoTen }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

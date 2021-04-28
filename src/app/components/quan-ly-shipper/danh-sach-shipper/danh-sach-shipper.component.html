@@ -1,5 +1,5 @@
 <nz-table
-  #sortTable
+  #tableData
   [nzData]="dsShipper"
   nzTableLayout="fixed"
   nzShowSizeChanger
@@ -8,17 +8,18 @@
 >
   <thead>
     <tr>
-      <th nzWidth="50px">ID</th>
+      <th nzWidth="40px">ID</th>
       <th nzWidth="190px">Họ tên</th>
-      <th nzWidth="80px">Đơn đang giao</th>
-      <th nzWidth="120px">SĐT</th>
+      <th nzWidth="90px">Đơn đang giao</th>
+      <th nzWidth="90px">SĐT</th>
+      <th nzWidth="130px">E-mail</th>
       <th nzWidth="110px">Trạng thái</th>
       <th nzWidth="150px">Cập nhật gần nhất</th>
       <th nzWidth="120px">Lựa chọn</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of sortTable.data">
+    <tr *ngFor="let data of tableData.data">
       <td>{{ data.id }}</td>
       <td>
         <a nzType="link"
@@ -28,26 +29,27 @@
       <td>
         <label
           style="color: #001ea5; border: 2px solid #0044ff; padding: 0px 5px"
-          >{{ data.soDonHang }} đơn hàng</label
+          >0 {{ data.soDonHang }} đơn hàng</label
         >
       </td>
       <td>{{ data.sdt }}</td>
+      <td>{{ data.email }}</td>
       <td>
         <nz-tag
-          *ngIf="data.trangThai === 'Có thể nhận hàng'"
+          *ngIf="data.trangThai === 'Co_the_nhan_hang'"
           [nzColor]="'green'"
-          >{{ data.trangThai }}</nz-tag
+          >Có thể nhận hàng</nz-tag
         >
-        <nz-tag *ngIf="data.trangThai === 'Đang giao hàng'" [nzColor]="'blue'">
+        <nz-tag *ngIf="data.trangThai === 'Dang_giao_hang'" [nzColor]="'blue'">
           <i nz-icon nzType="sync" nzSpin></i>
-          <span> {{ data.trangThai }}</span>
+          <span>Đang giao hàng</span>
         </nz-tag>
-        <nz-tag *ngIf="data.trangThai === 'Tạm nghỉ'" [nzColor]="'gold'">{{
-          data.trangThai
-        }}</nz-tag>
-        <nz-tag *ngIf="data.trangThai === 'Bị khoá'" [nzColor]="'red'">{{
-          data.trangThai
-        }}</nz-tag>
+        <nz-tag *ngIf="data.trangThai === 'Bi_khoa'" [nzColor]="'gold'"
+          >Bị khoá</nz-tag
+        >
+        <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" [nzColor]="'red'"
+          >Tạm nghỉ</nz-tag
+        >
       </td>
       <td>{{ data.thoiGianCapNhat | formatDistance }}</td>
       <td class="action">

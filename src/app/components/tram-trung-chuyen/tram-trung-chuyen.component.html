@@ -1,0 +1,169 @@
+<div class="head">
+  <div class="left-tilte">
+    <nz-badge
+      [nzCount]="5"
+      [nzStyle]="{
+        backgroundImage:
+          'linear-gradient( 109.6deg,  rgba(255,174,0,1) 11.2%, rgba(255,0,0,1) 100.2% )'
+      }"
+    >
+      <a class="head-example"
+        ><h2>
+          <i nz-icon nzType="profile" nzTheme="outline"></i> Trạm trung chyển
+          &nbsp;&nbsp;
+        </h2></a
+      >
+    </nz-badge>
+  </div>
+  <div class="right-button">
+    <nz-input-group
+      nzSearch
+      [nzAddOnAfter]="suffixIconButton"
+      [nzPrefix]="prefixTemplateUser"
+    >
+      <input
+        type="search"
+        [(ngModel)]="searchText"
+        nz-input
+        placeholder="Nhập thông tin trạm..."
+      />
+    </nz-input-group>
+    <ng-template #prefixTemplateUser
+      ><i nz-icon nzType="search"></i
+    ></ng-template>
+    <ng-template #suffixIconButton>
+      <button nz-button nzSearch nzType="primary" (click)="searchText = ''">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </ng-template>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary">
+      <i nz-icon nzType="appstore-add" nzTheme="outline"></i>để đây đã
+    </button>
+  </div>
+</div>
+<nz-divider nzText="Thêm mới trạm" nzOrientation="left"></nz-divider>
+<app-tao-moi-tram></app-tao-moi-tram>
+<nz-divider nzText="Danh sách trạm" nzOrientation="left"></nz-divider>
+
+<nz-table
+  #dataShowing
+  nzShowPagination
+  nzShowSizeChanger
+  nzSize="middle"
+  [nzPageSize]="10"
+  [nzBordered]="true"
+  [nzData]="dsTram"
+>
+  <thead>
+    <tr>
+      <th nzWidth="130px">Mã trạm</th>
+      <th nzWidth="190px">Tên trạm</th>
+      <th>Địa chỉ</th>
+      <th nzWidth="110px">Trạng thái</th>
+      <th>Mô tả</th>
+      <th nzWidth="120px">Lựa chọn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of dataShowing.data | filter: searchText">
+      <td>
+        {{ data.maTram }}
+      </td>
+      <td>
+        <a nzType="link"
+          ><b class="name">{{ data.tenTram | uppercase }}</b></a
+        >
+      </td>
+      <td>{{ data.diaChi }}</td>
+      <td>
+        <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" nzColor="warning"
+          >Tạm nghỉ</nz-tag
+        >
+        <nz-tag *ngIf="data.trangThai === 'Dang_hoat_dong'" nzColor="success"
+          >Đang hoạt động</nz-tag
+        >
+      </td>
+      <td>{{ data.moTa }}</td>
+      <td class="action">
+        <a class="edit" (click)="showModal(data.id)"
+          ><i nz-icon nzType="edit" nzTheme="outline"></i> Sửa</a
+        >
+
+        <nz-divider nzType="vertical"></nz-divider>
+        <a
+          class="delete"
+          nz-popconfirm
+          nzPopconfirmTitle="Xoá trạm: {{ data.tenTram | uppercase }}"
+          (nzOnConfirm)="deleteRow(data.id)"
+          ><i nz-icon nzType="delete" nzTheme="outline"></i> Xoá</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="title"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-template #title><b>Cập nhật thông tin trạm</b></ng-template>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="formTram" (ngSubmit)="submitForm()">
+      <nz-divider nzType="vertical"></nz-divider>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">Tên trạm</nz-form-label>
+        <nz-form-control nzErrorTip="Vui lòng nhập tên trạm!">
+          <nz-input-group>
+            <input
+              formControlName="tenTram"
+              nz-input
+              placeholder="Nhập tên trạm..."
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">Địa chỉ</nz-form-label>
+        <nz-form-control nzErrorTip="Vui lòng nhập địa chỉ trạm....">
+          <nz-input-group>
+            <input
+              formControlName="diaChi"
+              nz-input
+              placeholder="Nhập địa chỉ..."
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">Trạng thái</nz-form-label>
+        <nz-form-control nzErrorTip="Chọn trạng thái!">
+          <nz-select
+            formControlName="trangThai"
+            nzPlaceHolder="Chọn trạng thái"
+          >
+            <nz-option nzValue="Tam_nghi" nzLabel="Tạm nghỉ"></nz-option>
+            <nz-option
+              nzValue="Dang_hoat_dong"
+              nzLabel="Đang hoạt động"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">Mô tả</nz-form-label>
+        <nz-form-control nzErrorTip="Vui lòng nhập mô tả!">
+          <nz-input-group>
+            <input
+              formControlName="moTa"
+              nz-input
+              placeholder="Nhập mô tả ngắn..."
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

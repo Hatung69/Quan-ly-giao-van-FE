@@ -10,7 +10,6 @@ import { ShipperService } from "src/app/services/shipper.service";
 })
 export class DanhSachShipperComponent implements OnInit {
   @Input() dsShipper!: Shipper[];
-  dtOptions: DataTables.Settings = {};
 
   constructor(
     private shipperService: ShipperService,

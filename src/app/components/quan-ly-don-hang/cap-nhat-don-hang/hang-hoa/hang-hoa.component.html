@@ -1,0 +1,86 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Thêm hàng hoá"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="submitForm()"
+>
+  <ng-container *nzModalContent>
+    <form [formGroup]="formHangHoa" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >Tên hàng hoá</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Vui lòng nhập tên hàng hoá!"
+        >
+          <input
+            formControlName="tenHang"
+            type="text"
+            nz-input
+            placeholder="Nhập tên hàng hoá..."
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Giá trị</nz-form-label>
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Vui lòng nhập giá trị món hàng!"
+        >
+          <nz-input-group nzAddOnAfter=" VNĐ">
+            <input
+              type="text"
+              nz-input
+              formControlName="giaTri"
+              placeholder="Nhập giá trị món hàng..."
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >Số lượng</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nhập số lượng!">
+          <input
+            type="number"
+            nz-input
+            formControlName="soLuong"
+            placeholder="Nhập số lượng món hàng.VD: 5"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+          >Khối lượng</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nhập khối lượng!">
+          <input
+            type="number"
+            nz-input
+            formControlName="khoiLuong"
+            placeholder="Nhập khối lượng món hàng.VD: 500"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Mô tả</nz-form-label>
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Vui lòng nhập mô tả!"
+        >
+          <input
+            formControlName="moTa"
+            type="text"
+            nz-input
+            placeholder="Nhập mô tả món hàng..."
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

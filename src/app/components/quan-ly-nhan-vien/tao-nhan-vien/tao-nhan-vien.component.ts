@@ -66,7 +66,7 @@ export class TaoNhanVienComponent implements OnInit {
           Validators.pattern(/(.|\s)*\S(.|\s)*/),
         ]),
       ],
-      trangThai: [null, Validators.compose([Validators.required])],
+      trangThai: ["Dang_hoat_dong", Validators.compose([Validators.required])],
       taiKhoan: this.fb.group({
         username: [
           null,

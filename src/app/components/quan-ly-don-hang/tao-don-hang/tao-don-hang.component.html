@@ -133,9 +133,7 @@
             </nz-form-item>
             <form nz-form formGroupName="khachHang">
               <nz-form-item>
-                <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
-                  >Tên khách</nz-form-label
-                >
+                <nz-form-label [nzSpan]="5" nzRequired>Tên khách</nz-form-label>
                 <nz-form-control
                   [nzSpan]="24"
                   nzErrorTip="Vui lòng nhập tên khách hàng!"
@@ -149,7 +147,7 @@
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                <nz-form-label [nzSpan]="5" nzRequired
                   >Số điện thoại</nz-form-label
                 >
                 <nz-form-control
@@ -288,22 +286,37 @@
             </nz-form-item>
             <nz-form-item>
               <nz-form-label [nzSpan]="5">Phí ship</nz-form-label>
-              <nz-form-control [nzSpan]="24">
+              <nz-form-control [nzSpan]="24" [nzExtra]="explain">
                 <nz-input-group nzAddOnAfterIcon="dollar">
-                  <input formControlName="phiShip" nz-input />
+                  <input
+                    formControlName="phiShip"
+                    nz-input
+                    readonly="true"
+                    style="color: green; font-weight: bold"
+                  />
                 </nz-input-group>
+                <ng-template #explain>
+                  <small
+                    ><i
+                      >Cước COD sẽ được tính bằng 1% tiền thu hộ, tối thiểu
+                      15.000đ/đơn hàng</i
+                    ></small
+                  >
+                </ng-template>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
-                >Tiền thu hộ</nz-form-label
-              >
+              <nz-form-label [nzSpan]="5" nzRequired>Tiền thu hộ</nz-form-label>
               <nz-form-control
                 [nzSpan]="24"
                 nzErrorTip="Vui lòng nhập số tiền cần thu hộ!"
               >
                 <nz-input-group nzAddOnAfterIcon="dollar">
-                  <input formControlName="tongTienThuHo" nz-input />
+                  <input
+                    formControlName="tongTienThuHo"
+                    nz-input
+                    (ngModelChange)="tinhTienShip($event)"
+                  />
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
@@ -311,23 +324,26 @@
         </nz-list-item>
         <nz-card nzTitle="Thông tin phụ">
           <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="note">Ghi chú</nz-form-label>
+            <nz-form-label [nzSpan]="5">Ghi chú</nz-form-label>
             <nz-form-control [nzSpan]="24">
               <textarea formControlName="ghiChu" rows="3" nz-input></textarea>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="note"
-              >Ngày dự kiến</nz-form-label
-            >
-            <nz-form-control [nzSpan]="24">
-              <input formControlName="thoiGianDuKien" nz-input />
+            <nz-form-label [nzSpan]="5">Ngày dự kiến</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzExtra]="explainTime">
+              <input
+                formControlName="thoiGianDuKien"
+                nz-input
+                readonly="true"
+              />
+              <ng-template #explainTime>
+                <small><i>Thời gian giao hàng dự kiến khoảng 5 ngày!</i></small>
+              </ng-template>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="note"
-              >Ảnh đính kèm</nz-form-label
-            >
+            <nz-form-label [nzSpan]="5">Ảnh đính kèm</nz-form-label>
             <nz-form-control>
               <input
                 type="file"

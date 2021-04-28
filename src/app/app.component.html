@@ -18,16 +18,20 @@
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="file-add" nzTheme="outline"></i>
-            <a routerLink="/tao-don-hang">Tạo đơn hàng</a>
+            <a routerLink="/don-hang/tao-don-hang">Tạo đơn hàng</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="table" nzTheme="outline"></i>
-            <a>Danh sách đơn hàng</a>
+            <a routerLink="/don-hang/danh-sach-don-hang">Danh sách đơn hàng</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+            <a routerLink="/don-hang/tra-cuu">Tra cứu đơn</a>
           </li>
         </ul>
       </li>
       <!-- Module Shipper -->
-      <li nzOpen nz-submenu nzTitle="Shipper" nzIcon="car">
+      <li nz-submenu nzTitle="Shipper" nzIcon="car">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="solution" nzTheme="outline"></i>
@@ -97,6 +101,21 @@
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="profile" nzTheme="outline"></i>
             <a routerLink="/quan-ly-nhan-vien">Danh sách nhân viên</a>
+          </li>
+        </ul>
+      </li>
+      <!-- Module Trạm trung chuyển -->
+      <li
+        nzOpen
+        nz-submenu
+        nzTitle="Trạm trung chuyển"
+        nzIcon="reconciliation"
+        *ngIf="showAdminBoard"
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="profile" nzTheme="outline"></i>
+            <a routerLink="/tram-trung-chuyen">Danh sách trạm</a>
           </li>
         </ul>
       </li>

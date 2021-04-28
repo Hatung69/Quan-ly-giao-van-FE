@@ -1,46 +1,63 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 import { NzMessageService } from "ng-zorro-antd/message";
-import DIADANH_Json from "src/assets/data.json";
-import { DonHangService } from "../../../services/don-hang.service";
-import { KhachHang } from "src/app/models/khach-hang.model";
 import { KhachHangService } from "src/app/services/khach-hang.service";
+import { DonHangService } from "../../../services/don-hang.service";
+import DIADANH_Json from "src/assets/data.json";
+import { HangHoaService } from "../../../services/hang-hoa.service";
+import { HangHoaComponent } from "./hang-hoa/hang-hoa.component";
 
 @Component({
-  selector: "app-welcome",
-  templateUrl: "./tao-don-hang.component.html",
-  styleUrls: ["./tao-don-hang.component.scss"],
+  selector: "app-cap-nhat-don-hang",
+  templateUrl: "./cap-nhat-don-hang.component.html",
+  styleUrls: ["./cap-nhat-don-hang.component.scss"],
 })
-export class TaoDonHangComponent implements OnInit {
+export class CapNhatDonHangComponent implements OnInit {
+  @ViewChild(HangHoaComponent) hhComponent!: HangHoaComponent;
   fileAnhDinhKem!: File;
-  imageURL!: string;
+  base64Data: any;
+  retrievedAvatar: any;
+  donHang: any;
   formDonHang!: FormGroup;
-  dsKhachHang!: KhachHang[];
+  formHangHoa!: FormGroup;
+  idDonHang: any;
 
   diaDanh: any[] = DIADANH_Json;
   diaDanhQuanHuyen: any[] = [];
   diaDanhPhuongXa: any[] = [];
-  selectedIndex = 0;
 
   constructor(
+    private route: ActivatedRoute,
+    private donHangService: DonHangService,
     private fb: FormBuilder,
     private msg: NzMessageService,
-    private donHangService: DonHangService,
-    private khachHangService: KhachHangService
+    private khachHangService: KhachHangService,
+    private hangHoaService: HangHoaService
   ) {}
 
   ngOnInit() {
-    this.createForm();
-    this.khachHangService.dsKhachHang$.subscribe(
-      (res) => {
-        this.dsKhachHang = res;
-      },
-      (err) => {
-        console.log("HTTP Error", err);
-      }
-    );
+    this.nullForm();
+    this.loadFormHangHoa();
+    this.loadDataForm();
   }
 
+  // Load cái dữ liệu cho form
+  loadDataForm = () => {
+    this.idDonHang = this.route.snapshot.paramMap.get("idDonHang");
+    this.donHangService.layDonHangTheoID(this.idDonHang).subscribe(
+      (res) => {
+        this.donHang = res;
+        console.log(this.donHang);
+        this.createForm(this.donHang);
+        this.base64Data = this.donHang.anhDinhKem;
+        this.retrievedAvatar = "data:image/jpeg;base64," + this.base64Data;
+      },
+      (err) => {
+        console.log("HTTP error", err);
+      }
+    );
+  };
   // Xử lý file Avatar
   public handleFile(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
@@ -48,7 +65,7 @@ export class TaoDonHangComponent implements OnInit {
     if (fileList) {
       var reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imageURL = event.target.result;
+        this.retrievedAvatar = event.target.result;
       };
       reader.readAsDataURL(fileList[0]);
       this.fileAnhDinhKem = fileList[0];
@@ -61,11 +78,36 @@ export class TaoDonHangComponent implements OnInit {
     if (tienShip > 15000) this.formDonHang.controls.phiShip.setValue(tienShip);
     else this.formDonHang.controls.phiShip.setValue(15000);
   }
+
+  //Tạo form rỗng
+  nullForm() {
+    this.formDonHang = this.fb.group({
+      tenNguoiNhan: [null],
+      sdtNguoiNhan: [null],
+      diaChi: this.fb.group({
+        tinhThanh: [null],
+        quanHuyen: [null],
+        phuongXa: [null],
+        moTaChiTiet: [null],
+      }),
+      khachHang: this.fb.group({
+        tenKhachHang: [null],
+        sdt: [null],
+        diaChi: [null],
+      }),
+      nguoiTraPhiShip: ["Người nhận trả"],
+      phiShip: [50000, Validators.required],
+      tongTienThuHo: [null],
+      trangThai: [null],
+      ghiChu: [null],
+      thoiGianDuKien: [new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)],
+    });
+  }
   // Tạo form đơn hàng
-  createForm() {
+  createForm(donHang: any) {
     this.formDonHang = this.fb.group({
       tenNguoiNhan: [
-        null,
+        donHang.tenNguoiNhan,
         Validators.compose([
           Validators.required,
           Validators.maxLength(50),
@@ -73,7 +115,7 @@ export class TaoDonHangComponent implements OnInit {
         ]),
       ],
       sdtNguoiNhan: [
-        null,
+        donHang.sdtNguoiNhan,
         Validators.compose([
           Validators.required,
           Validators.maxLength(15),
@@ -81,11 +123,11 @@ export class TaoDonHangComponent implements OnInit {
         ]),
       ],
       diaChi: this.fb.group({
-        tinhThanh: [null],
-        quanHuyen: [null],
-        phuongXa: [null],
+        tinhThanh: [donHang.diaChi.tinhThanh],
+        quanHuyen: [donHang.diaChi.quanHuyen],
+        phuongXa: [donHang.diaChi.phuongXa],
         moTaChiTiet: [
-          "",
+          donHang.diaChi.moTaChiTiet,
           Validators.compose([
             Validators.required,
             Validators.maxLength(50),
@@ -95,7 +137,7 @@ export class TaoDonHangComponent implements OnInit {
       }),
       khachHang: this.fb.group({
         tenKhachHang: [
-          null,
+          donHang.khachHang.tenKhachHang,
           Validators.compose([
             Validators.required,
             Validators.maxLength(50),
@@ -103,7 +145,7 @@ export class TaoDonHangComponent implements OnInit {
           ]),
         ],
         sdt: [
-          null,
+          donHang.khachHang.sdt,
           Validators.compose([
             Validators.required,
             Validators.maxLength(15),
@@ -111,7 +153,7 @@ export class TaoDonHangComponent implements OnInit {
           ]),
         ],
         diaChi: [
-          null,
+          donHang.khachHang.diaChi,
           Validators.compose([
             Validators.required,
             Validators.maxLength(300),
@@ -119,35 +161,35 @@ export class TaoDonHangComponent implements OnInit {
           ]),
         ],
       }),
-      dsHangHoa: this.fb.array([this.newHH()]),
       nguoiTraPhiShip: [
-        "Người nhận trả",
+        donHang.nguoiTraPhiShip,
         Validators.compose([Validators.required]),
       ],
-      phiShip: [15000, Validators.required],
+      phiShip: [donHang.phiShip, Validators.required],
       tongTienThuHo: [
-        null,
+        donHang.tongTienThuHo,
         Validators.compose([
           Validators.required,
           Validators.maxLength(15),
           Validators.pattern(/^[]?\d+$/),
         ]),
       ],
-      ghiChu: ["", Validators.maxLength(300)],
-      thoiGianDuKien: [new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)],
+      trangThai: [donHang.trangThai],
+      ghiChu: [donHang.ghiChu, Validators.maxLength(300)],
+      thoiGianDuKien: [donHang.thoiGianDuKien],
     });
   }
-  // Xử lý tạo đơn hàng
+  // Xử lý tạo đơn hàng ---------
   submitForm() {
-    console.log(this.formDonHang.value);
     const bodyData = new FormData();
-
     bodyData.append("infoDonHang", JSON.stringify(this.formDonHang.value));
-    bodyData.append("fileAnhDinhKem", this.fileAnhDinhKem);
+    if (this.fileAnhDinhKem) {
+      bodyData.append("fileAnhDinhKem", this.fileAnhDinhKem);
+    }
 
-    this.donHangService.taoMoiDonHang(bodyData).subscribe(
+    this.donHangService.capNhatDonHang(this.idDonHang, bodyData).subscribe(
       (res) => {
-        this.msg.success("Tạo thành công!", { nzDuration: 2000 });
+        this.msg.success("Cập nhật thành công!", { nzDuration: 2000 });
         this.khachHangService.loadDSKhachHang();
         this.donHangService.loadDSDonHang();
       },
@@ -176,23 +218,9 @@ export class TaoDonHangComponent implements OnInit {
       .map((dd: any) => dd["Wards"]);
   }
 
-  // ----- Xử lý chọn khách hàng -----
-  valueKH: any;
-  chonKhachHang(value: string) {
-    let tenKH = value.slice(0, value.indexOf("*"));
-    let sdtKH = value.slice(tenKH.length + 1, value.indexOf("^"));
-    let diaChiKH = value.slice(value.indexOf("^") + 1);
-    this.formDonHang.get(["khachHang", "tenKhachHang"])?.setValue(tenKH);
-    this.formDonHang.get(["khachHang", "sdt"])?.setValue(sdtKH);
-    this.formDonHang.get(["khachHang", "diaChi"])?.setValue(diaChiKH);
-  }
-
-  // ----- Xử lý các hàng hoá -----
-  get dsHH(): FormArray {
-    return this.formDonHang.get("dsHangHoa") as FormArray;
-  }
-  newHH(): FormGroup {
-    return this.fb.group({
+  // ---------- Xử lý hàng hoá ------------------
+  loadFormHangHoa() {
+    this.formHangHoa = this.fb.group({
       tenHang: [
         null,
         Validators.compose([
@@ -234,11 +262,50 @@ export class TaoDonHangComponent implements OnInit {
       ],
     });
   }
-  xoaHH(i: any) {
-    this.dsHH.removeAt(i);
+  xoaHangHoa(idHH: any) {
+    this.hangHoaService.xoaHangHoa(idHH).subscribe(
+      (res) => {
+        this.msg.success("Xoá thành thành công!", { nzDuration: 2000 });
+        this.loadDataForm();
+        this.donHangService.loadDSDonHang();
+      },
+      (err) => {
+        console.log("HTTP Error", err);
+        this.msg.error("Xảy ra lỗi.Vui lòng kiểm tra lại!", {
+          nzDuration: 2000,
+        });
+      }
+    );
   }
-  themHH(): void {
-    this.dsHH.push(this.newHH());
-    this.selectedIndex = this.dsHH.length;
+
+  isVisibleFormHH = false;
+
+  showModal(): void {
+    this.isVisibleFormHH = true;
+  }
+
+  handleOk(): void {
+    this.hangHoaService
+      .taoMoiHangHoa(this.donHang.id, this.formHangHoa.value)
+      .subscribe(
+        (res) => {
+          this.loadDataForm();
+          this.donHangService.loadDSDonHang();
+          this.formHangHoa.reset();
+          this.msg.success("Tạo thành công!", { nzDuration: 2000 });
+        },
+        (err) => {
+          console.log("HTTP Error", err);
+          this.msg.error("Xảy ra lỗi.Vui lòng kiểm tra lại!", {
+            nzDuration: 2000,
+          });
+        }
+      );
+    this.isVisibleFormHH = false;
+  }
+
+  handleCancel(): void {
+    console.log("Button cancel clicked!");
+    this.isVisibleFormHH = false;
   }
 }

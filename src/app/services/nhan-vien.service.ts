@@ -31,6 +31,11 @@ export class NhanVienService {
     return this.http.get<NhanVien>(`${API_URL}/${idNhanvien}`);
   }
 
+  // Lấy nhân viên theo tài khoản ID
+  layNhanVienTheoIDAcc(idAcc: string): Observable<NhanVien> {
+    return this.http.get<NhanVien>(`${API_URL}/tai-khoan/${idAcc}`);
+  }
+
   // Tạo mới nhân viên
   taoMoiNhanVien(bodyData: FormData): Observable<any> {
     return this.http.post(API_URL, bodyData);

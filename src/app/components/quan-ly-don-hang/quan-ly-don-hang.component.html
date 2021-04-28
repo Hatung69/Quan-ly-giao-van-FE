@@ -1,0 +1,125 @@
+<div class="head">
+  <div class="left-tilte">
+    <nz-badge
+      [nzCount]="tongDH"
+      [nzStyle]="{
+        backgroundImage:
+          'linear-gradient(
+                to right,
+                #37CCFF,
+                #7B22FF
+              )'
+      }"
+    >
+      <h2>
+        <i nz-icon nzType="table" nzTheme="outline"></i> Danh sách đơn hàng
+        &nbsp;
+      </h2>
+    </nz-badge>
+  </div>
+</div>
+
+<nz-tabset nzSize="large" nzType="line">
+  <nz-tab [nzTitle]="tatCa">
+    <ng-template #tatCa>
+      <i
+        nz-icon
+        [nzType]="'appstore'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'#8e8e8e'"
+      ></i
+      >Tất cả
+    </ng-template>
+    <app-danh-sanh-don-hang [dsDonHang]="dsDonHang"></app-danh-sanh-don-hang>
+  </nz-tab>
+  <nz-tab [nzTitle]="choXacNhan">
+    <ng-template #choXacNhan>
+      <i
+        nz-icon
+        [nzType]="'hdd'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'orange'"
+      ></i
+      >Chờ xác nhận
+    </ng-template>
+    <ng-template nz-tab>
+      <app-danh-sanh-don-hang
+        [dsDonHang]="dsChoXacNhan"
+      ></app-danh-sanh-don-hang>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="choLayHang">
+    <ng-template #choLayHang>
+      <i
+        nz-icon
+        [nzType]="'hdd'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'blue'"
+      ></i
+      >Chờ lấy hàng</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sanh-don-hang
+        [dsDonHang]="dsChoLayHang"
+      ></app-danh-sanh-don-hang>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="dangGiao">
+    <ng-template #dangGiao>
+      <i
+        nz-icon
+        [nzType]="'hdd'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'magenta'"
+      ></i
+      >Đang giao
+    </ng-template>
+    <ng-template nz-tab>
+      <app-danh-sanh-don-hang [dsDonHang]="dsDangGiao"></app-danh-sanh-don-hang>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="hoanThanh">
+    <ng-template #hoanThanh>
+      <i
+        nz-icon
+        [nzType]="'hdd'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'#87d068'"
+      ></i
+      >Hoàn thành</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sanh-don-hang
+        [dsDonHang]="dsHoanThanh"
+      ></app-danh-sanh-don-hang>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="donBiHuy">
+    <ng-template #donBiHuy>
+      <i
+        nz-icon
+        [nzType]="'hdd'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'red'"
+      ></i
+      >Đơn bị huỷ</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sanh-don-hang [dsDonHang]="dsDonBiHuy"></app-danh-sanh-don-hang>
+    </ng-template>
+  </nz-tab>
+  <nz-tab [nzTitle]="traHang">
+    <ng-template #traHang>
+      <i
+        nz-icon
+        [nzType]="'hdd'"
+        [nzTheme]="'twotone'"
+        [nzTwotoneColor]="'purple'"
+      ></i
+      >Trả hàng</ng-template
+    >
+    <ng-template nz-tab>
+      <app-danh-sanh-don-hang [dsDonHang]="dsTraHang"></app-danh-sanh-don-hang>
+    </ng-template>
+  </nz-tab>
+</nz-tabset>

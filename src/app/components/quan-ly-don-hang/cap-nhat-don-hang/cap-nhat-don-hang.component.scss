@@ -1,0 +1,28 @@
+.ant-page-header {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  background-color: #fff;
+}
+.ant-page-header-heading-extra {
+  margin: 0;
+}
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 90%;
+}
+
+td,
+th {
+  text-align: left;
+  padding: 8px;
+  word-break: keep-all;
+}

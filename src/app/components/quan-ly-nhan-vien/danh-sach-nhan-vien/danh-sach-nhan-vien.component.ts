@@ -4,7 +4,6 @@ import { NhanVien } from "../../../models/nhan-vien.models";
 import { NhanVienService } from "../../../services/nhan-vien.service";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { ChiTietNhanVienComponent } from "../chi-tiet-nhan-vien/chi-tiet-nhan-vien.component";
-import { CapNhatNhanVienComponent } from "../cap-nhat-nhan-vien/cap-nhat-nhan-vien.component";
 
 @Component({
   selector: "app-danh-sach-nhan-vien",
@@ -13,8 +12,7 @@ import { CapNhatNhanVienComponent } from "../cap-nhat-nhan-vien/cap-nhat-nhan-vi
 })
 export class DanhSachNhanVienComponent implements OnInit {
   @ViewChild("taoNhanVienTempl") taoNhanVien!: TaoNhanVienComponent;
-  @ViewChild("chiTietNhanVienTempl")
-  chiTietNhanVienTempl!: ChiTietNhanVienComponent;
+  @ViewChild(ChiTietNhanVienComponent) chiTietNV!: ChiTietNhanVienComponent;
   searchText!: string;
   dsNhanVien: NhanVien[] = [];
   tongNV = 0;

@@ -22,6 +22,8 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzListModule } from "ng-zorro-antd/list";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
+import { NzAvatarModule } from "ng-zorro-antd/avatar";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
 
 const AntComponents = [
   NzMessageModule,
@@ -47,6 +49,8 @@ const AntComponents = [
   NzListModule,
   NzCardModule,
   NzInputNumberModule,
+  NzAvatarModule,
+  NzTypographyModule,
 ];
 
 @NgModule({

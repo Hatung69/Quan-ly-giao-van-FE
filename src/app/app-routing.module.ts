@@ -12,7 +12,7 @@ const routes: Routes = [
       import("./components/login/login.module").then((m) => m.LoginModule),
   },
   {
-    path: "tao-don-hang",
+    path: "don-hang",
     loadChildren: () =>
       import("./components/quan-ly-don-hang/quan-ly-don-hang.module").then(
         (m) => m.QuanLyDonHangModule
@@ -37,6 +37,13 @@ const routes: Routes = [
     loadChildren: () =>
       import("./components/quan-ly-nhan-vien/quan-ly-nhan-vien.module").then(
         (m) => m.QuanLyNhanVienModule
+      ),
+  },
+  {
+    path: "tram-trung-chuyen",
+    loadChildren: () =>
+      import("./components/tram-trung-chuyen/tram-trung-chuyen.module").then(
+        (m) => m.TramTrungChuyenModule
       ),
   },
   { path: "", pathMatch: "full", redirectTo: "/home" },

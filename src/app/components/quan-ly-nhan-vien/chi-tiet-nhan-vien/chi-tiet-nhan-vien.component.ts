@@ -7,7 +7,6 @@ import { NhanVienService } from "../../../services/nhan-vien.service";
   styleUrls: ["./chi-tiet-nhan-vien.component.scss"],
 })
 export class ChiTietNhanVienComponent implements OnInit {
-  @Input() idNhanVien!: string;
   isVisible = false;
   nhanVien: any;
   base64Data: any;
@@ -17,8 +16,8 @@ export class ChiTietNhanVienComponent implements OnInit {
 
   ngOnInit() {}
 
-  showModal(): void {
-    this.nhanVienService.layNhanVienTheoID(this.idNhanVien).subscribe(
+  showModal(idNhanVien: any): void {
+    this.nhanVienService.layNhanVienTheoID(idNhanVien).subscribe(
       (res) => {
         this.nhanVien = res;
         this.base64Data = this.nhanVien.avatar;

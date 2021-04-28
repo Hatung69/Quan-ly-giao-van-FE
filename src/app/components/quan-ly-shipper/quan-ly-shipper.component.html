@@ -51,7 +51,7 @@
     </ng-template>
     <app-danh-sach-shipper [dsShipper]="dsShipper"></app-danh-sach-shipper>
   </nz-tab>
-  <nz-tab [nzTitle]="coTheNhanHang" (nzClick)="chuyenTabNhanHang()">
+  <nz-tab [nzTitle]="coTheNhanHang">
     <ng-template #coTheNhanHang>
       <i nz-icon nzType="aliwangwang" nzTheme="outline"></i>Có thể nhận hàng
     </ng-template>
@@ -59,7 +59,7 @@
       <app-danh-sach-shipper [dsShipper]="dsNhanHang"></app-danh-sach-shipper>
     </ng-template>
   </nz-tab>
-  <nz-tab [nzTitle]="dangGiao" (nzClick)="chuyenTabDangGiao()">
+  <nz-tab [nzTitle]="dangGiao">
     <ng-template #dangGiao
       ><i nz-icon nzType="send" nzTheme="outline"></i>Đang giao
       hàng</ng-template
@@ -68,7 +68,7 @@
       <app-danh-sach-shipper [dsShipper]="dsDangGiao"></app-danh-sach-shipper>
     </ng-template>
   </nz-tab>
-  <nz-tab [nzTitle]="tamNghi" (nzClick)="chuyenTabTamNghi()">
+  <nz-tab [nzTitle]="tamNghi">
     <ng-template #tamNghi
       ><i nz-icon nzType="meh" nzTheme="outline"></i>Tạm nghỉ</ng-template
     >
@@ -76,7 +76,7 @@
       <app-danh-sach-shipper [dsShipper]="dsTamNghi"></app-danh-sach-shipper>
     </ng-template>
   </nz-tab>
-  <nz-tab [nzTitle]="biKhoa" (nzClick)="chuyenTabBiKhoa()">
+  <nz-tab [nzTitle]="biKhoa">
     <ng-template #biKhoa
       ><i nz-icon nzType="lock" nzTheme="outline"></i>Bị khoá</ng-template
     >

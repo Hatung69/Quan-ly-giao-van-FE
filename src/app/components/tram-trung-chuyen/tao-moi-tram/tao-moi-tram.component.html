@@ -1,0 +1,64 @@
+<form
+  nz-form
+  [nzLayout]="'inline'"
+  [formGroup]="formTram"
+  (ngSubmit)="submitForm()"
+>
+  <nz-divider nzType="vertical"></nz-divider>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Vui lòng nhập tên trạm!">
+      <nz-input-group nzPrefixIcon="borderless-table">
+        <input
+          formControlName="tenTram"
+          nz-input
+          placeholder="Nhập tên trạm..."
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Vui lòng nhập địa chỉ trạm....">
+      <nz-input-group nzPrefixIcon="home">
+        <input
+          formControlName="diaChi"
+          nz-input
+          placeholder="Nhập địa chỉ..."
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Chọn trạng thái!">
+      <nz-select formControlName="trangThai" nzPlaceHolder="Chọn trạng thái">
+        <nz-option nzValue="Tam_nghi" nzLabel="Tạm nghỉ"></nz-option>
+        <nz-option
+          nzValue="Dang_hoat_dong"
+          nzLabel="Đang hoạt động"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Vui lòng nhập mô tả!">
+      <nz-input-group nzPrefixIcon="file-text" style="width: 300px">
+        <input
+          formControlName="moTa"
+          nz-input
+          placeholder="Nhập mô tả ngắn..."
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button
+        [disabled]="!this.formTram.valid"
+        nz-button
+        nzType="primary"
+        type="submit"
+      >
+        <i nz-icon nzType="appstore-add" nzTheme="outline"></i>Thêm trạm
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -67,13 +67,9 @@
     <tr *ngFor="let data of dataShowing.data | filter: searchText">
       <td>{{ data.id }}</td>
       <td>
-        <a nzType="link" (click)="this.chiTietNhanVienTempl.showModal()"
+        <a nzType="link" (click)="this.chiTietNV.showModal(data.id)"
           ><b class="name">{{ data.hoTen | uppercase }}</b></a
         >
-        <app-chi-tiet-nhan-vien
-          #chiTietNhanVienTempl
-          [idNhanVien]="data.id"
-        ></app-chi-tiet-nhan-vien>
       </td>
       <td>{{ data.sdt }}</td>
       <td>
@@ -111,3 +107,4 @@
 </nz-table>
 <app-chinh-sua-nhan-vien #chinhSuaVienTempl></app-chinh-sua-nhan-vien>
 <app-tao-nhan-vien #taoNhanVienTempl></app-tao-nhan-vien>
+<app-chi-tiet-nhan-vien></app-chi-tiet-nhan-vien>

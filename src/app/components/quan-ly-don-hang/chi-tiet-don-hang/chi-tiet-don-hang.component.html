@@ -1,0 +1,265 @@
+<nz-page-header nzBackIcon>
+  <nz-page-header-title
+    >Đơn hàng
+    <label
+      style="color: #1890ff; border: 2px dotted #1890ff; padding: 0px 5px"
+      >{{ donHang.maDonHang }}</label
+    ></nz-page-header-title
+  >
+  <nz-page-header-subtitle
+    >Xem thông tin chi tiết của đơn hàng</nz-page-header-subtitle
+  >
+  <nz-page-header-extra>
+    <button nz-button nzType="dashed" nzShape="round">
+      <i nz-icon nzType="table" nzTheme="outline"></i>Danh sách
+    </button>
+    <button nz-button>
+      <i nz-icon nzType="close" nzTheme="outline"></i>Huỷ
+    </button>
+    <a
+      nz-button
+      nzType="primary"
+      [routerLink]="['/don-hang/cap-nhat/', donHang.id]"
+      routerLinkActive="router-link-active"
+    >
+      <i nz-icon nzType="edit" nzTheme="outline"></i>Chỉnh sửa
+    </a>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<div nz-row [nzGutter]="24">
+  <div nz-col nzSpan="8">
+    <nz-card nzTitle="Thông tin đơn hàng">
+      <table>
+        <tr>
+          <th><b>Mã đơn hàng:</b></th>
+          <th>
+            <a>{{ donHang.maDonHang }}</a>
+          </th>
+        </tr>
+        <tr>
+          <td><b>Ngày tạo đơn:</b></td>
+          <td>
+            <i>{{ donHang.thoiGianKhoiTao | date: "dd/MM/YYY, h:mm a" }}</i>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Người tạo đơn:</b></td>
+          <td>{{ donHang.nhanVien.hoTen }}</td>
+        </tr>
+        <tr>
+          <td><b>Trạng thái:</b></td>
+          <div [ngSwitch]="donHang.trangThai">
+            <td>
+              <nz-tag *ngSwitchCase="'Cho_xac_nhan'" [nzColor]="'orange'"
+                >Chờ xác nhận</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Cho_lay_hang'" [nzColor]="'blue'"
+                >Chờ lấy hàng</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Dang_giao'" [nzColor]="'magenta'"
+                >Đang giao</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Hoan_thanh'" [nzColor]="'green'"
+                >Hoàn thành</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Don_bi_huy'" [nzColor]="'red'"
+                >Đơn bị huỷ</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Tra_hang'" [nzColor]="'purple'"
+                >Trả hàng</nz-tag
+              >
+            </td>
+          </div>
+        </tr>
+        <tr>
+          <td><b>Tổng số hàng:</b></td>
+          <td>{{ donHang.dsHangHoa.length }} (món)</td>
+        </tr>
+        <tr>
+          <td><b>Thời gian dự kiến:</b></td>
+          <td>
+            <i>{{ donHang.thoiGianDuKien | date: "dd/MM/YYYY" }}</i>
+          </td>
+        </tr>
+      </table>
+    </nz-card>
+    <br />
+    <nz-card nzType="inner" nzTitle="Thông tin hàng hoá">
+      <table *ngFor="let item of donHang.dsHangHoa; index as idx">
+        <nz-badge
+          style="padding: 5px 0px"
+          nzStatus="processing"
+          nzText="Hàng hoá {{ idx + 1 }} -----"
+        ></nz-badge>
+        <tr>
+          <th><b>Tên hàng:</b></th>
+          <th>
+            <a>{{ item.tenHang }}</a>
+          </th>
+        </tr>
+        <tr>
+          <td><b>Giá trị:</b></td>
+          <td>{{ item.giaTri | currency: "VNĐ":"symbol":"1.0-2":"vi" }}</td>
+        </tr>
+        <tr>
+          <td><b>Số lượng:</b></td>
+          <td>{{ item.soLuong }} (món)</td>
+        </tr>
+        <tr>
+          <td><b>Khối lượng:</b></td>
+          <td>{{ item.khoiLuong }} (gam)</td>
+        </tr>
+        <tr>
+          <td><b>Mô tả:</b></td>
+          <td>
+            <i>{{ item.moTa }}</i>
+          </td>
+        </tr>
+      </table>
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="8">
+    <nz-card nzTitle="Thông tin người gửi">
+      <table>
+        <tr>
+          <th><b>Tên người gửi:</b></th>
+          <th>
+            <a>{{ donHang.khachHang.tenKhachHang }}</a>
+          </th>
+        </tr>
+        <tr>
+          <td><b>Tên cửa hàng:</b></td>
+          <td *ngIf="donHang.khachHang.tenCuaHang; else noContent">
+            {{ donHang.khachHang.tenCuaHang }}
+          </td>
+          <ng-template #noContent> <td>Không có</td> </ng-template>
+        </tr>
+        <tr>
+          <td><b>Số điện thoại:</b></td>
+          <td>{{ donHang.khachHang.sdt }}</td>
+        </tr>
+        <tr>
+          <td><b>Địa chỉ:</b></td>
+          <td>
+            <i>{{ donHang.khachHang.diaChi }}</i>
+          </td>
+        </tr>
+      </table>
+    </nz-card>
+    <br />
+    <nz-card nzTitle="Thông tin tài chính">
+      <table>
+        <tr>
+          <td><b>Tổng tiền thu hộ:</b></td>
+          <td>
+            <a>
+              <b>{{
+                donHang.tongTienThuHo | currency: "VNĐ":"symbol":"1.0-2":"vi"
+              }}</b></a
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><b>Phí ship đơn:</b></td>
+          <td>{{ donHang.phiShip | currency: "VNĐ":"symbol":"1.0-2":"vi" }}</td>
+        </tr>
+        <tr>
+          <th><b>Người trả phí ship:</b></th>
+          <th>
+            <nz-tag nzColor="default"
+              ><i>{{ donHang.nguoiTraPhiShip }}</i></nz-tag
+            >
+          </th>
+        </tr>
+        <tr>
+          <td><b>Tổng khối lượng:</b></td>
+          <td>{{ tongKhoiLuongHang }} (gam)</td>
+        </tr>
+        <tr>
+          <td><b>Tổng giá trị hàng:</b></td>
+          <td>
+            {{ tongGiaTriHang | currency: "VNĐ":"symbol":"1.0-2":"vi" }}
+          </td>
+        </tr>
+      </table>
+    </nz-card>
+    <br />
+    <nz-card nzTitle="Thông tin Shipper">
+      <!-- <table>
+        <tr>
+          <th><b>Tên shipper:</b></th>
+          <th>
+            <a>{{ donHang.shipper.hoTen }}</a>
+          </th>
+        </tr>
+        <tr>
+          <td><b>Số điện thoại:</b></td>
+          <td>{{ donHang.shipper.sdt }}</td>
+        </tr>
+        <tr>
+          <td><b>Địa chỉ:</b></td>
+          <td>
+            <i>{{ donHang.shipper.diaChi }}</i>
+          </td>
+        </tr>
+      </table> -->
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="8">
+    <nz-card nzTitle="Thông tin người nhận">
+      <table>
+        <tr>
+          <th><b>Tên người nhận:</b></th>
+          <th>
+            <a>{{ donHang.tenNguoiNhan }}</a>
+          </th>
+        </tr>
+        <tr>
+          <td><b>Số điện thoại:</b></td>
+          <td>{{ donHang.sdtNguoiNhan }}</td>
+        </tr>
+        <tr>
+          <td><b>Tỉnh/Thành:</b></td>
+          <td>{{ donHang.diaChi.tinhThanh }}</td>
+        </tr>
+        <tr>
+          <td><b>Quận/Huyện:</b></td>
+          <td>{{ donHang.diaChi.quanHuyen }}</td>
+        </tr>
+        <tr>
+          <td><b>Phường/Xã:</b></td>
+          <td>{{ donHang.diaChi.phuongXa }}</td>
+        </tr>
+        <tr>
+          <td><b>Địa chỉ chi tiết:</b></td>
+          <td>
+            <i>{{ donHang.diaChi.moTaChiTiet }}</i>
+          </td>
+        </tr>
+      </table>
+    </nz-card>
+    <br />
+    <nz-card nzTitle="Thông tin phụ">
+      <table>
+        <tr>
+          <b> <i style="color: red">Ghi chú: </i></b>
+          {{
+            donHang.ghiChu
+          }}
+        </tr>
+      </table>
+      <br />
+      <div style="margin: auto; text-align: center">
+        <img
+          nz-image
+          width="100%"
+          [nzSrc]="retrievedAvatar"
+          alt="Ảnh đính kèm"
+        />
+        <br />
+        <small>Ảnh đính kèm</small>
+      </div>
+    </nz-card>
+  </div>
+</div>

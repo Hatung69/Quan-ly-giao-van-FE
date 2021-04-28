@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject } from "rxjs";
-import { NhanVien } from "../models/nhan-vien.models";
+import { Observable, BehaviorSubject, Subject } from "rxjs";
 
 const API_URL = "http://localhost:8080/api/don-hang";
 
@@ -9,26 +8,35 @@ const API_URL = "http://localhost:8080/api/don-hang";
   providedIn: "root",
 })
 export class DonHangService {
-  dsNhanVien$ = new BehaviorSubject<NhanVien[]>([]);
+  dsDonHang$ = new BehaviorSubject<any[]>([]);
 
   constructor(private http: HttpClient) {
-    this.loadDSNhanVien();
+    this.loadDSDonHang();
   }
 
-  loadDSNhanVien() {
+  loadDSDonHang() {
     this.layDSDonHang().subscribe((data) => {
-      this.dsNhanVien$.next(data);
+      this.dsDonHang$.next(data);
     });
   }
 
-  // Lấy danh sách đơn hàng
-  layDSDonHang(): Observable<NhanVien[]> {
-    return this.http.get<NhanVien[]>(API_URL);
+  // Trên trạm cho đơn hàng
+  themTram(idDonHang: string, idTram: string): Observable<any[]> {
+    return this.http.get<any[]>(`${API_URL}/them-tram/${idDonHang}/${idTram}`);
   }
 
-  // Lấy đơn hàng
-  layDonHangTheoID(idNhanvien: string): Observable<NhanVien> {
-    return this.http.get<NhanVien>(`${API_URL}/${idNhanvien}`);
+  // Lấy danh sách đơn hàng
+  layDSDonHang(): Observable<any[]> {
+    return this.http.get<any[]>(API_URL);
+  }
+
+  // Lấy đơn hàng theo ID
+  layDonHangTheoID(idDonHang: string): Observable<any> {
+    return this.http.get(`${API_URL}/${idDonHang}`);
+  }
+  // Lấy đơn hàng theo Mã đơn hàng
+  layDonHangTheoMaDon(maDonHang: string): Observable<any> {
+    return this.http.get(`${API_URL}/ma-don/${maDonHang}`);
   }
 
   // Tạo mới đơn hàng
@@ -37,12 +45,12 @@ export class DonHangService {
   }
 
   // Cập nhật đơn hàng
-  capNhatDonHang(idNhanvien: string, bodyData: FormData): Observable<any> {
-    return this.http.put(`${API_URL}/${idNhanvien}`, bodyData);
+  capNhatDonHang(idDonHang: string, bodyData: FormData): Observable<any> {
+    return this.http.put(`${API_URL}/${idDonHang}`, bodyData);
   }
 
-  //Xoá đơn hàng
-  xoaDonHang(idNhanvien: string): Observable<any> {
-    return this.http.delete(`${API_URL}/${idNhanvien}`);
-  }
+  // //Xoá đơn hàng
+  // xoaDonHang(idNhanvien: string): Observable<any> {
+  //   return this.http.delete(`${API_URL}/${idNhanvien}`);
+  // }
 }
