@@ -5,6 +5,7 @@ import DIADANH_Json from "src/assets/data.json";
 import { DonHangService } from "../../../services/don-hang.service";
 import { KhachHang } from "src/app/models/khach-hang.model";
 import { KhachHangService } from "src/app/services/khach-hang.service";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "app-welcome",
@@ -26,7 +27,8 @@ export class TaoDonHangComponent implements OnInit {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private donHangService: DonHangService,
-    private khachHangService: KhachHangService
+    private khachHangService: KhachHangService,
+    private modal: NzModalService
   ) {}
 
   ngOnInit() {
@@ -57,11 +59,12 @@ export class TaoDonHangComponent implements OnInit {
   //Tính tiền Ship
   tinhTienShip(value: number) {
     let tienShip = 0;
-    tienShip = (1 * value) / 100;
+    tienShip = (1.3 * value) / 100;
     if (tienShip > 15000) this.formDonHang.controls.phiShip.setValue(tienShip);
     else this.formDonHang.controls.phiShip.setValue(15000);
   }
   // Tạo form đơn hàng
+  thoiGianDuKien = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
   createForm() {
     this.formDonHang = this.fb.group({
       tenNguoiNhan: [
@@ -81,14 +84,14 @@ export class TaoDonHangComponent implements OnInit {
         ]),
       ],
       diaChi: this.fb.group({
-        tinhThanh: [null],
-        quanHuyen: [null],
-        phuongXa: [null],
+        tinhThanh: [""],
+        quanHuyen: [""],
+        phuongXa: [""],
         moTaChiTiet: [
           "",
           Validators.compose([
             Validators.required,
-            Validators.maxLength(50),
+            Validators.maxLength(300),
             Validators.pattern(/(.|\s)*\S(.|\s)*/),
           ]),
         ],
@@ -137,9 +140,13 @@ export class TaoDonHangComponent implements OnInit {
       thoiGianDuKien: [new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)],
     });
   }
+
+  lamMoiForm() {
+    this.createForm();
+    this.formDonHang.reset(this.formDonHang.value);
+  }
   // Xử lý tạo đơn hàng
   submitForm() {
-    console.log(this.formDonHang.value);
     const bodyData = new FormData();
 
     bodyData.append("infoDonHang", JSON.stringify(this.formDonHang.value));
@@ -147,14 +154,18 @@ export class TaoDonHangComponent implements OnInit {
 
     this.donHangService.taoMoiDonHang(bodyData).subscribe(
       (res) => {
-        this.msg.success("Tạo thành công!", { nzDuration: 2000 });
+        this.modal.success({
+          nzTitle: "Tạo thành công!",
+          nzContent: "Đã thêm mới một Đơn hàng.",
+        });
         this.khachHangService.loadDSKhachHang();
         this.donHangService.loadDSDonHang();
       },
       (err) => {
         console.log("HTTP Error", err);
-        this.msg.error("Xảy ra lỗi.Vui lòng kiểm tra lại!", {
-          nzDuration: 2000,
+        this.modal.error({
+          nzTitle: "Xảy ra lỗi!",
+          nzContent: "Vui lòng kiểm tra lại...",
         });
       }
     );
@@ -167,6 +178,15 @@ export class TaoDonHangComponent implements OnInit {
         if (dd.Name === tenTinh) return dd["Districts"];
       })
       .map((dd) => dd["Districts"]);
+    this.formDonHang
+      .get(["diaChi", "moTaChiTiet"])
+      ?.setValue(
+        this.formDonHang.get(["diaChi", "tinhThanh"])?.value +
+          " - " +
+          this.formDonHang.get(["diaChi", "quanHuyen"])?.value +
+          " - " +
+          this.formDonHang.get(["diaChi", "phuongXa"])?.value
+      );
   }
   chonPhuongXa(tenQuan: string): void {
     this.diaDanhPhuongXa = this.diaDanhQuanHuyen[0]
@@ -174,6 +194,26 @@ export class TaoDonHangComponent implements OnInit {
         if (dd.Name === tenQuan) return dd["Wards"];
       })
       .map((dd: any) => dd["Wards"]);
+    this.formDonHang
+      .get(["diaChi", "moTaChiTiet"])
+      ?.setValue(
+        this.formDonHang.get(["diaChi", "tinhThanh"])?.value +
+          " - " +
+          this.formDonHang.get(["diaChi", "quanHuyen"])?.value +
+          " - " +
+          this.formDonHang.get(["diaChi", "phuongXa"])?.value
+      );
+  }
+  eventPhuongXa() {
+    this.formDonHang
+      .get(["diaChi", "moTaChiTiet"])
+      ?.setValue(
+        this.formDonHang.get(["diaChi", "tinhThanh"])?.value +
+          " - " +
+          this.formDonHang.get(["diaChi", "quanHuyen"])?.value +
+          " - " +
+          this.formDonHang.get(["diaChi", "phuongXa"])?.value
+      );
   }
 
   // ----- Xử lý chọn khách hàng -----

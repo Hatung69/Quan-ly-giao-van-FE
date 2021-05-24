@@ -3,6 +3,7 @@ export interface TramTrungChuyen {
   maTram: string;
   tenTram: string;
   diaChi: string;
+  sdt: string;
   trangThai: string;
   moTa: string;
 

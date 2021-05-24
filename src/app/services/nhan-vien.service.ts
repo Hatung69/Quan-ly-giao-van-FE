@@ -32,8 +32,12 @@ export class NhanVienService {
   }
 
   // Lấy nhân viên theo tài khoản ID
-  layNhanVienTheoIDAcc(idAcc: string): Observable<NhanVien> {
-    return this.http.get<NhanVien>(`${API_URL}/tai-khoan/${idAcc}`);
+  layNhanVienTheoIDAcc(idAcc: string): Observable<any> {
+    return this.http.get<any>(`${API_URL}/tai-khoan/${idAcc}`);
+  }
+  // Lấy nhân viên theo tài khoản ID
+  layNhanVienTheoTKid(idAcc: string): Observable<NhanVien> {
+    return this.http.get<NhanVien>(`${API_URL}/tai-khoan-id/${idAcc}`);
   }
 
   // Tạo mới nhân viên

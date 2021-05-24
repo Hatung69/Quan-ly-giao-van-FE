@@ -31,7 +31,7 @@
         </ul>
       </li>
       <!-- Module Shipper -->
-      <li nz-submenu nzTitle="Shipper" nzIcon="car">
+      <li nz-submenu nzOpen nzTitle="Shipper" nzIcon="car">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="solution" nzTheme="outline"></i>
@@ -42,15 +42,9 @@
             >
           </li>
         </ul>
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <i nz-icon nzType="transaction" nzTheme="outline"></i>
-            <a>Thu tiền Shipper</a>
-          </li>
-        </ul>
       </li>
       <!-- Module Khách hàng -->
-      <li nz-submenu nzTitle="Khách hàng" nzIcon="shop">
+      <li nz-submenu nzOpen nzTitle="Khách hàng" nzIcon="shop">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="audit" nzTheme="outline"></i>
@@ -59,12 +53,6 @@
               routerLinkActive="router-link-active"
               >Danh sách khách hàng</a
             >
-          </li>
-        </ul>
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <i nz-icon nzType="dollar-circle" nzTheme="outline"></i>
-            <a>Đối soát khách hàng</a>
           </li>
         </ul>
       </li>
@@ -78,20 +66,17 @@
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="area-chart" nzTheme="outline"></i>
-            <a>Thống kê chung</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <i nz-icon nzType="area-chart" nzTheme="outline"></i>
-            <a>Thống kê chung</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <i nz-icon nzType="area-chart" nzTheme="outline"></i>
-            <a>Thống kê chung</a>
+            <a
+              [routerLink]="['/thong-ke']"
+              routerLinkActive="router-link-active"
+              >Thống kê chung</a
+            >
           </li>
         </ul>
       </li>
       <!-- Module Quản lý nhân viên -->
       <li
+        nzOpen
         nz-submenu
         nzTitle="Quản lý nhân viên"
         nzIcon="team"
@@ -106,7 +91,6 @@
       </li>
       <!-- Module Trạm trung chuyển -->
       <li
-        nzOpen
         nz-submenu
         nzTitle="Trạm trung chuyển"
         nzIcon="reconciliation"
@@ -135,12 +119,9 @@
     <nz-header *ngIf="isLoggedIn">
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
         <li nz-menu-item nzSelected>
-          <a nz-buttonnzType="link">
-            <nz-avatar
-              nzIcon="user"
-              nzSrc="https://i.pinimg.com/originals/96/47/45/964745588c1e2642f91e2f3a9dc15594.jpg"
-            ></nz-avatar>
-            {{ username | uppercase }}</a
+          <a nz-buttonnzType="link" (click)="isVisible = true">
+            <nz-avatar nzIcon="user" [nzSrc]="retrievedAvatar"></nz-avatar>
+            {{ nhanVien?.hoTen | uppercase }}</a
           >
         </li>
         <li nz-menu-item>
@@ -157,3 +138,168 @@
     <nz-footer>Hà Việt Tùng ©2021 Tiểu luận Quản lý giao vận</nz-footer>
   </nz-layout>
 </nz-layout>
+
+<!-- Chi tiết tài khoản -->
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Thông tin tài khoản"
+  [nzWidth]="800"
+  (nzOnCancel)="handleCancel()"
+  [nzFooter]="modalFooter"
+>
+  <ng-container *nzModalContent>
+    <div class="container">
+      <div class="left">
+        <nz-descriptions [nzColumn]="2" [nzTitle]="hoTen">
+          <ng-template #hoTen>
+            <label
+              style="
+                color: #ff0000;
+                border: 2px solid #000000;
+                padding: 0px 5px;
+              "
+              >{{ nhanVien.hoTen }}</label
+            >
+          </ng-template>
+          <nz-descriptions-item nzTitle="E-mail" [nzSpan]="1">{{
+            nhanVien.taiKhoan.email
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="ID" [nzSpan]="1">{{
+            nhanVien.id
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Giới tính" [nzSpan]="1">{{
+            nhanVien.gioiTinh
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="SĐT" [nzSpan]="1">{{
+            nhanVien.sdt
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Ngày sinh" [nzSpan]="1">{{
+            nhanVien.ngaySinh | date: "dd-MM-YYYY"
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Chức vụ" [nzSpan]="1"
+            ><div *ngIf="nhanVien.taiKhoan.quyenHan.length > 1; else employee">
+              Quản lý trong hệ thống
+            </div></nz-descriptions-item
+          >
+          <ng-template #employee>Nhân viên trong hệ thống</ng-template>
+          <nz-descriptions-item
+            *ngIf="nhanVien.trangThai === 'Dang_hoat_dong'; else tamNghi"
+            nzTitle="Trạng thái"
+            [nzSpan]="1"
+          >
+            <nz-tag nzColor="success"
+              >Đang hoạt động</nz-tag
+            ></nz-descriptions-item
+          >
+          <ng-template #tamNghi>
+            <nz-descriptions-item nzTitle="Trạng thái" [nzSpan]="1">
+              <nz-tag nzColor="warning">Tạm nghỉ</nz-tag></nz-descriptions-item
+            ></ng-template
+          >
+          <nz-descriptions-item nzTitle="Lần cuối đăng nhập" [nzSpan]="1"
+            ><i>{{
+              nhanVien.lanCuoiDangNhap | date: "short"
+            }}</i></nz-descriptions-item
+          >
+          <nz-descriptions-item nzTitle="Thời gian khởi tạo" [nzSpan]="1"
+            ><i>{{
+              nhanVien.thoiGianKhoiTao | date: "short"
+            }}</i></nz-descriptions-item
+          >
+          <nz-descriptions-item nzTitle="Lần cập nhật cuối" [nzSpan]="1"
+            ><i>{{
+              nhanVien.thoiGianChinhSua | date: "short"
+            }}</i></nz-descriptions-item
+          >
+
+          <nz-descriptions-item nzTitle="Địa chỉ" [nzSpan]="2">{{
+            nhanVien.diaChi
+          }}</nz-descriptions-item>
+        </nz-descriptions>
+      </div>
+      <div class="right">
+        <p><b>Hình đại diện</b></p>
+        <img
+          nz-image
+          width="200px"
+          height="200px"
+          [nzSrc]="retrievedAvatar"
+          alt="Ảnh đại diện"
+        />
+        <br />
+        <small>Ấn vào để xem đầy đủ</small>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Huỷ</button>
+    <button nz-button nzType="primary" (click)="showModal()">
+      Thay đổi mật khẩu
+    </button>
+  </ng-template>
+</nz-modal>
+
+<!-- Thay đổi pass -->
+<nz-modal
+  [(nzVisible)]="isVisibleFormHH"
+  nzTitle="Thay đổi mật khẩu"
+  (nzOnCancel)="handleCancelForm()"
+  [nzFooter]="modalFooterForm"
+  [nzWidth]="500"
+>
+  <ng-container *nzModalContent>
+    <form [formGroup]="validateForm">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired
+          >Mật khẩu mới</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="Vui lòng nhập mật khẩu, ít nhất 6 ký tự!"
+        >
+          <input
+            nz-input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="Nhập mật khẩu mới..."
+            (ngModelChange)="updateConfirmValidator()"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired
+          >Xác nhận</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+          <input
+            nz-input
+            type="password"
+            formControlName="checkPassword"
+            placeholder="Xác nhận lại mật khẩu mới..."
+            id="checkPassword"
+          />
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Vui lòng xác nhận mật khẩu!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('confirm')">
+              2 mật khẩu chưa khớp nhau!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+  <ng-template #modalFooterForm>
+    <button
+      [disabled]="!this.validateForm.valid"
+      nz-button
+      nzType="primary"
+      (click)="handleChangPass()"
+    >
+      Thay đổi
+    </button>
+  </ng-template>
+</nz-modal>

@@ -3,7 +3,6 @@
   display: block;
   margin-bottom: 5px;
   .left-tilte {
-    margin-top: 11px;
     float: left;
     h2 {
       font-weight: bolder;
@@ -14,7 +13,6 @@
   .right-button {
     display: flex;
     float: right;
-    width: 25rem;
     margin-right: 5px;
   }
 }
@@ -32,6 +30,13 @@
   }
   .delete:hover {
     color: rgba(153, 4, 4, 0.856);
+    font-weight: bold;
+  }
+  .forget {
+    color: rgb(119, 0, 255);
+  }
+  .forget:hover {
+    color: rgba(77, 2, 199, 0.856);
     font-weight: bold;
   }
 }

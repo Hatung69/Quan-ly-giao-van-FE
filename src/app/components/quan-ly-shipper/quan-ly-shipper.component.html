@@ -1,20 +1,9 @@
 <div class="head">
   <div class="left-tilte">
-    <nz-badge
-      [nzCount]="34"
-      [nzStyle]="{
-        backgroundImage:
-          'linear-gradient( 180deg,  rgba(155,254,23,1) 45.5%, rgba(36,243,8,1) 97.9% )',
-        color: 'black'
-      }"
-    >
-      <a class="head-example"
-        ><h2>
-          <i nz-icon nzType="solution" nzTheme="outline"></i> Danh sách shipper
-          &nbsp;&nbsp;
-        </h2></a
-      >
-    </nz-badge>
+    <h2>
+      <i nz-icon nzType="solution" nzTheme="outline"></i> Danh sách shipper
+      &nbsp;&nbsp;
+    </h2>
   </div>
   <div class="right-button">
     <nz-input-group
@@ -22,13 +11,25 @@
       [nzAddOnAfter]="suffixIconButton"
       [nzPrefix]="prefixTemplateUser"
     >
-      <input type="search" nz-input placeholder="Nhập thông tin nhân viên..." />
+      <input
+        type="search"
+        style="width: 300px"
+        [(ngModel)]="searchText"
+        #filterInput="ngModel"
+        nz-input
+        placeholder="Nhập Tên, sđt, địa chỉ Shipper cần tìm kiếm..."
+      />
     </nz-input-group>
     <ng-template #prefixTemplateUser
       ><i nz-icon nzType="search"></i
     ></ng-template>
     <ng-template #suffixIconButton>
-      <button nz-button nzSearch nzType="primary">
+      <button
+        nz-button
+        nzSearch
+        nzType="primary"
+        (click)="this.filterInput.control.reset(null)"
+      >
         <i nz-icon nzType="clear"></i>
       </button>
     </ng-template>

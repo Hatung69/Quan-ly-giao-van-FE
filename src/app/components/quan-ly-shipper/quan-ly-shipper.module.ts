@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PipesCustomModule } from "src/app/pipes/pipe-custom.module";
 import { NgZorroModule } from "src/app/ng-zorro.module";
 import { DanhSachShipperComponent } from "./danh-sach-shipper/danh-sach-shipper.component";
-import { DataTablesModule } from "angular-datatables";
+import { ChiTietShipperComponent } from "./chi-tiet-shipper/chi-tiet-shipper.component";
 
 export const routes: Routes = [
   {
@@ -41,6 +41,7 @@ export const routes: Routes = [
     TaoMoiShipperComponent,
     CapNhatShipperComponent,
     DanhSachShipperComponent,
+    ChiTietShipperComponent,
   ],
 })
 export class QuanLyShipperModule {}

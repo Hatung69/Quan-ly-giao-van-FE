@@ -22,7 +22,7 @@ export class TramTrungChuyenComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private tramTrungChuyenService: TramTrungChuyenService,
-    private modal: NzModalService,
+
     private msg: NzMessageService
   ) {}
 
@@ -35,6 +35,7 @@ export class TramTrungChuyenComponent implements OnInit {
     this.formTram = this.fb.group({
       tenTram: [null],
       diaChi: [null],
+      sdt: [],
       trangThai: [null],
       moTa: [null],
     });
@@ -99,6 +100,14 @@ export class TramTrungChuyenComponent implements OnInit {
           Validators.required,
           Validators.maxLength(300),
           Validators.pattern(/(.|\s)*\S(.|\s)*/),
+        ]),
+      ],
+      sdt: [
+        tram.sdt,
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.pattern(/^[0-9]*$/),
         ]),
       ],
       trangThai: [tram.trangThai, Validators.compose([Validators.required])],

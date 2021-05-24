@@ -1,4 +1,11 @@
 ul {
   margin-left: 15px;
   list-style-type: circle;
+  li {
+    padding: 3px;
+  }
+}
+.send-request {
+  float: right;
+  margin-top: -16.5px;
 }

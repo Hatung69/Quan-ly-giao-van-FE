@@ -1,0 +1,68 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Thông tin chi tiết"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzWidth]="600"
+>
+  <ng-container *nzModalContent>
+    <div class="container">
+      <div class="left">
+        <nz-descriptions [nzColumn]="2" [nzTitle]="hoTen">
+          <ng-template #hoTen>
+            <label
+              style="
+                color: #1890ff;
+                border: 2px solid #1890ff;
+                padding: 0px 5px;
+              "
+              >{{ shipper.hoTen }}</label
+            >
+          </ng-template>
+          <nz-descriptions-item nzTitle="ID" [nzSpan]="1">{{
+            shipper.id
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="SĐT" [nzSpan]="1">{{
+            shipper.sdt
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Trạng thái" [nzSpan]="1">
+            <div [ngSwitch]="shipper.trangThai">
+              <nz-tag *ngSwitchCase="'Co_the_nhan_hang'" nzColor="success"
+                >Có thể nhận hàng</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Dang_giao_hang'" nzColor="blue"
+                >Đang giao hàng</nz-tag
+              >
+              <nz-tag *ngSwitchCase="'Bi_khoa'" nzColor="red">Bị khoá</nz-tag>
+              <nz-tag *ngSwitchCase="'Tam_nghi'" nzColor="gold"
+                >Tạm nghỉ</nz-tag
+              >
+            </div>
+          </nz-descriptions-item>
+
+          <nz-descriptions-item nzTitle="E-mail" [nzSpan]="1">{{
+            shipper.email
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="CMND" [nzSpan]="1"
+            >{{ shipper.cmnd }}
+          </nz-descriptions-item>
+
+          <nz-descriptions-item nzTitle="Thời gian khởi tạo" [nzSpan]="1"
+            ><i>{{
+              shipper.thoiGianKhoiTao | date: "short"
+            }}</i></nz-descriptions-item
+          >
+          <nz-descriptions-item nzTitle="Lần cập nhật cuối" [nzSpan]="1"
+            ><i>{{
+              shipper.thoiGianCapNhat | date: "short"
+            }}</i></nz-descriptions-item
+          >
+
+          <nz-descriptions-item nzTitle="Địa chỉ" [nzSpan]="2">{{
+            shipper.diaChi
+          }}</nz-descriptions-item>
+        </nz-descriptions>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>

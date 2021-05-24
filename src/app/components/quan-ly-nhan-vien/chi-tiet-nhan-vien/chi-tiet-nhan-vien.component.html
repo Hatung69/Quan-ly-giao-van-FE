@@ -34,9 +34,12 @@
           <nz-descriptions-item nzTitle="Ngày sinh" [nzSpan]="1">{{
             nhanVien.ngaySinh | date: "dd-MM-YYYY"
           }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Chức vụ" [nzSpan]="1">{{
-            nhanVien.taiKhoan.quyenHan[0].moTa
-          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Chức vụ" [nzSpan]="1"
+            ><div *ngIf="nhanVien.taiKhoan.quyenHan.length > 1; else employee">
+              Quản lý trong hệ thống
+            </div></nz-descriptions-item
+          >
+          <ng-template #employee>Nhân viên trong hệ thống</ng-template>
           <nz-descriptions-item
             *ngIf="nhanVien.trangThai === 'Dang_hoat_dong'; else tamNghi"
             nzTitle="Trạng thái"

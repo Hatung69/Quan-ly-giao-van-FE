@@ -14,6 +14,13 @@ import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzAvatarModule } from "ng-zorro-antd/avatar";
 import { NzResultModule } from "ng-zorro-antd/result";
+import { NzModalModule } from "ng-zorro-antd/modal";
+import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzTagModule } from "ng-zorro-antd/tag";
+import { NzImageModule } from "ng-zorro-antd/image";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzFormModule } from "ng-zorro-antd/form";
+import { NzInputModule } from "ng-zorro-antd/input";
 
 import { AppComponent } from "./app.component";
 import { IconsProviderModule } from "./icons-provider.module";
@@ -38,6 +45,13 @@ registerLocaleData(vi);
     IconsProviderModule,
     NzAvatarModule,
     NzResultModule,
+    NzModalModule,
+    NzDescriptionsModule,
+    NzTagModule,
+    NzImageModule,
+    NzButtonModule,
+    NzInputModule,
+    NzFormModule,
   ],
   providers: [
     {

@@ -4,11 +4,16 @@
     >Thêm mới một Shipper vào hệ thống</nz-page-header-subtitle
   >
   <nz-page-header-extra>
-    <button nz-button nzType="dashed" nzShape="round">
+    <a
+      [routerLink]="['/quan-ly-shipper']"
+      nz-button
+      nzType="dashed"
+      nzShape="round"
+    >
+      <i nz-icon nzType="audit" nzTheme="outline"></i>Danh sách
+    </a>
+    <button nz-button (click)="this.formShipper.reset()">
       <i nz-icon nzType="clear" nzTheme="outline"></i>Làm mới
-    </button>
-    <button nz-button>
-      <i nz-icon nzType="close" nzTheme="outline"></i>Huỷ
     </button>
     <button
       [disabled]="!this.formShipper.valid"

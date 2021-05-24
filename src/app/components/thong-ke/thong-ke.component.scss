@@ -1,0 +1,16 @@
+.head {
+  overflow: hidden;
+  display: block;
+  margin-bottom: 5px;
+  .left-tilte {
+    float: left;
+    h2 {
+      font-weight: bolder;
+      font-family: "Pacifico", cursive;
+    }
+  }
+
+  .right-button {
+    float: right;
+  }
+}

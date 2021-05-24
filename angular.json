@@ -44,6 +44,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies":["date-fns/locale"],
             "outputPath": "dist/Quan-ly-giao-van-FE",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -66,7 +67,9 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/pdfmake/build/pdfmake.min.js",
+							"node_modules/pdfmake/build/vfs_fonts.js"
             ]
           },
           "configurations": {

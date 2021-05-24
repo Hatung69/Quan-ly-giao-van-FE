@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { TramTrungChuyen } from "src/app/models/tram-trung-chuyen.model";
 import { NhanVienService } from "src/app/services/nhan-vien.service";
+import { TramTrungChuyenService } from "src/app/services/tram-trung-chuyen.service";
 import { NhanVien } from "../../../models/nhan-vien.models";
 
 @Component({
@@ -12,6 +14,7 @@ import { NhanVien } from "../../../models/nhan-vien.models";
 export class CapNhatNhanVienComponent implements OnInit {
   visible = false;
   formNhanVien!: FormGroup;
+  dsTram!: TramTrungChuyen[];
   nhanVien: any;
   idNhanvien!: string;
   avatarFile!: File;
@@ -21,7 +24,8 @@ export class CapNhatNhanVienComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private fb: FormBuilder,
-    private nhanVienService: NhanVienService
+    private nhanVienService: NhanVienService,
+    private tramService: TramTrungChuyenService
   ) {}
 
   ngOnInit() {
@@ -33,7 +37,17 @@ export class CapNhatNhanVienComponent implements OnInit {
       ngaySinh: [null],
       diaChi: [null],
       trangThai: [null],
+      quyenHan: [null],
     });
+
+    this.tramService.dsTram$.subscribe(
+      (res) => {
+        this.dsTram = res;
+      },
+      (err) => {
+        console.log("HTTP Error", err);
+      }
+    );
   }
 
   // Xử lý file Avatar
@@ -50,7 +64,7 @@ export class CapNhatNhanVienComponent implements OnInit {
     }
   }
 
-  createForm(nhanVienData: NhanVien) {
+  createForm(nhanVienData: any) {
     this.formNhanVien = this.fb.group({
       id: [nhanVienData.id],
       hoTen: [
@@ -89,6 +103,12 @@ export class CapNhatNhanVienComponent implements OnInit {
         nhanVienData.trangThai,
         Validators.compose([Validators.required]),
       ],
+      quyenHan: [
+        nhanVienData.taiKhoan.quyenHan.length > 1
+          ? "ROLE_ADMIN"
+          : "ROLE_EMPLOYEE",
+        Validators.compose([Validators.required]),
+      ],
     });
   }
 
@@ -120,6 +140,7 @@ export class CapNhatNhanVienComponent implements OnInit {
     this.nhanVienService.layNhanVienTheoID(this.idNhanvien).subscribe(
       (res) => {
         this.nhanVien = res;
+        console.log(res);
         this.createForm(this.nhanVien);
         this.base64Data = this.nhanVien.avatar;
         this.retrievedAvatar = "data:image/jpeg;base64," + this.base64Data;

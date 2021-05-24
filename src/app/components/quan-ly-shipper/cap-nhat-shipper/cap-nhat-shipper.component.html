@@ -1,3 +1,149 @@
-<p>
-  cap-nhat-shipper works!
-</p>
+<nz-page-header nzBackIcon>
+  <nz-page-header-title>Cập nhật Shipper</nz-page-header-title>
+  <nz-page-header-subtitle
+    >Chỉnh sửa lại thông thông của Shipper</nz-page-header-subtitle
+  >
+  <nz-page-header-extra>
+    <a
+      [routerLink]="['/quan-ly-shipper']"
+      nz-button
+      nzType="dashed"
+      nzShape="round"
+    >
+      <i nz-icon nzType="audit" nzTheme="outline"></i>Danh sách
+    </a>
+    <button
+      nzShape="round"
+      [disabled]="!this.formShipper.valid"
+      nz-button
+      nzType="primary"
+      (click)="submitForm()"
+    >
+      <i nz-icon nzType="check" nzTheme="outline"></i>Hoàn tất
+    </button>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <div class="container_form">
+      <div class="left_side">
+        <img
+          height="400px"
+          src="../assets/img/shipper_1.jpg"
+          alt="Background"
+        />
+      </div>
+      <div class="right_side">
+        <form nz-form class="login-form" [formGroup]="formShipper">
+          <div>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Họ tên</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập tên Shipper!"
+              >
+                <input
+                  formControlName="hoTen"
+                  type="text"
+                  nz-input
+                  placeholder="Nhập tên shipper..."
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Số điện thoại</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số điện thoại"
+              >
+                <input
+                  formControlName="sdt"
+                  placeholder="Nhập số điện thoại..."
+                  type="text"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Địa chỉ</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập địa chỉ!"
+              >
+                <input
+                  formControlName="diaChi"
+                  placeholder="Nhập địa chỉ shipper..."
+                  type="text"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >E-mail</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập địa chỉ email!"
+              >
+                <input
+                  formControlName="email"
+                  placeholder="Nhập email..."
+                  type="email"
+                  nz-input
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Số CMND</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng nhập số CMND!"
+              >
+                <nz-input-group nzAddOnAfterIcon="idcard">
+                  <input
+                    formControlName="cmnd"
+                    type="text"
+                    placeholder="Nhập số CMND..."
+                    nz-input
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                >Trạng thái</nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Vui lòng chọn trạng thái!"
+              >
+                <nz-select
+                  nzPlaceHolder="Chọn trạng thái"
+                  formControlName="trangThai"
+                >
+                  <nz-option
+                    nzValue="Co_the_nhan_hang"
+                    nzLabel="Có thể nhận hàng"
+                  ></nz-option>
+                  <nz-option
+                    nzValue="Dang_giao_hang"
+                    nzLabel="Đang giao hàng"
+                  ></nz-option>
+                  <nz-option nzValue="Tam_nghi" nzLabel="Tạm nghỉ"></nz-option>
+                  <nz-option nzValue="Bi_khoa" nzLabel="Bị khoá"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nz-page-header-content>
+</nz-page-header>

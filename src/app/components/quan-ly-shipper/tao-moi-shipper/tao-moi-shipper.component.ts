@@ -67,7 +67,7 @@ export class TaoMoiShipperComponent implements OnInit {
         ]),
       ],
       trangThai: [
-        null,
+        "Co_the_nhan_hang",
         Validators.compose([Validators.required, Validators.maxLength(50)]),
       ],
     });
@@ -77,7 +77,7 @@ export class TaoMoiShipperComponent implements OnInit {
     this.shipperService.taoMoiShipper(this.formShipper.value).subscribe(
       (res) => {
         this.msg.success("Tạo thành công!", { nzDuration: 2000 });
-        // this.formShipper.reset();
+        this.formShipper.reset();
       },
       (err) => {
         console.log("HTTP Error", err);

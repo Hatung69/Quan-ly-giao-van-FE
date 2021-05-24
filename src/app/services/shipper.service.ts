@@ -20,9 +20,22 @@ export class ShipperService {
     });
   }
 
+  loadDSShipperTimKiem(keyWord: string) {
+    this.timShipper(keyWord).subscribe((data) => {
+      if (!data) this.dsShipper$.next([]);
+      else this.dsShipper$.next(data);
+    });
+  }
+
   // Lấy danh sách shipper
   layDSShipper(): Observable<Shipper[]> {
     return this.http.get<Shipper[]>(API_URL);
+  }
+
+  timShipper(keyWord: string): Observable<Shipper[]> {
+    return this.http.get<Shipper[]>(
+      `${API_URL}/tim-kiem/?keySearch=${keyWord}`
+    );
   }
 
   // Lấy shipper

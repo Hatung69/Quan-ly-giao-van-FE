@@ -1,3 +1,4 @@
+import { TramTrungChuyen } from "./tram-trung-chuyen.model";
 export interface NhanVien {
   id: string;
   hoTen: string;
@@ -7,4 +8,5 @@ export interface NhanVien {
   diaChi: string;
   trangThai: string;
   lanCuoiDangNhap: Date;
+  idTram: string;
 }

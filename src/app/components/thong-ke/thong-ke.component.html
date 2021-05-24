@@ -1,0 +1,153 @@
+<div class="head">
+  <div class="left-tilte">
+    <h2>
+      <i nz-icon nzType="solution" nzTheme="outline"></i> Thống kê hệ thống
+      &nbsp;&nbsp;
+    </h2>
+  </div>
+  <div class="right-button">
+    <nz-form-label [nzSm]="6" [nzXs]="24">Chọn mốc thời gian</nz-form-label>
+    <nz-range-picker
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="dd/MM/YYYY HH:mm"
+      ngModel
+      (ngModelChange)="onChange($event)"
+    ></nz-range-picker>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzSearch nzType="primary" (click)="ngOnInit()">
+      <i nz-icon nzType="clear"></i>
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <nz-radio-group [(ngModel)]="typeTT" style="float: right">
+      <label nz-radio-button nzValue="BarChart">Biểu đồ cột</label>
+      <label nz-radio-button nzValue="PieChart">Biểu đồ tròn</label>
+    </nz-radio-group>
+  </div>
+</div>
+
+<div nz-row>
+  <div nz-col>
+    <div style="background: #f0f2f5; border-radius: 5px">
+      <div nz-col style="padding: 5px">
+        <nz-card
+          nzHoverable
+          style="
+            background: linear-gradient(to bottom, #00000081, #000c17),
+              url(https://cdn.dribbble.com/users/4908/screenshots/2787171/invoice-animation-dribbble.gif);
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          "
+        >
+          <ng-template #titleDonHang
+            ><b style="color: rgb(0, 255, 221)"
+              >Đơn hàng -------------</b
+            ></ng-template
+          >
+          <nz-statistic
+            [nzTitle]="titleDonHang"
+            [nzValueStyle]="{ color: '#fff' }"
+            [nzValue]="_tongSoDonHang + ' Đơn hàng'"
+            [nzPrefix]="prefixDonHang"
+          ></nz-statistic>
+          <ng-template #prefixDonHang
+            ><i nz-icon nzType="snippets" nzTheme="fill"></i
+          ></ng-template>
+        </nz-card>
+      </div>
+      <div nz-col style="padding: 0px 5px 5px">
+        <nz-card
+          nzHoverable
+          style="
+            background: linear-gradient(to bottom, #00000081, #000c17),
+              url(https://acegif.com/wp-content/gifs/raining-money-5.gif);
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          "
+        >
+          <ng-template #titleThuHo
+            ><b style="color: rgb(255, 255, 255)"
+              >Tổng tiền thu hộ -----</b
+            ></ng-template
+          >
+          <nz-statistic
+            [nzTitle]="titleThuHo"
+            [nzValueStyle]="{ color: '#1dff00' }"
+            [nzValue]="this.format(_tongSoTienThuHo, ' VNĐ')"
+          ></nz-statistic>
+        </nz-card>
+      </div>
+      <div nz-col style="padding: 0px 5px 5px">
+        <nz-card
+          nzHoverable
+          style="
+            background: linear-gradient(to bottom, #00000081, #000c17),
+              url(https://acegif.com/wp-content/gifs/raining-money-8.gif);
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          "
+        >
+          <ng-template #titleDichVu>
+            <b style="color: rgb(255, 255, 255)"
+              >Tổng tiền dịch vụ -------</b
+            ></ng-template
+          >
+          <nz-statistic
+            [nzTitle]="titleDichVu"
+            [nzValueStyle]="{ color: '#1dff00' }"
+            [nzValue]="this.format(_tongSoTienShip, ' VNĐ')"
+          ></nz-statistic>
+        </nz-card>
+      </div>
+      <div nz-col style="padding: 0px 5px 5px">
+        <nz-card
+          nzHoverable
+          style="
+            background: linear-gradient(to bottom, #00000081, #000c17),
+              url(https://i.pinimg.com/originals/40/37/d4/4037d42613c075108d14a183136760c2.gif);
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          "
+        >
+          <ng-template #titleHangHia>
+            <b style="color: rgb(255, 255, 255)"
+              >Tổng tiền hàng hoá -------</b
+            ></ng-template
+          >
+          <nz-statistic
+            [nzTitle]="titleHangHia"
+            [nzValueStyle]="{ color: '#00fff6' }"
+            [nzValue]="this.format(_tongSoTienHangHoa, ' VNĐ')"
+          ></nz-statistic>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzSpan="12">
+    <div
+      style="margin-left: 50px; text-align: center"
+      *ngIf="trangThaiDonHang; else noData"
+    >
+      <google-chart
+        title="Trạng thái tất cả đơn hàng trong hệ thống"
+        [type]="typeTT"
+        [options]="optionsTT"
+        [data]="trangThaiDonHang"
+        [width]="800"
+        [height]="490"
+      ></google-chart>
+    </div>
+    <ng-template #noData
+      ><b style="margin-left: 30%; color: red; font-size: large"
+        >Không có dữ liệu trong khoảng thời gian này!</b
+      ></ng-template
+    >
+  </div>
+</div>

@@ -33,6 +33,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: "thong-ke",
+    loadChildren: () =>
+      import("./components/thong-ke/thong-ke.module").then(
+        (m) => m.ThongKeModule
+      ),
+  },
+  {
     path: "quan-ly-nhan-vien",
     loadChildren: () =>
       import("./components/quan-ly-nhan-vien/quan-ly-nhan-vien.module").then(

@@ -1,7 +1,18 @@
-h2 {
-  font-weight: bolder;
-  font-family: "Pacifico", cursive;
-}
-nz-badge {
-  margin-top: 10px;
+.head {
+  overflow: hidden;
+  display: block;
+  margin-bottom: 5px;
+  .left-tilte {
+    float: left;
+    display: flex;
+    h2 {
+      font-weight: bolder;
+      font-family: "Pacifico", cursive;
+    }
+  }
+
+  .right-button {
+    display: flex;
+    float: right;
+  }
 }

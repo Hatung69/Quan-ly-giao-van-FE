@@ -5,10 +5,8 @@ export interface Shipper {
   sdt: string;
   cmnd: string;
   email: string;
-
-  soDonHang: number;
-  tienDuNo: number; //
   trangThai: string;
+  soDonHang: number;
 
   thoiGianCapNhat: Date;
 }

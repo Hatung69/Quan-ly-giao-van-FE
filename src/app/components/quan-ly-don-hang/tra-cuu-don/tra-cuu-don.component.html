@@ -31,12 +31,18 @@
   <div>
     <div style="background: #ececec; padding: 10px">
       <div nz-row [nzGutter]="8">
-        <div nz-col [nzSpan]="8">
-          <nz-card nzTitle="Thông tin">
+        <div nz-col [nzSpan]="6">
+          <nz-card nzTitle="Thông tin" style="height: 100%">
             <ul>
               <li><b>Mã đơn:</b> {{ this.donHang.maDonHang }}</li>
               <li>
                 <b>Tổng hàng:</b> {{ this.donHang.dsHangHoa.length }} (món)
+              </li>
+              <li>
+                <b>Shipper:</b>
+                <span style="color: green">
+                  {{ this.donHang.shipper?.hoTen }}</span
+                >
               </li>
               <li>
                 <div [ngSwitch]="this.donHang.trangThai">
@@ -44,8 +50,8 @@
                   <nz-tag *ngSwitchCase="'Cho_xac_nhan'" [nzColor]="'orange'"
                     >Chờ xác nhận</nz-tag
                   >
-                  <nz-tag *ngSwitchCase="'Cho_lay_hang'" [nzColor]="'blue'"
-                    >Chờ lấy hàng</nz-tag
+                  <nz-tag *ngSwitchCase="'Cho_giao_hang'" [nzColor]="'blue'"
+                    >Chờ giao hàng</nz-tag
                   >
                   <nz-tag *ngSwitchCase="'Dang_giao'" [nzColor]="'magenta'"
                     >Đang giao</nz-tag
@@ -56,10 +62,7 @@
                   <nz-tag *ngSwitchCase="'Don_bi_huy'" [nzColor]="'red'"
                     >Đơn bị huỷ</nz-tag
                   >
-                  <nz-tag *ngSwitchCase="'Tra_hang'" [nzColor]="'purple'"
-                    >Trả hàng</nz-tag
-                  >
-                  <div *ngSwitchDefault>No state</div>
+                  <span *ngSwitchDefault>No state</span>
                 </div>
               </li>
               <li>
@@ -72,8 +75,8 @@
             </ul>
           </nz-card>
         </div>
-        <div nz-col [nzSpan]="8">
-          <nz-card nzTitle="Người nhận">
+        <div nz-col [nzSpan]="6">
+          <nz-card nzTitle="Người nhận" style="height: 100%">
             <ul>
               <li>
                 <b>Người nhận: </b> <a>{{ this.donHang.tenNguoiNhan }}</a>
@@ -85,8 +88,8 @@
             </ul>
           </nz-card>
         </div>
-        <div nz-col [nzSpan]="8">
-          <nz-card nzTitle="Người gửi">
+        <div nz-col [nzSpan]="6">
+          <nz-card nzTitle="Người gửi" style="height: 100%">
             <ul>
               <li>
                 <b>Người gửi: </b>
@@ -99,37 +102,56 @@
             </ul>
           </nz-card>
         </div>
+        <div nz-col [nzSpan]="6">
+          <nz-card nzTitle="Tài chính" style="height: 100%">
+            <ul>
+              <li>
+                <b>Tiền thu hộ: </b>
+                <a>{{
+                  this.donHang.tongTienThuHo
+                    | currency: "VNĐ":"symbol":"1.0-2":"vi"
+                }}</a>
+              </li>
+              <li>
+                <b>Phí ship: </b>
+                {{
+                  this.donHang.phiShip | currency: "VNĐ":"symbol":"1.0-2":"vi"
+                }}
+              </li>
+              <li><b>Người trả phí: </b> {{ this.donHang.nguoiTraPhiShip }}</li>
+            </ul>
+          </nz-card>
+        </div>
       </div>
     </div>
   </div>
   <div>
     <nz-divider
-      nzText="Trạng thái qua các trạm trung chuyển"
+      nzText="Vị trí qua các trạm trung chuyển"
       nzOrientation="left"
     ></nz-divider>
     <nz-table #borderedTable [nzData]="this.donHang.dsDonHangTram">
       <thead>
         <tr>
-          <th>Mã trạm</th>
-          <th>Tên trạm</th>
           <th>Ngày nhận đơn hàng</th>
-          <th>Người chịu trách nhiệm</th>
+          <th>Tên trạm tiếp nhận</th>
+          <th>Mã trạm</th>
+          <th>Người nhận tiếp nhận</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of borderedTable.data">
-          <td>{{ data.tramTrungChuyen.maTram }}</td>
+          <td>
+            {{ data.thoiGianKhoiTao | date: "dd/MM/YYYY" }} |
+            <i>{{ data.thoiGianKhoiTao | formatDistance }}</i>
+          </td>
           <td>
             <a
               ><b>{{ data.tramTrungChuyen.tenTram }}</b></a
             >
           </td>
-          <td>
-            {{
-              data.tramTrungChuyen.thoiGianKhoiTao | date: "dd/MM/YYYY, h:mm a"
-            }}
-          </td>
-          <td>{{ data.tramTrungChuyen.taoBoi.hoTen }}</td>
+          <td>{{ data.tramTrungChuyen.maTram }}</td>
+          <td>{{ data.taoBoi.hoTen }}</td>
         </tr>
       </tbody>
     </nz-table>

@@ -1,21 +1,37 @@
 <div class="head">
   <div class="left-tilte">
-    <nz-badge
-      [nzCount]="tongDH"
-      [nzStyle]="{
-        backgroundImage:
-          'linear-gradient(
-                to right,
-                #37CCFF,
-                #7B22FF
-              )'
-      }"
+    <h2>
+      <i nz-icon nzType="table" nzTheme="outline"></i> Danh sách đơn hàng &nbsp;
+    </h2>
+  </div>
+  <div class="right-button">
+    <nz-input-group
+      nzSearch
+      [nzAddOnAfter]="suffixIconButton"
+      [nzPrefix]="prefixTemplateUser"
     >
-      <h2>
-        <i nz-icon nzType="table" nzTheme="outline"></i> Danh sách đơn hàng
-        &nbsp;
-      </h2>
-    </nz-badge>
+      <input
+        style="width: 500px"
+        type="search"
+        [(ngModel)]="searchText"
+        #filterInput="ngModel"
+        nz-input
+        placeholder="Tìm theo Mã đơn, Tên hoặc SĐT người nhận và Tên hoặc SĐT người gửi..."
+      />
+    </nz-input-group>
+    <ng-template #prefixTemplateUser
+      ><i nz-icon nzType="search"></i
+    ></ng-template>
+    <ng-template #suffixIconButton>
+      <button
+        nz-button
+        nzSearch
+        nzType="primary"
+        (click)="this.filterInput.control.reset(null)"
+      >
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </ng-template>
   </div>
 </div>
 
@@ -48,15 +64,15 @@
       ></app-danh-sanh-don-hang>
     </ng-template>
   </nz-tab>
-  <nz-tab [nzTitle]="choLayHang">
-    <ng-template #choLayHang>
+  <nz-tab [nzTitle]="choGiaoHang">
+    <ng-template #choGiaoHang>
       <i
         nz-icon
         [nzType]="'hdd'"
         [nzTheme]="'twotone'"
         [nzTwotoneColor]="'blue'"
       ></i
-      >Chờ lấy hàng</ng-template
+      >Chờ giao hàng</ng-template
     >
     <ng-template nz-tab>
       <app-danh-sanh-don-hang
@@ -106,20 +122,6 @@
     >
     <ng-template nz-tab>
       <app-danh-sanh-don-hang [dsDonHang]="dsDonBiHuy"></app-danh-sanh-don-hang>
-    </ng-template>
-  </nz-tab>
-  <nz-tab [nzTitle]="traHang">
-    <ng-template #traHang>
-      <i
-        nz-icon
-        [nzType]="'hdd'"
-        [nzTheme]="'twotone'"
-        [nzTwotoneColor]="'purple'"
-      ></i
-      >Trả hàng</ng-template
-    >
-    <ng-template nz-tab>
-      <app-danh-sanh-don-hang [dsDonHang]="dsTraHang"></app-danh-sanh-don-hang>
     </ng-template>
   </nz-tab>
 </nz-tabset>

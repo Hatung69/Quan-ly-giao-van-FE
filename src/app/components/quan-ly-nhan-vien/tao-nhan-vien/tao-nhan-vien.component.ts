@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { NhanVienService } from "../../../services/nhan-vien.service";
+import { TramTrungChuyen } from "../../../models/tram-trung-chuyen.model";
+import { TramTrungChuyenService } from "../../../services/tram-trung-chuyen.service";
 
 @Component({
   selector: "app-tao-nhan-vien",
@@ -10,6 +12,7 @@ import { NhanVienService } from "../../../services/nhan-vien.service";
 })
 export class TaoNhanVienComponent implements OnInit {
   formNhanVien!: FormGroup;
+  dsTram!: TramTrungChuyen[];
   avatarFile!: File;
   imageURL!: string;
   visible = false;
@@ -17,11 +20,20 @@ export class TaoNhanVienComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private fb: FormBuilder,
-    private nhanVienService: NhanVienService
+    private nhanVienService: NhanVienService,
+    private tramService: TramTrungChuyenService
   ) {}
 
   ngOnInit() {
     this.createForm();
+    this.tramService.dsTram$.subscribe(
+      (res) => {
+        this.dsTram = res;
+      },
+      (err) => {
+        console.log("HTTP Error", err);
+      }
+    );
   }
 
   // Xử lý file Avatar
@@ -35,6 +47,7 @@ export class TaoNhanVienComponent implements OnInit {
       };
       reader.readAsDataURL(fileList[0]);
       this.avatarFile = fileList[0];
+      console.log(this.avatarFile);
     }
   }
 
@@ -67,6 +80,7 @@ export class TaoNhanVienComponent implements OnInit {
         ]),
       ],
       trangThai: ["Dang_hoat_dong", Validators.compose([Validators.required])],
+      quyenHan: ["ROLE_EMPLOYEE", Validators.compose([Validators.required])],
       taiKhoan: this.fb.group({
         username: [
           null,
@@ -89,11 +103,13 @@ export class TaoNhanVienComponent implements OnInit {
           Validators.compose([Validators.required, Validators.minLength(6)]),
         ],
       }),
+      maTram: [null],
     });
   }
 
   // Gửi data
   submitForm() {
+    console.log(this.formNhanVien.value);
     const bodyData = new FormData();
 
     bodyData.append("infoNhanVien", JSON.stringify(this.formNhanVien.value));

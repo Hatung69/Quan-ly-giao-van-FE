@@ -10,9 +10,8 @@
     <tr>
       <th nzWidth="50px">ID</th>
       <th nzWidth="190px">Tên khách hàng</th>
-      <th nzWidth="100px">SĐT</th>
+      <th nzWidth="110px">SĐT</th>
       <th nzWidth="115px">Tổng số đơn</th>
-      <th>E-mail</th>
       <th>Địa chỉ</th>
       <th nzWidth="150px">Cập nhật gần nhất</th>
       <th nzWidth="120px">Lựa chọn</th>
@@ -22,22 +21,23 @@
     <tr *ngFor="let data of sortTable.data">
       <td>{{ data.id }}</td>
       <td>
-        <a nzType="link"
+        <a nzType="link" (click)="this.chiTietKh.showModal(data.id)"
           ><b class="name">{{ data.tenKhachHang | uppercase }}</b></a
         >
       </td>
       <td>{{ data.sdt }}</td>
       <td>
-        <nz-tag nzColor="#3b5999">
+        <nz-tag nzColor="#1abc01">
           <i nz-icon nzType="carry-out"></i>
           <span
             ><b>{{ data.soDonHang }}</b> <i> đơn hàng</i></span
           >
         </nz-tag>
       </td>
-      <td>{{ data.email }}</td>
       <td>{{ data.diaChi }}</td>
-      <td>{{ data.thoiGianCapNhat | formatDistance }}</td>
+      <td>
+        <i>{{ data.thoiGianCapNhat | formatDistance }}</i>
+      </td>
       <td class="action">
         <a
           class="edit"
@@ -58,3 +58,4 @@
     </tr>
   </tbody>
 </nz-table>
+<app-chi-tiet-khach-hang></app-chi-tiet-khach-hang>

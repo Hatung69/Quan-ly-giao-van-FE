@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { NgModel } from "@angular/forms";
 import { DonHangService } from "../../services/don-hang.service";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 @Component({
   selector: "app-quan-ly-don-hang",
@@ -7,32 +9,38 @@ import { DonHangService } from "../../services/don-hang.service";
   styleUrls: ["./quan-ly-don-hang.component.scss"],
 })
 export class QuanLyDonHangComponent implements OnInit {
+  @ViewChild("filterInput", { static: true }) filterInput!: NgModel;
   tongDH = 0;
-  dsDonHang!: any[];
+  dsDonHang: any[] = [];
   dsChoXacNhan!: any[];
   dsChoLayHang!: any[];
   dsDangGiao!: any[];
   dsHoanThanh!: any[];
   dsDonBiHuy!: any[];
-  dsTraHang!: any[];
+  searchText = "";
 
   constructor(private donHangService: DonHangService) {}
   ngOnInit(): void {
     this.loadDsShipper();
+    this.filterInput.valueChanges
+      ?.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((term) => {
+        if (term) this.donHangService.loadDsDonHangTimKiem(term);
+        else this.donHangService.loadDSDonHang();
+      });
   }
 
   loadDsShipper() {
     this.donHangService.dsDonHang$.subscribe(
       (res) => {
         this.dsDonHang = res;
-        console.log(this.dsDonHang);
         this.tongDH = this.dsDonHang.length;
 
         this.dsChoXacNhan = this.dsDonHang.filter(
           (data) => data.trangThai === "Cho_xac_nhan"
         );
         this.dsChoLayHang = this.dsDonHang.filter(
-          (data) => data.trangThai === "Cho_lay_hang"
+          (data) => data.trangThai === "Cho_giao_hang"
         );
         this.dsDangGiao = this.dsDonHang.filter(
           (data) => data.trangThai === "Dang_giao"
@@ -42,9 +50,6 @@ export class QuanLyDonHangComponent implements OnInit {
         );
         this.dsDonBiHuy = this.dsDonHang.filter(
           (data) => data.trangThai === "Don_bi_huy"
-        );
-        this.dsTraHang = this.dsDonHang.filter(
-          (data) => data.trangThai === "Tra_hang"
         );
       },
       (err) => {

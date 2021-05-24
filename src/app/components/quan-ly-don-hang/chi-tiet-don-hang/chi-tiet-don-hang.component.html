@@ -2,6 +2,9 @@
   <nz-page-header-title
     >Đơn hàng
     <label
+      nz-typography
+      nzCopyable
+      [nzCopyText]="donHang.maDonHang"
       style="color: #1890ff; border: 2px dotted #1890ff; padding: 0px 5px"
       >{{ donHang.maDonHang }}</label
     ></nz-page-header-title
@@ -10,11 +13,22 @@
     >Xem thông tin chi tiết của đơn hàng</nz-page-header-subtitle
   >
   <nz-page-header-extra>
-    <button nz-button nzType="dashed" nzShape="round">
+    <a
+      [routerLink]="['/don-hang/danh-sach-don-hang']"
+      nz-button
+      nzType="dashed"
+      nzShape="round"
+    >
       <i nz-icon nzType="table" nzTheme="outline"></i>Danh sách
-    </button>
-    <button nz-button>
-      <i nz-icon nzType="close" nzTheme="outline"></i>Huỷ
+    </a>
+    <button
+      *ngIf="donHang.trangThai != 'Cho_xac_nhan'"
+      nz-button
+      nzType="default"
+      nzShape="round"
+      (click)="generatePdf()"
+    >
+      <i nz-icon nzType="file-pdf" nzTheme="outline"></i>Xuất phiếu gửi
     </button>
     <a
       nz-button
@@ -54,7 +68,7 @@
               <nz-tag *ngSwitchCase="'Cho_xac_nhan'" [nzColor]="'orange'"
                 >Chờ xác nhận</nz-tag
               >
-              <nz-tag *ngSwitchCase="'Cho_lay_hang'" [nzColor]="'blue'"
+              <nz-tag *ngSwitchCase="'Cho_giao_hang'" [nzColor]="'blue'"
                 >Chờ lấy hàng</nz-tag
               >
               <nz-tag *ngSwitchCase="'Dang_giao'" [nzColor]="'magenta'"
@@ -65,9 +79,6 @@
               >
               <nz-tag *ngSwitchCase="'Don_bi_huy'" [nzColor]="'red'"
                 >Đơn bị huỷ</nz-tag
-              >
-              <nz-tag *ngSwitchCase="'Tra_hang'" [nzColor]="'purple'"
-                >Trả hàng</nz-tag
               >
             </td>
           </div>
@@ -85,7 +96,10 @@
       </table>
     </nz-card>
     <br />
-    <nz-card nzType="inner" nzTitle="Thông tin hàng hoá">
+    <nz-card nzType="inner" [nzTitle]="tutleInfoItem">
+      <ng-template #tutleInfoItem
+        >Thông tin hàng hoá ({{ donHang.dsHangHoa.length }})</ng-template
+      >
       <table *ngFor="let item of donHang.dsHangHoa; index as idx">
         <nz-badge
           style="padding: 5px 0px"
@@ -185,8 +199,8 @@
       </table>
     </nz-card>
     <br />
-    <nz-card nzTitle="Thông tin Shipper">
-      <!-- <table>
+    <nz-card nzTitle="Thông tin Shipper" *ngIf="donHang.shipper">
+      <table>
         <tr>
           <th><b>Tên shipper:</b></th>
           <th>
@@ -203,7 +217,7 @@
             <i>{{ donHang.shipper.diaChi }}</i>
           </td>
         </tr>
-      </table> -->
+      </table>
     </nz-card>
   </div>
   <div nz-col nzSpan="8">

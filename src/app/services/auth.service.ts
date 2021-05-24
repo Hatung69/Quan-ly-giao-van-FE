@@ -40,4 +40,14 @@ export class AuthService {
       httpOptions
     );
   }
+
+  xacNhanLayLaiMatKhau(username: string): Observable<any> {
+    return this.http.get(`${AUTH_API}xac-nhan/${username}`, {
+      responseType: "text",
+    });
+  }
+
+  thayDoiMatKhau(username: string, newpassword: string) {
+    return this.http.get(`${AUTH_API}thay-doi/${username}/${newpassword}`);
+  }
 }

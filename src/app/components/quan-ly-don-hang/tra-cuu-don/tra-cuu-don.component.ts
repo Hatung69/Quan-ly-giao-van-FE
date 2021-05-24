@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { DonHangService } from "../../../services/don-hang.service";
-import { Observable } from "rxjs";
 import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
@@ -25,6 +24,11 @@ export class TraCuuDonComponent implements OnInit {
       this.donHangSerice.layDonHangTheoMaDon(this.keyWord).subscribe(
         (res) => {
           this.donHang = res;
+          this.donHang.dsDonHangTram.sort(function (a: any, b: any) {
+            var c = new Date(a.thoiGianKhoiTao).valueOf();
+            var d = new Date(b.thoiGianKhoiTao).valueOf();
+            return c - d;
+          });
         },
         (err) => {
           this.modal.error({

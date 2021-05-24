@@ -35,7 +35,14 @@ export class TaoMoiTramComponent implements OnInit {
           Validators.pattern(/(.|\s)*\S(.|\s)*/),
         ]),
       ],
-      trangThai: ["Dang_hoat_dong", Validators.compose([Validators.required])],
+      sdt: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.pattern(/^[0-9]*$/),
+        ]),
+      ],
       moTa: [
         null,
         Validators.compose([
@@ -55,6 +62,7 @@ export class TaoMoiTramComponent implements OnInit {
           nzContent: "Đã thêm mới một Trạm trung chuyển.",
         });
         this.tramTrungChuyenService.loadDSTram();
+        this.formTram.reset();
       },
       (err) => {
         console.log("HTTP Error", err);

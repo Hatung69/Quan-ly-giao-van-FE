@@ -17,15 +17,4 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
   }
-
-  testHttp() {
-    this.http.get("http://localhost:8080/api/test/admin").subscribe(
-      (res) => {
-        console.log("Ok vào này !", res);
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  }
 }

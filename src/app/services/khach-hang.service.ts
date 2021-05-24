@@ -19,10 +19,23 @@ export class KhachHangService {
       this.dsKhachHang$.next(data);
     });
   }
+  loadDSKhachHangTimKiem(keyWord: string) {
+    this.timKhachHang(keyWord).subscribe((data) => {
+      if (!data) this.dsKhachHang$.next([]);
+      else this.dsKhachHang$.next(data);
+    });
+  }
 
   // Lấy danh sách khách hàng
   layDSKhachHang(): Observable<KhachHang[]> {
     return this.http.get<KhachHang[]>(API_URL);
+  }
+
+  // Tìm khách hàng
+  timKhachHang(keyWord: string): Observable<KhachHang[]> {
+    return this.http.get<KhachHang[]>(
+      `${API_URL}/tim-kiem/?keySearch=${keyWord}`
+    );
   }
 
   // Lấy khách hàng

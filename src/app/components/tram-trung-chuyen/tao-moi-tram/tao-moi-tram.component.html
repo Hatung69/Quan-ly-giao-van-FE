@@ -7,7 +7,7 @@
   <nz-divider nzType="vertical"></nz-divider>
   <nz-form-item>
     <nz-form-control nzErrorTip="Vui lòng nhập tên trạm!">
-      <nz-input-group nzPrefixIcon="borderless-table">
+      <nz-input-group nzPrefixIcon="smile">
         <input
           formControlName="tenTram"
           nz-input
@@ -28,14 +28,14 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control nzErrorTip="Chọn trạng thái!">
-      <nz-select formControlName="trangThai" nzPlaceHolder="Chọn trạng thái">
-        <nz-option nzValue="Tam_nghi" nzLabel="Tạm nghỉ"></nz-option>
-        <nz-option
-          nzValue="Dang_hoat_dong"
-          nzLabel="Đang hoạt động"
-        ></nz-option>
-      </nz-select>
+    <nz-form-control nzErrorTip="Nhập đúng sđt">
+      <nz-input-group nzPrefixIcon="phone">
+        <input
+          formControlName="sdt"
+          nz-input
+          placeholder="Nhập số điện thoại..."
+        />
+      </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -57,7 +57,7 @@
         nzType="primary"
         type="submit"
       >
-        <i nz-icon nzType="appstore-add" nzTheme="outline"></i>Thêm trạm
+        Thêm trạm
       </button>
     </nz-form-control>
   </nz-form-item>

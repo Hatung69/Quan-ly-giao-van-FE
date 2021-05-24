@@ -10,7 +10,7 @@
     <tr>
       <th nzWidth="40px">ID</th>
       <th nzWidth="190px">Họ tên</th>
-      <th nzWidth="90px">Đơn đang giao</th>
+      <th nzWidth="90px">Tổng đơn hàng</th>
       <th nzWidth="90px">SĐT</th>
       <th nzWidth="130px">E-mail</th>
       <th nzWidth="110px">Trạng thái</th>
@@ -22,15 +22,17 @@
     <tr *ngFor="let data of tableData.data">
       <td>{{ data.id }}</td>
       <td>
-        <a nzType="link"
+        <a nzType="link" (click)="this.chiTietSP.showModal(data.id)"
           ><b class="name">{{ data.hoTen | uppercase }}</b></a
         >
       </td>
       <td>
-        <label
-          style="color: #001ea5; border: 2px solid #0044ff; padding: 0px 5px"
-          >0 {{ data.soDonHang }} đơn hàng</label
-        >
+        <nz-tag nzColor="#ff5000">
+          <i nz-icon nzType="car"></i>
+          <span
+            ><b>{{ data.soDonHang }}</b> <i> đơn hàng</i></span
+          >
+        </nz-tag>
       </td>
       <td>{{ data.sdt }}</td>
       <td>{{ data.email }}</td>
@@ -41,13 +43,12 @@
           >Có thể nhận hàng</nz-tag
         >
         <nz-tag *ngIf="data.trangThai === 'Dang_giao_hang'" [nzColor]="'blue'">
-          <i nz-icon nzType="sync" nzSpin></i>
           <span>Đang giao hàng</span>
         </nz-tag>
-        <nz-tag *ngIf="data.trangThai === 'Bi_khoa'" [nzColor]="'gold'"
+        <nz-tag *ngIf="data.trangThai === 'Bi_khoa'" [nzColor]="'red'"
           >Bị khoá</nz-tag
         >
-        <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" [nzColor]="'red'"
+        <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" [nzColor]="'gold'"
           >Tạm nghỉ</nz-tag
         >
       </td>
@@ -55,7 +56,7 @@
       <td class="action">
         <a
           class="edit"
-          [routerLink]="['/quan-ly-khach-hang/cap-nhat', data.id]"
+          [routerLink]="['/quan-ly-shipper/cap-nhat', data.id]"
           routerLinkActive="router-link-active"
           ><i nz-icon nzType="edit" nzTheme="outline"></i> Sửa</a
         >
@@ -72,3 +73,4 @@
     </tr>
   </tbody>
 </nz-table>
+<app-chi-tiet-shipper></app-chi-tiet-shipper>

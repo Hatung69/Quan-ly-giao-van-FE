@@ -232,6 +232,9 @@
               >
                 <ng-template #extraTemplate>
                   <button
+                    nz-tooltip
+                    nzTooltipTitle="Xoá hàng hoá"
+                    nzTooltipPlacement="top"
                     type="button"
                     nz-button
                     nzType="primary"
@@ -246,6 +249,9 @@
                   </button>
                   <nz-divider nzType="vertical"></nz-divider>
                   <button
+                    nz-tooltip
+                    nzTooltipTitle="Sửa thông tin"
+                    nzTooltipPlacement="top"
                     type="button"
                     nz-button
                     nzType="default"
@@ -321,7 +327,7 @@
               <ng-template #explain>
                 <small
                   ><i
-                    >Cước COD sẽ được tính bằng 1% tiền thu hộ, tối thiểu
+                    >Cước COD sẽ được tính bằng 1,3% tiền thu hộ, tối thiểu
                     15.000đ/đơn hàng</i
                   ></small
                 >
@@ -346,13 +352,90 @@
             </nz-form-item>
           </nz-card>
         </nz-list-item>
+        <nz-list-item *ngIf="donHang.shipper">
+          <nz-card nzTitle="Thông tin Shipper" [nzExtra]="extraAddShipper">
+            <ng-template #extraAddShipper>
+              <a
+                (click)="showModalDieuPhoi()"
+                nz-button
+                nzType="dashed"
+                nzShape="round"
+                nzSize="small"
+              >
+                <i nz-icon nzType="bg-colors" nzTheme="outline"></i>Thay đổi
+              </a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a
+                [routerLink]="['/quan-ly-shipper/cap-nhat', donHang.shipper.id]"
+                routerLinkActive="router-link-active"
+                nz-button
+                nzType="dashed"
+                nzShape="round"
+                nzSize="small"
+              >
+                <i nz-icon nzType="edit" nzTheme="outline"></i>Chỉnh sửa
+              </a>
+            </ng-template>
+            <form nz-form formGroupName="shipper">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                  >Tên Shipper</nz-form-label
+                >
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập tên khách hàng!"
+                >
+                  <input
+                    formControlName="hoTen"
+                    type="text"
+                    nz-input
+                    placeholder="Nhập tên khách hàng..."
+                    readonly="true"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="note"
+                  >Số điện thoại</nz-form-label
+                >
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập số điện thoại"
+                >
+                  <input
+                    formControlName="sdt"
+                    placeholder="Nhập số điện thoại..."
+                    type="text"
+                    nz-input
+                    readonly="true"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>Địa chỉ</nz-form-label>
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Vui lòng nhập địa chỉ!"
+                >
+                  <input
+                    formControlName="diaChi"
+                    placeholder="Nhập địa chỉ khách hàng..."
+                    type="text"
+                    nz-input
+                    readonly="true"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </nz-card>
+        </nz-list-item>
         <nz-card nzTitle="Thông tin phụ">
           <nz-form-item>
             <nz-form-label [nzSpan]="5" nzRequired>Trạng thái</nz-form-label>
             <nz-form-control [nzSpan]="24" nzErrorTip="Không được bỏ trống!">
               <nz-select
                 formControlName="trangThai"
-                style="color: blue; font-weight: bold"
+                style="color: rgb(124, 0, 155); font-weight: bold"
                 nzPlaceHolder="Chọn trạng thái"
               >
                 <nz-option
@@ -360,8 +443,8 @@
                   nzLabel="Chờ xác nhận"
                 ></nz-option>
                 <nz-option
-                  nzValue="Cho_lay_hang"
-                  nzLabel="Chờ lấy hàng"
+                  nzValue="Cho_giao_hang"
+                  nzLabel="Chờ giao hàng"
                 ></nz-option>
                 <nz-option nzValue="Dang_giao" nzLabel="Đang giao"></nz-option>
                 <nz-option
@@ -372,7 +455,6 @@
                   nzValue="Don_bi_huy"
                   nzLabel="Đơn bị huỷ"
                 ></nz-option>
-                <nz-option nzValue="Tra_hang" nzLabel="Trả hàng"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -511,3 +593,53 @@
   </ng-container>
 </nz-modal>
 <app-hang-hoa [loadDataForm]="loadDataForm"></app-hang-hoa>
+<!-- Modal Điều phối thay đổi shipper -->
+<nz-modal
+  [(nzVisible)]="isVisibleDieuPhoi"
+  [nzTitle]="dieuPhoiTittle"
+  (nzOnCancel)="handleCancelDieuPhoi()"
+  (nzOnOk)="handleOkDieuPhoi()"
+  nzWidth="450px"
+>
+  <ng-template #dieuPhoiTittle><b>Thay đổi Shipper giao hàng</b></ng-template>
+  <ng-container *nzModalContent>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="13"
+        >Lựa chọn Shipper hoặc
+        <a
+          nz-button
+          nzType="link"
+          nzSize="small"
+          [routerLink]="['/quan-ly-shipper/tao-moi']"
+          ><b>Thêm mới</b></a
+        ></nz-form-label
+      >
+      <nz-form-control [nzSm]="24">
+        <nz-select
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Chọn Shipper..."
+          [(ngModel)]="valueShipper"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <nz-option
+            *ngFor="let kh of dsShipper"
+            [nzLabel]="kh.hoTen + ' - ' + kh.sdt"
+            [nzValue]="kh"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+      <br />
+      <ul
+        style="margin-bottom: -30px; margin-top: 10px; list-style-type: square"
+      >
+        <li>
+          <b>Họ tên Shipper: </b>
+          <a><span [innerHTML]="valueShipper?.hoTen"></span></a>
+        </li>
+        <li><b>Số điện thoại:</b> {{ valueShipper?.sdt }}</li>
+        <li><b>Địa chỉ:</b> {{ valueShipper?.diaChi }}</li>
+      </ul>
+    </nz-form-item>
+  </ng-container>
+</nz-modal>

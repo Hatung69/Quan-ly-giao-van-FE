@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { KhachHangService } from "../../../services/khach-hang.service";
-import { NzMessageService } from "ng-zorro-antd/message";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "app-tao-moi-khach-hang",
@@ -14,7 +14,7 @@ export class TaoMoiKhachHangComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private khachHangService: KhachHangService,
-    private msg: NzMessageService
+    private modal: NzModalService
   ) {}
 
   ngOnInit() {
@@ -28,13 +28,6 @@ export class TaoMoiKhachHangComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.maxLength(50),
-          Validators.pattern(/(.|\s)*\S(.|\s)*/),
-        ]),
-      ],
-      tenCuaHang: [
-        "",
-        Validators.compose([
-          Validators.maxLength(100),
           Validators.pattern(/(.|\s)*\S(.|\s)*/),
         ]),
       ],
@@ -92,14 +85,23 @@ export class TaoMoiKhachHangComponent implements OnInit {
   submitForm() {
     this.khachHangService.taoMoiKhachHang(this.formKhachHang.value).subscribe(
       (res) => {
-        this.msg.success("Tạo thành công!", { nzDuration: 2000 });
+        this.modal.success({
+          nzTitle: "Tạo thành công!",
+          nzContent: "Đã thêm mới một Khách hàng.",
+        });
       },
       (err) => {
         console.log("HTTP Error", err);
-        this.msg.error("Xảy ra lỗi.Vui lòng kiểm tra lại!", {
-          nzDuration: 2000,
+        this.modal.error({
+          nzTitle: "Xảy ra lỗi!",
+          nzContent: "Vui lòng kiểm tra lại...",
         });
       }
     );
+  }
+
+  lamMoiForm() {
+    this.createForm();
+    this.formKhachHang.reset(this.formKhachHang.value);
   }
 }

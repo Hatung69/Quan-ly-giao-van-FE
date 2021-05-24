@@ -74,6 +74,32 @@
         </nz-select>
       </nz-form-control>
     </nz-form-item>
+
+    <!-- <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Trạm</nz-form-label>
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <nz-select
+          formControlName="maTram"
+          nzPlaceHolder="Chọn trạm làm việc..."
+        >
+          <nz-option
+            *ngFor="let ttc of dsTram"
+            [nzLabel]="ttc.tenTram"
+            [nzValue]="ttc.maTram"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item> -->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Quyền hạn</nz-form-label>
+      <nz-form-control nzErrorTip="Không được bỏ trống!">
+        <nz-radio-group formControlName="quyenHan">
+          <label nz-radio nzValue="ROLE_EMPLOYEE">Nhân viên</label>
+          <label nz-radio nzValue="ROLE_ADMIN">Quản lý</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
     <div nz-row [nzGutter]="8">
       <div nz-col nzSpan="12">
         <nz-form-item>

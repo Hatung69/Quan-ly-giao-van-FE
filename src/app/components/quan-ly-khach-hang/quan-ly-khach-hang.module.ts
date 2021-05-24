@@ -9,6 +9,7 @@ import { DanhSachKhachHangComponent } from "./danh-sach-khach-hang/danh-sach-kha
 import { PipesCustomModule } from "../../pipes/pipe-custom.module";
 import { TaoMoiKhachHangComponent } from "./tao-moi-khach-hang/tao-moi-khach-hang.component";
 import { CapNhatKhachHangComponent } from "./cap-nhat-khach-hang/cap-nhat-khach-hang.component";
+import { ChiTietKhachHangComponent } from "./chi-tiet-khach-hang/chi-tiet-khach-hang.component";
 
 export const routes: Routes = [
   {
@@ -39,6 +40,7 @@ export const routes: Routes = [
     DanhSachKhachHangComponent,
     TaoMoiKhachHangComponent,
     CapNhatKhachHangComponent,
+    ChiTietKhachHangComponent,
   ],
 })
 export class QuanLyKhachHangModule {}

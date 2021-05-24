@@ -45,13 +45,6 @@ export class CapNhatKhachHangComponent implements OnInit {
           Validators.pattern(/(.|\s)*\S(.|\s)*/),
         ]),
       ],
-      tenCuaHang: [
-        khachHang.tenCuaHang,
-        Validators.compose([
-          Validators.maxLength(100),
-          Validators.pattern(/(.|\s)*\S(.|\s)*/),
-        ]),
-      ],
       sdt: [
         khachHang.sdt,
         Validators.compose([

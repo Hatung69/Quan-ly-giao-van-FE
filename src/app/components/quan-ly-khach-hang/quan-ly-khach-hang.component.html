@@ -1,23 +1,9 @@
 <div class="head">
   <div class="left-tilte">
-    <nz-badge
-      [nzCount]="tongKH"
-      [nzStyle]="{
-        backgroundImage:
-          'linear-gradient(
-              to right,
-              #37CCFF,
-              #7B22FF
-            )'
-      }"
-    >
-      <a class="head-example"
-        ><h2>
-          <i nz-icon nzType="audit" nzTheme="outline"></i> Danh sách khách hàng
-          &nbsp;&nbsp;
-        </h2></a
-      >
-    </nz-badge>
+    <h2>
+      <i nz-icon nzType="audit" nzTheme="outline"></i> Danh sách khách hàng
+      &nbsp;&nbsp;
+    </h2>
   </div>
   <div class="right-button">
     <nz-input-group
@@ -26,17 +12,24 @@
       [nzPrefix]="prefixTemplateUser"
     >
       <input
+        style="width: 300px"
         type="search"
         [(ngModel)]="searchText"
+        #filterInput="ngModel"
         nz-input
-        placeholder="Nhập thông tin nhân viên..."
+        placeholder="Nhập Tên, sđt, địa chỉ khách hàng cần tìm kiếm..."
       />
     </nz-input-group>
     <ng-template #prefixTemplateUser
       ><i nz-icon nzType="search"></i
     ></ng-template>
     <ng-template #suffixIconButton>
-      <button nz-button nzSearch nzType="primary" (click)="searchText = ''">
+      <button
+        nz-button
+        nzSearch
+        nzType="primary"
+        (click)="this.filterInput.control.reset(null)"
+      >
         <i nz-icon nzType="clear"></i>
       </button>
     </ng-template>
@@ -59,6 +52,7 @@
     </ng-template>
     <app-danh-sach-khach-hang
       [dsKhachHang]="dsKhachHang"
+      [thisIsParent]="getParentApi()"
     ></app-danh-sach-khach-hang>
   </nz-tab>
   <nz-tab [nzTitle]="caNhan" (nzClick)="chuyenTabCaNhan()">

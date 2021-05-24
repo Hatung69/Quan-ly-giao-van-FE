@@ -59,3 +59,25 @@ nz-footer {
   color: rgba(0, 0, 0, 0.7);
   font-size: 14px;
 }
+
+// Chi tiết nhân viên
+.ant-descriptions-item-label {
+  font-weight: bold !important;
+}
+
+.container {
+  overflow: hidden;
+  .left {
+    width: 70%;
+    float: left;
+  }
+  .right {
+    text-align: center;
+    width: 30%;
+    float: right;
+    img {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+}

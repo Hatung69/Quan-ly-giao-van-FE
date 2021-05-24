@@ -7,6 +7,8 @@ import { DonHangService } from "../../../services/don-hang.service";
 import DIADANH_Json from "src/assets/data.json";
 import { HangHoaService } from "../../../services/hang-hoa.service";
 import { HangHoaComponent } from "./hang-hoa/hang-hoa.component";
+import { Shipper } from "src/app/models/shipper.model";
+import { ShipperService } from "src/app/services/shipper.service";
 
 @Component({
   selector: "app-cap-nhat-don-hang",
@@ -33,13 +35,25 @@ export class CapNhatDonHangComponent implements OnInit {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private khachHangService: KhachHangService,
-    private hangHoaService: HangHoaService
+    private hangHoaService: HangHoaService,
+    private shipperSevice: ShipperService
   ) {}
 
   ngOnInit() {
     this.nullForm();
     this.loadFormHangHoa();
     this.loadDataForm();
+    this.shipperSevice.dsShipper$.subscribe(
+      (res) => {
+        this.dsShipper = res.filter(
+          (data) =>
+            data.trangThai !== "Bi_khoa" && data.trangThai !== "Tam_nghi"
+        );
+      },
+      (err) => {
+        console.log("HTTP Error", err);
+      }
+    );
   }
 
   // Load cái dữ liệu cho form
@@ -48,7 +62,6 @@ export class CapNhatDonHangComponent implements OnInit {
     this.donHangService.layDonHangTheoID(this.idDonHang).subscribe(
       (res) => {
         this.donHang = res;
-        console.log(this.donHang);
         this.createForm(this.donHang);
         this.base64Data = this.donHang.anhDinhKem;
         this.retrievedAvatar = "data:image/jpeg;base64," + this.base64Data;
@@ -74,7 +87,7 @@ export class CapNhatDonHangComponent implements OnInit {
   //Tính tiền Ship
   tinhTienShip(value: number) {
     let tienShip = 0;
-    tienShip = (1 * value) / 100;
+    tienShip = (1.3 * value) / 100;
     if (tienShip > 15000) this.formDonHang.controls.phiShip.setValue(tienShip);
     else this.formDonHang.controls.phiShip.setValue(15000);
   }
@@ -92,6 +105,11 @@ export class CapNhatDonHangComponent implements OnInit {
       }),
       khachHang: this.fb.group({
         tenKhachHang: [null],
+        sdt: [null],
+        diaChi: [null],
+      }),
+      shipper: this.fb.group({
+        hoTen: [null],
         sdt: [null],
         diaChi: [null],
       }),
@@ -161,6 +179,32 @@ export class CapNhatDonHangComponent implements OnInit {
           ]),
         ],
       }),
+      shipper: this.fb.group({
+        hoTen: [
+          donHang.shipper?.hoTen,
+          Validators.compose([
+            Validators.required,
+            Validators.maxLength(50),
+            Validators.pattern(/(.|\s)*\S(.|\s)*/),
+          ]),
+        ],
+        sdt: [
+          donHang.shipper?.sdt,
+          Validators.compose([
+            Validators.required,
+            Validators.maxLength(15),
+            Validators.pattern(/^[0-9]*$/),
+          ]),
+        ],
+        diaChi: [
+          donHang.shipper?.diaChi,
+          Validators.compose([
+            Validators.required,
+            Validators.maxLength(300),
+            Validators.pattern(/(.|\s)*\S(.|\s)*/),
+          ]),
+        ],
+      }),
       nguoiTraPhiShip: [
         donHang.nguoiTraPhiShip,
         Validators.compose([Validators.required]),
@@ -216,6 +260,54 @@ export class CapNhatDonHangComponent implements OnInit {
         if (dd.Name === tenQuan) return dd["Wards"];
       })
       .map((dd: any) => dd["Wards"]);
+  }
+
+  //----- Xử lý shipper -----
+  isVisibleDieuPhoi = false;
+  valueShipper!: Shipper;
+  dsShipper!: Shipper[];
+  showModalDieuPhoi(): void {
+    this.isVisibleDieuPhoi = true;
+  }
+
+  handleOkDieuPhoi(): void {
+    if (this.valueShipper) {
+      console.log(
+        this.idDonHang,
+        this.valueShipper.id,
+        this.donHang.shipper.id
+      );
+      this.donHangService
+        .thayDoiShipper(
+          this.idDonHang,
+          this.valueShipper.id,
+          this.donHang.shipper.id
+        )
+        .subscribe(
+          (res) => {
+            this.loadDataForm();
+            this.msg.success("Thay đổi Shipper thành công!", {
+              nzDuration: 2000,
+            });
+          },
+          (err) => {
+            console.log("Lỗi", err); //400 thì báo đã tồn tại
+            if (err.status === 400)
+              this.msg.warning("Shipper đã được nhận đơn hàng này từ trước!", {
+                nzDuration: 2000,
+              });
+            else
+              this.msg.error("Xảy ra lỗi, Vui lòng kiểm tra lại!", {
+                nzDuration: 2000,
+              });
+          }
+        );
+    }
+    this.isVisibleDieuPhoi = false;
+  }
+
+  handleCancelDieuPhoi(): void {
+    this.isVisibleDieuPhoi = false;
   }
 
   // ---------- Xử lý hàng hoá ------------------

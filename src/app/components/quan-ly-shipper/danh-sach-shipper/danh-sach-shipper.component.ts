@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { Shipper } from "src/app/models/shipper.model";
 import { ShipperService } from "src/app/services/shipper.service";
+import { ChiTietShipperComponent } from "../chi-tiet-shipper/chi-tiet-shipper.component";
 
 @Component({
   selector: "app-danh-sach-shipper",
@@ -10,7 +11,7 @@ import { ShipperService } from "src/app/services/shipper.service";
 })
 export class DanhSachShipperComponent implements OnInit {
   @Input() dsShipper!: Shipper[];
-
+  @ViewChild(ChiTietShipperComponent) chiTietSP!: ChiTietShipperComponent;
   constructor(
     private shipperService: ShipperService,
     private msg: NzMessageService

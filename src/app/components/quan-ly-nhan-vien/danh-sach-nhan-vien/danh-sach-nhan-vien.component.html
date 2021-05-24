@@ -1,19 +1,9 @@
 <div class="head">
   <div class="left-tilte">
-    <nz-badge
-      [nzCount]="tongNV"
-      [nzStyle]="{
-        backgroundImage:
-          'linear-gradient( 109.6deg,  rgba(255,174,0,1) 11.2%, rgba(255,0,0,1) 100.2% )'
-      }"
-    >
-      <a class="head-example"
-        ><h2>
-          <i nz-icon nzType="profile" nzTheme="outline"></i> Danh sách nhân viên
-          &nbsp;&nbsp;
-        </h2></a
-      >
-    </nz-badge>
+    <h2>
+      <i nz-icon nzType="profile" nzTheme="outline"></i> Danh sách nhân viên
+      &nbsp;&nbsp;
+    </h2>
   </div>
   <div class="right-button">
     <nz-input-group
@@ -23,9 +13,10 @@
     >
       <input
         type="search"
+        style="width: 300px"
         [(ngModel)]="searchText"
         nz-input
-        placeholder="Nhập thông tin nhân viên..."
+        placeholder="Nhập thông tin nhân viên cần tìm kiếm..."
       />
     </nz-input-group>
     <ng-template #prefixTemplateUser
@@ -55,12 +46,12 @@
     <tr>
       <th nzWidth="50px">ID</th>
       <th nzWidth="190px">Họ tên</th>
-      <th nzWidth="100px">SĐT</th>
-      <th nzWidth="110px">Trạng thái</th>
-      <th nzWidth="100px">Giới tính</th>
+      <th nzWidth="80px">Chức vụ</th>
+      <th nzWidth="80px">Giới tính</th>
+      <th nzWidth="100px">Trạng thái</th>
       <th>Địa chỉ</th>
-      <th nzWidth="150px">Lần cuối đăng nhập</th>
-      <th nzWidth="120px">Lựa chọn</th>
+      <th nzWidth="150px">Trạm làm việc</th>
+      <th nzwidth="120px">Lựa chọn</th>
     </tr>
   </thead>
   <tbody>
@@ -71,7 +62,19 @@
           ><b class="name">{{ data.hoTen | uppercase }}</b></a
         >
       </td>
-      <td>{{ data.sdt }}</td>
+      <td>
+        <nz-tag
+          *ngIf="data.taiKhoan.quyenHan.length === 1"
+          [nzColor]="'#008cff'"
+          ><i nz-icon nzType="user" nzTheme="outline"></i
+          ><span>Nhân viên</span></nz-tag
+        >
+        <nz-tag *ngIf="data.taiKhoan.quyenHan.length > 1" [nzColor]="'#4901c4'"
+          ><i nz-icon nzType="user-switch" nzTheme="outline"></i
+          ><span>Quản lý</span></nz-tag
+        >
+      </td>
+      <td>{{ data.gioiTinh }}</td>
       <td>
         <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" nzColor="warning"
           >Tạm nghỉ</nz-tag
@@ -80,13 +83,9 @@
           >Đang hoạt động</nz-tag
         >
       </td>
-      <td>{{ data.gioiTinh }}</td>
       <td>{{ data.diaChi }}</td>
       <td>
-        <i *ngIf="data.lanCuoiDangNhap; else noLogin">{{
-          data.lanCuoiDangNhap | formatDistance
-        }}</i>
-        <ng-template #noLogin><i>Chưa đăng nhập</i></ng-template>
+        <i>{{ data.maTram }}</i>
       </td>
       <td class="action">
         <a class="edit" (click)="this.chinhSuaVienTempl.open(data.id)"
@@ -101,6 +100,16 @@
           (nzOnConfirm)="deleteRow(data.id)"
           ><i nz-icon nzType="delete" nzTheme="outline"></i> Xoá</a
         >
+        <nz-divider nzType="vertical"></nz-divider>
+        <button
+          nzSize="small"
+          (click)="showConfirm(data.taiKhoan.username)"
+          nz-button
+          nzType="dashed"
+          nzShape="circle"
+        >
+          <i nz-icon nzType="issues-close" nzTheme="outline"></i>
+        </button>
       </td>
     </tr>
   </tbody>

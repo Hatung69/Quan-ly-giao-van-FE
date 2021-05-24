@@ -1,19 +1,9 @@
 <div class="head">
   <div class="left-tilte">
-    <nz-badge
-      [nzCount]="5"
-      [nzStyle]="{
-        backgroundImage:
-          'linear-gradient( 109.6deg,  rgba(255,174,0,1) 11.2%, rgba(255,0,0,1) 100.2% )'
-      }"
-    >
-      <a class="head-example"
-        ><h2>
-          <i nz-icon nzType="profile" nzTheme="outline"></i> Trạm trung chyển
-          &nbsp;&nbsp;
-        </h2></a
-      >
-    </nz-badge>
+    <h2>
+      <i nz-icon nzType="reconciliation" nzTheme="outline"></i> Trạm trung chyển
+      &nbsp;&nbsp;
+    </h2>
   </div>
   <div class="right-button">
     <nz-input-group
@@ -22,10 +12,11 @@
       [nzPrefix]="prefixTemplateUser"
     >
       <input
+        style="width: 300px"
         type="search"
         [(ngModel)]="searchText"
         nz-input
-        placeholder="Nhập thông tin trạm..."
+        placeholder="Nhập thông tin trạm cần tìm kiếm..."
       />
     </nz-input-group>
     <ng-template #prefixTemplateUser
@@ -36,15 +27,23 @@
         <i nz-icon nzType="clear"></i>
       </button>
     </ng-template>
-    <nz-divider nzType="vertical"></nz-divider>
+    <!-- <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary">
       <i nz-icon nzType="appstore-add" nzTheme="outline"></i>để đây đã
-    </button>
+    </button> -->
   </div>
 </div>
-<nz-divider nzText="Thêm mới trạm" nzOrientation="left"></nz-divider>
+<nz-divider [nzText]="themMoi" nzOrientation="left">
+  <ng-template #themMoi
+    ><i nz-icon nzType="edit" nzTheme="fill"></i> Thêm mới trạm</ng-template
+  ></nz-divider
+>
 <app-tao-moi-tram></app-tao-moi-tram>
-<nz-divider nzText="Danh sách trạm" nzOrientation="left"></nz-divider>
+<nz-divider [nzText]="dsTramx" nzOrientation="left">
+  <ng-template #dsTramx
+    ><i nz-icon nzType="profile" nzTheme="fill"></i> Danh sách trạm</ng-template
+  >
+</nz-divider>
 
 <nz-table
   #dataShowing
@@ -58,8 +57,9 @@
   <thead>
     <tr>
       <th nzWidth="130px">Mã trạm</th>
-      <th nzWidth="190px">Tên trạm</th>
+      <th nzWidth="130px">Tên trạm</th>
       <th>Địa chỉ</th>
+      <th nzWidth="90px">SĐT</th>
       <th nzWidth="110px">Trạng thái</th>
       <th>Mô tả</th>
       <th nzWidth="120px">Lựa chọn</th>
@@ -76,6 +76,7 @@
         >
       </td>
       <td>{{ data.diaChi }}</td>
+      <td>{{ data.sdt }}</td>
       <td>
         <nz-tag *ngIf="data.trangThai === 'Tam_nghi'" nzColor="warning"
           >Tạm nghỉ</nz-tag
@@ -133,6 +134,18 @@
               formControlName="diaChi"
               nz-input
               placeholder="Nhập địa chỉ..."
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">SĐT</nz-form-label>
+        <nz-form-control nzErrorTip="Vui lòng nhập sđt....">
+          <nz-input-group>
+            <input
+              formControlName="sdt"
+              nz-input
+              placeholder="Nhập số điện thoại..."
             />
           </nz-input-group>
         </nz-form-control>

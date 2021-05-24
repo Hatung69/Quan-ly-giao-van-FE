@@ -24,6 +24,9 @@ import { NzCardModule } from "ng-zorro-antd/card";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { NzAvatarModule } from "ng-zorro-antd/avatar";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { NzSpinModule } from "ng-zorro-antd/spin";
+import { NzStatisticModule } from "ng-zorro-antd/statistic";
 
 const AntComponents = [
   NzMessageModule,
@@ -51,6 +54,9 @@ const AntComponents = [
   NzInputNumberModule,
   NzAvatarModule,
   NzTypographyModule,
+  NzToolTipModule,
+  NzSpinModule,
+  NzStatisticModule,
 ];
 
 @NgModule({
