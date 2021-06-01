@@ -27,11 +27,17 @@ import { IconsProviderModule } from "./icons-provider.module";
 import { HomeComponent } from "./components/home/home.component";
 import { Page404NotFound } from "./components/page-404.component";
 import { AuthInterceptor } from "./interceptor/auth.interceptor";
+import { InfoWebsiteComponent } from "./components/info-website/info-website.component";
 
 registerLocaleData(vi);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, Page404NotFound],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    Page404NotFound,
+    InfoWebsiteComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

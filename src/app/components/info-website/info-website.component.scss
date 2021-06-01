@@ -1,0 +1,473 @@
+.Vegetable {
+  padding-bottom: 50px;
+}
+.Vegetable .Vegetable_fom {
+  padding: 15px 30px;
+  box-shadow: inherit;
+  border: inherit;
+  width: 60%;
+  font-size: 19px;
+  box-shadow: #b0b0b0 0px -2px 9px 0px;
+}
+.Search_btn {
+  padding: 15px 0px;
+  border: #1a1b19 solid 1px;
+  background: #1a1b19;
+  color: #fff;
+  margin-left: -5px;
+  font-weight: 500;
+  font-size: 18px;
+  max-width: 194px;
+  width: 100%;
+
+  box-shadow: #b0b0b0 0px -2px 9px 0px;
+  transition: all 0.3s ease-in;
+}
+.Search_btn:hover {
+  background: #428713;
+  border: #428713 solid 1px;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+
+.text-bg a {
+  font-size: 16px;
+  border: #1a1b19 solid 1px;
+  background-color: #1a1b19;
+  color: #fff;
+  padding: 9px 0px;
+  max-width: 171px;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+
+  margin-right: 10px;
+}
+.text-bg a:hover {
+  background-color: #428713;
+  border: #428713 solid 1px;
+  color: #fff;
+}
+.text {
+  position: inherit;
+  text-align: left;
+  background: #0fbbad;
+  width: 100%;
+  bottom: auto;
+  padding: 0;
+  margin-top: 90px;
+}
+.img_bg {
+  text-align: center;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.images_box figure {
+  margin: 0px;
+}
+.images_box figure img {
+  width: 100%;
+}
+.img_bg h3 {
+  text-align: center;
+  font-size: 50px;
+  line-height: 58px;
+  color: #fff;
+}
+
+.black_nolmal {
+  font-weight: normal;
+  color: #000;
+}
+
+.padding_rl {
+  padding: 0;
+}
+/** end about section **/
+
+/** vegetable section **/
+.vegetable {
+  background-color: #fff;
+  margin-top: 70px;
+}
+
+.vegetable_shop h3 {
+  font-size: 31px;
+  line-height: 35px;
+  color: #000;
+  font-weight: 500;
+  padding-bottom: 17px;
+  display: block;
+}
+
+.vegetable_shop p {
+  font-size: 17px;
+  line-height: 28px;
+  color: #000;
+}
+
+.vegetable_img span {
+  z-index: 999;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  right: 0;
+  top: 40%;
+  background: #ff0095;
+  padding: 19px 10px;
+  border-radius: 88px;
+  margin-right: -20px;
+  position: absolute;
+  color: #fff;
+  font-size: 19px;
+}
+
+.margin_top span {
+  z-index: 999;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  right: 0;
+  top: 27%;
+  background: #428713;
+  padding: 19px 25px;
+  border-radius: 88px;
+  margin-right: -20px;
+  position: absolute;
+  color: #fff;
+  font-size: 19px;
+}
+.vegetable_img figure {
+  margin: 0;
+}
+.vegetable_img figure img {
+  width: 90%;
+}
+.margin_top {
+  margin-top: -90px;
+}
+
+/** end vegetable section **/
+
+.titlepage {
+  text-align: center;
+  padding-bottom: 40px;
+}
+.titlepage span {
+  padding-top: 20px;
+  display: inline-block;
+  font-size: 17px;
+  color: #000;
+}
+.llow {
+  color: #488d1c;
+  font-weight: bold;
+}
+.titlepage h2 {
+  text-transform: uppercase;
+  padding: 0;
+  font-weight: bold;
+  color: #000;
+  line-height: 55px;
+  font-size: 50px;
+}
+
+/** testomonial **/
+.clients {
+  background: #fff;
+  margin-top: 90px;
+}
+.clients .titlepage {
+  padding-bottom: 0px;
+}
+.clients .titlepage h2 {
+  color: #000;
+  margin-bottom: -77px;
+  text-align: right;
+}
+
+.clients_red {
+  background: #fff;
+  padding-bottom: 50px;
+  background: url("https://static.chotot.com/storage/chotot-kinhnghiem/c2c/2019/11/nen-chay-shipper-cho-hang-nao-1.jpg");
+  min-height: 978px;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cross_inner h3 {
+  text-align: left;
+  padding-left: 60px;
+  padding-top: 58px;
+  font-size: 30px;
+  line-height: 25px;
+  padding-bottom: 58px;
+  color: #fff;
+}
+.testomonial_img {
+  padding: 15px;
+  background: #fff;
+}
+.testomonial_img figure {
+  margin: 0;
+}
+.testomonial_img figure img {
+  width: 100%;
+}
+.testomonial_img i {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+
+.testimonial_cont p {
+  color: #fff;
+  padding-left: 50px;
+  font-size: 19px;
+  line-height: 30px;
+  font-weight: 400;
+}
+#testimonial_slider .carousel-indicators {
+  bottom: -50px;
+}
+
+#testimonial_slider .carousel-indicators li {
+  width: 25px;
+  height: 25px;
+  background-color: #052501;
+  border-radius: 50px;
+}
+#testimonial_slider .carousel-indicators li.active {
+  background-color: #4bc714;
+}
+
+.testimonial_cont {
+  background: #428713cc;
+  min-height: 295px;
+  padding: 60px 40px;
+}
+.text_align_center {
+  text-align: center;
+  background: #428713;
+}
+.ornage_color {
+  font-size: 19px;
+  line-height: 10px;
+  font-weight: normal;
+}
+
+/** contact section **/
+.contact {
+  padding-bottom: 90px;
+  background-size: cover;
+  background: url("https://i.vietgiaitri.com/2019/9/6/rat-kho-chiu-voi-giong-ra-lenh-xuong-lay-do-cua-shipper-2e1f01.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.contact_bg .titlepage {
+  padding-bottom: 20px;
+  text-align: right !important;
+  padding-right: 10px;
+}
+#map {
+  height: 100%;
+  min-height: 470px;
+}
+
+.white_color {
+  background: #fff;
+  box-shadow: 0px 0px 11px 0px;
+}
+.map figure {
+  margin: 0px;
+}
+.map figure img {
+  width: 100%;
+}
+
+.white_bg {
+  background-color: #fff;
+  padding: 40px 30px 30px 30px;
+}
+.contact .titlepage {
+  text-align: center;
+}
+.contact .titlepage h3 {
+  padding: 0px 0px 6px 0px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  line-height: 46px;
+  border-bottom: #fff solid 1px;
+  font-size: 40px;
+  width: 367px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+.contact .contact_bg {
+  max-width: 541px;
+
+  padding: 0;
+  padding: 60px 0px;
+}
+.contact .contact_bg .contactus {
+  border: #e8e8e8 solid 1px;
+  padding: 12px 19px;
+  margin-bottom: 26px;
+  border-radius: 1px;
+  color: #000;
+  width: 100%;
+}
+.contact .contact_bg .textarea {
+  margin-bottom: 25px;
+  padding: 29px 19px;
+  color: #000 !important;
+  width: 100%;
+  border: #e8e8e8 solid 1px;
+  border-radius: 1px;
+  padding-top: 50px;
+}
+.contact .contact_bg .send {
+  font-size: 16px;
+  border: #428713 solid 1px;
+  background-color: #428713;
+  color: #fff;
+  padding: 11px 67px;
+  float: right;
+  transition: all 0.3s ease-in;
+}
+.contact .contact_bg .send:hover {
+  background-color: #ff7e1d;
+  border: #ff7e1d solid 1px;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+/** end contact section **/
+
+/** footer **/
+.footer {
+  background: #3b3b3b;
+
+  padding-top: 60px;
+}
+
+.logo_footer {
+  border: #ddd solid 2px;
+  padding: 11px 50px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+.footer .address h3 {
+  color: #fff;
+  font-size: 30px;
+  line-height: 35px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+.location_section {
+  background-color: #fff;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  padding: 20px 35px;
+}
+
+.news .newslatter {
+  padding: 7px 23px;
+  box-shadow: inherit;
+  border: inherit;
+  width: 100%;
+  font-size: 19px;
+
+  margin-bottom: 20px;
+}
+.submit {
+  padding: 9px 0;
+
+  background: #428713;
+  color: #fff;
+  margin-left: -5px;
+  font-weight: 500;
+  font-size: 18px;
+  max-width: 170px;
+  width: 100%;
+  border-radius: 30px;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in;
+}
+.submit:hover {
+  background: #ff7e1d;
+
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+ul.social_link {
+  padding-bottom: 35px;
+  padding-top: 7px;
+  display: block;
+}
+ul.social_link li {
+  display: inline-block;
+  padding-right: 4px;
+}
+
+ul.social_link li a img {
+  width: 30px;
+  height: 30px;
+}
+ul.social_link li a img:hover {
+  background-color: #f4b328;
+  border-radius: 20px;
+}
+ul.Menu_footer li {
+  display: block;
+  color: #3e7f21;
+}
+
+ul.Menu_footer li a {
+  display: block;
+  color: #fcfbfb;
+  font-size: 17px;
+}
+ul.Menu_footer li a:hover {
+  color: #f4b328;
+}
+
+ul.loca li {
+  color: #fcfbfb;
+  display: flex;
+  font-size: 16px;
+  flex-wrap: wrap;
+}
+ul.loca li a {
+  color: #fcfbfb;
+  margin-top: 4px;
+}
+.copyright {
+  padding: 20px 0px;
+  margin-top: 55px;
+  background-color: #428713;
+}
+.copyright p {
+  color: #fff;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+}
+.copyright a {
+  color: #fff;
+}
+.copyright a:hover {
+  color: #ff7e1d;
+}
+/** end footer **/
+/*--------------------------------------------------------------------- ener page css ---------------------------------------------------------------------*/

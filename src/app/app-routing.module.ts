@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./components/home/home.component";
 import { CanActiveDashboard } from "./guards/can-active-dashboard .guard";
 import { Page404NotFound } from "./components/page-404.component";
+import { InfoWebsiteComponent } from "./components/info-website/info-website.component";
 
 const routes: Routes = [
   { path: "home", component: HomeComponent, canActivate: [CanActiveDashboard] },
@@ -52,6 +53,10 @@ const routes: Routes = [
       import("./components/tram-trung-chuyen/tram-trung-chuyen.module").then(
         (m) => m.TramTrungChuyenModule
       ),
+  },
+  {
+    path: "info-website",
+    component: InfoWebsiteComponent,
   },
   { path: "", pathMatch: "full", redirectTo: "/home" },
   { path: "**", component: Page404NotFound },

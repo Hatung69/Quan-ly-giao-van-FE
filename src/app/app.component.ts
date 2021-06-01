@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TokenStorageService } from "./services/token-storage.service";
 import { NhanVienService } from "./services/nhan-vien.service";
 import { AuthService } from "./services/auth.service";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +10,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { NzModalService } from "ng-zorro-antd/modal";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -30,10 +32,18 @@ export class AppComponent implements OnInit {
     private fb: FormBuilder,
     private nhanVienService: NhanVienService,
     private auth: AuthService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    const rawToken = this.tokenStorageService.getToken();
+    const helper = new JwtHelperService();
+    const isExpired = helper.isTokenExpired(rawToken?.toString());
+    if (isExpired) {
+      this.tokenStorageService.signOut();
+      this.router.navigate(["/login"]);
+    }
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
